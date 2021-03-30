@@ -2,14 +2,38 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { MigrationsContract } from "./Migrations";
+import { AdminContract } from './Admin'
+import { BYNContract } from './BYN'
+import { EventContract } from './Event'
+import { GetContract } from './Get'
+import { ManageAddressContract } from './ManageAddress'
+import { MigrationsContract } from './Migrations'
+import { ModifiersContract } from './Modifiers'
+import { SetContract } from './Set'
+import { VariableContract } from './Variable'
 
 declare global {
-  namespace Truffle {
-    interface Artifacts {
-      require(name: "Migrations"): MigrationsContract;
-    }
-  }
+	namespace Truffle {
+		interface Artifacts {
+			require(name: 'Admin'): AdminContract
+			require(name: 'BYN'): BYNContract
+			require(name: 'Event'): EventContract
+			require(name: 'Get'): GetContract
+			require(name: 'manageAddress'): ManageAddressContract
+			require(name: 'Migrations'): MigrationsContract
+			require(name: 'Modifiers'): ModifiersContract
+			require(name: 'Set'): SetContract
+			require(name: 'Variable'): VariableContract
+		}
+	}
 }
 
-export { MigrationsContract, MigrationsInstance } from "./Migrations";
+export { AdminContract, AdminInstance } from './Admin'
+export { BYNContract, BYNInstance } from './BYN'
+export { EventContract, EventInstance } from './Event'
+export { GetContract, GetInstance } from './Get'
+export { ManageAddressContract, ManageAddressInstance } from './ManageAddress'
+export { MigrationsContract, MigrationsInstance } from './Migrations'
+export { ModifiersContract, ModifiersInstance } from './Modifiers'
+export { SetContract, SetInstance } from './Set'
+export { VariableContract, VariableInstance } from './Variable'
