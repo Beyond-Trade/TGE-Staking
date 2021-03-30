@@ -18,7 +18,14 @@ contract Variable {
 	uint256 internal _decimals;
 	bool internal transferLock;
 
-	mapping(address => bool) public allowedAddress;
+	struct UserData {
+		bool allowed;
+		uint256 level1Tokens;
+		uint256 level2Tokens;
+		uint256 level3Tokens;
+	}
+
+	mapping(address => UserData) public allowedAddress;
 	mapping(address => bool) public blockedAddress;
 
 	mapping(address => uint256) public balanceOf;
@@ -32,7 +39,7 @@ contract Variable {
 		transferLock = true;
 		owner = msg.sender;
 		balanceOf[owner] = totalSupply;
-		allowedAddress[owner] = true;
+		allowedAddress[owner].allowed = true;
 	}
 }
 
@@ -51,12 +58,12 @@ contract Event {
 
 contract manageAddress is Variable, Modifiers, Event {
 	function add_allowedAddress(address _address) public isOwner {
-		allowedAddress[_address] = true;
+		allowedAddress[_address].allowed = true;
 	}
 
 	function delete_allowedAddress(address _address) public isOwner {
 		require(_address != owner);
-		allowedAddress[_address] = false;
+		allowedAddress[_address].allowed = false;
 	}
 
 	function add_blockedAddress(address _address) public isOwner {
@@ -99,6 +106,40 @@ contract Set is Variable, Modifiers, Event {
 contract BYN is Variable, Event, Get, Set, Admin, manageAddress {
 	using SafeMath for uint256;
 
+	uint256 issuedTokens;
+	struct LevelData {
+		uint256 allowedForXCoins;
+		uint256 rewardPercentTimes100;
+		uint256 lockedDuration;
+		uint256 allowedReward;
+	}
+
+	mapping(int256 => LevelData) levels;
+
+	uint8 public level;
+
+	constructor() public {
+		name = 'Beyond Finance';
+		symbol = 'BYN';
+		decimals = 18;
+		_decimals = 10**uint256(decimals);
+		totalSupply = _decimals * 100000000;
+		transferLock = true;
+		owner = msg.sender;
+		balanceOf[owner] = totalSupply;
+		allowedAddress[owner].allowed = true;
+
+		createLevels();
+	}
+
+	function createLevels() internal isOwner {
+		levels[1] = LevelData(300000, 8219, 30, 246575);
+		levels[2] = LevelData(600000, 3082, 45, 184932);
+		levels[3] = LevelData(1000000, 2630, 60, 263014);
+
+		level = 1;
+	}
+
 	function() external payable {
 		emit Deposit(msg.sender, msg.value);
 	}
@@ -107,8 +148,65 @@ contract BYN is Variable, Event, Get, Set, Admin, manageAddress {
 		msg.sender.transfer(address(this).balance);
 	}
 
+	function getTokenForEth(uint256 weiValue) public pure returns (uint256 tokenValue) {
+		return weiValue;
+	}
+
+	function addTokens() public payable {
+		require(allowedAddress[msg.sender].allowed == true);
+		require(!blockedAddress[msg.sender]);
+		require(level <= 4 && level >= 1);
+
+		require(msg.value > 0);
+
+		uint256 tokenValue = getTokenForEth(msg.value);
+
+		if (level == 1) {
+			if (issuedTokens + tokenValue > levels[level].allowedForXCoins) {
+				allowedAddress[msg.sender].level1Tokens += levels[level].allowedForXCoins - issuedTokens;
+				level += 1;
+				allowedAddress[msg.sender].level2Tokens += tokenValue - (levels[level].allowedForXCoins - issuedTokens);
+
+				balanceOf[msg.sender] += tokenValue;
+				issuedTokens += tokenValue;
+			} else {
+				issuedTokens += tokenValue;
+				allowedAddress[msg.sender].level1Tokens += tokenValue;
+				balanceOf[msg.sender] += tokenValue;
+			}
+		} else if (level == 2) {
+			if (issuedTokens + tokenValue > levels[level].allowedForXCoins) {
+				allowedAddress[msg.sender].level2Tokens += levels[level].allowedForXCoins - issuedTokens;
+				level += 1;
+				allowedAddress[msg.sender].level3Tokens += tokenValue - (levels[level].allowedForXCoins - issuedTokens);
+
+				balanceOf[msg.sender] += tokenValue;
+				issuedTokens += tokenValue;
+			} else {
+				issuedTokens += tokenValue;
+				allowedAddress[msg.sender].level2Tokens += tokenValue;
+				balanceOf[msg.sender] += tokenValue;
+			}
+		} else if (level == 3) {
+			if (issuedTokens + tokenValue > levels[level].allowedForXCoins) {
+				allowedAddress[msg.sender].level3Tokens += levels[level].allowedForXCoins - issuedTokens;
+				level += 1;
+
+				balanceOf[msg.sender] += tokenValue;
+				issuedTokens += tokenValue;
+			} else {
+				issuedTokens += tokenValue;
+				allowedAddress[msg.sender].level3Tokens += tokenValue;
+				balanceOf[msg.sender] += tokenValue;
+			}
+		} else {
+			issuedTokens += tokenValue;
+			balanceOf[msg.sender] += tokenValue;
+		}
+	}
+
 	function transfer(address _to, uint256 _value) public {
-		require(allowedAddress[msg.sender] || transferLock == false);
+		require(allowedAddress[msg.sender].allowed == true || transferLock == false);
 		require(!blockedAddress[msg.sender] && !blockedAddress[_to]);
 		require(balanceOf[msg.sender] >= _value && _value > 0);
 		require((balanceOf[_to].add(_value)) >= balanceOf[_to]);
