@@ -83,19 +83,15 @@ export interface BYNInstance extends Truffle.ContractInstance {
 
 	get_transferLock(txDetails?: Truffle.TransactionDetails): Promise<boolean>
 
-	lockAmount(txDetails?: Truffle.TransactionDetails): Promise<BigNumber>
-
 	name(txDetails?: Truffle.TransactionDetails): Promise<string>
 
 	owner(txDetails?: Truffle.TransactionDetails): Promise<string>
 
 	setTransferLock: {
-		(_transferLock: boolean, _lockAmount: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<
-			Truffle.TransactionResponse<AllEvents>
-		>
-		call(_transferLock: boolean, _lockAmount: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<boolean>
-		sendTransaction(_transferLock: boolean, _lockAmount: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<string>
-		estimateGas(_transferLock: boolean, _lockAmount: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<number>
+		(_transferLock: boolean, txDetails?: Truffle.TransactionDetails): Promise<Truffle.TransactionResponse<AllEvents>>
+		call(_transferLock: boolean, txDetails?: Truffle.TransactionDetails): Promise<boolean>
+		sendTransaction(_transferLock: boolean, txDetails?: Truffle.TransactionDetails): Promise<string>
+		estimateGas(_transferLock: boolean, txDetails?: Truffle.TransactionDetails): Promise<number>
 	}
 
 	symbol(txDetails?: Truffle.TransactionDetails): Promise<string>

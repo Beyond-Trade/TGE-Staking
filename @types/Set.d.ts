@@ -44,8 +44,6 @@ export interface SetInstance extends Truffle.ContractInstance {
 
 	decimals(txDetails?: Truffle.TransactionDetails): Promise<BigNumber>
 
-	lockAmount(txDetails?: Truffle.TransactionDetails): Promise<BigNumber>
-
 	name(txDetails?: Truffle.TransactionDetails): Promise<string>
 
 	owner(txDetails?: Truffle.TransactionDetails): Promise<string>
@@ -55,11 +53,9 @@ export interface SetInstance extends Truffle.ContractInstance {
 	totalSupply(txDetails?: Truffle.TransactionDetails): Promise<BigNumber>
 
 	setTransferLock: {
-		(_transferLock: boolean, _lockAmount: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<
-			Truffle.TransactionResponse<AllEvents>
-		>
-		call(_transferLock: boolean, _lockAmount: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<boolean>
-		sendTransaction(_transferLock: boolean, _lockAmount: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<string>
-		estimateGas(_transferLock: boolean, _lockAmount: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<number>
+		(_transferLock: boolean, txDetails?: Truffle.TransactionDetails): Promise<Truffle.TransactionResponse<AllEvents>>
+		call(_transferLock: boolean, txDetails?: Truffle.TransactionDetails): Promise<boolean>
+		sendTransaction(_transferLock: boolean, txDetails?: Truffle.TransactionDetails): Promise<string>
+		estimateGas(_transferLock: boolean, txDetails?: Truffle.TransactionDetails): Promise<number>
 	}
 }

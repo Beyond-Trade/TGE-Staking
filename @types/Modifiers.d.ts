@@ -19,8 +19,6 @@ export interface ModifiersInstance extends Truffle.ContractInstance {
 
 	decimals(txDetails?: Truffle.TransactionDetails): Promise<BigNumber>
 
-	lockAmount(txDetails?: Truffle.TransactionDetails): Promise<BigNumber>
-
 	name(txDetails?: Truffle.TransactionDetails): Promise<string>
 
 	owner(txDetails?: Truffle.TransactionDetails): Promise<string>
