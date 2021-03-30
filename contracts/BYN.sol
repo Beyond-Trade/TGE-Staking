@@ -18,11 +18,17 @@ contract Variable {
 	uint256 internal _decimals;
 	bool internal transferLock;
 
+	struct Transaction {
+		uint256 addedOn;
+		uint256 level;
+		uint256 qty;
+	}
 	struct UserData {
 		bool allowed;
 		uint256 level1Tokens;
 		uint256 level2Tokens;
 		uint256 level3Tokens;
+		Transaction[] transactions;
 	}
 
 	mapping(address => UserData) public allowedAddress;
@@ -162,10 +168,13 @@ contract BYN is Variable, Event, Get, Set, Admin, manageAddress {
 		uint256 tokenValue = getTokenForEth(msg.value);
 
 		if (level == 1) {
+			require(allowedAddress[msg.sender].level1Tokens == 0);
 			if (issuedTokens + tokenValue > levels[level].allowedForXCoins) {
 				allowedAddress[msg.sender].level1Tokens += levels[level].allowedForXCoins - issuedTokens;
+				allowedAddress[msg.sender].transactions.push(Transaction(now, level, levels[level].allowedForXCoins - issuedTokens));
 				level += 1;
 				allowedAddress[msg.sender].level2Tokens += tokenValue - (levels[level].allowedForXCoins - issuedTokens);
+				allowedAddress[msg.sender].transactions.push(Transaction(now, level, tokenValue - (levels[level].allowedForXCoins - issuedTokens)));
 
 				balanceOf[msg.sender] += tokenValue;
 				issuedTokens += tokenValue;
@@ -173,12 +182,16 @@ contract BYN is Variable, Event, Get, Set, Admin, manageAddress {
 				issuedTokens += tokenValue;
 				allowedAddress[msg.sender].level1Tokens += tokenValue;
 				balanceOf[msg.sender] += tokenValue;
+				allowedAddress[msg.sender].transactions.push(Transaction(now, level, tokenValue));
 			}
 		} else if (level == 2) {
+			require(allowedAddress[msg.sender].level2Tokens == 0);
 			if (issuedTokens + tokenValue > levels[level].allowedForXCoins) {
 				allowedAddress[msg.sender].level2Tokens += levels[level].allowedForXCoins - issuedTokens;
+				allowedAddress[msg.sender].transactions.push(Transaction(now, level, levels[level].allowedForXCoins - issuedTokens));
 				level += 1;
 				allowedAddress[msg.sender].level3Tokens += tokenValue - (levels[level].allowedForXCoins - issuedTokens);
+				allowedAddress[msg.sender].transactions.push(Transaction(now, level, tokenValue - (levels[level].allowedForXCoins - issuedTokens)));
 
 				balanceOf[msg.sender] += tokenValue;
 				issuedTokens += tokenValue;
@@ -186,22 +199,28 @@ contract BYN is Variable, Event, Get, Set, Admin, manageAddress {
 				issuedTokens += tokenValue;
 				allowedAddress[msg.sender].level2Tokens += tokenValue;
 				balanceOf[msg.sender] += tokenValue;
+				allowedAddress[msg.sender].transactions.push(Transaction(now, level, tokenValue));
 			}
 		} else if (level == 3) {
+			require(allowedAddress[msg.sender].level3Tokens == 0);
 			if (issuedTokens + tokenValue > levels[level].allowedForXCoins) {
 				allowedAddress[msg.sender].level3Tokens += levels[level].allowedForXCoins - issuedTokens;
+				allowedAddress[msg.sender].transactions.push(Transaction(now, level, levels[level].allowedForXCoins - issuedTokens));
 				level += 1;
 
 				balanceOf[msg.sender] += tokenValue;
 				issuedTokens += tokenValue;
+				allowedAddress[msg.sender].transactions.push(Transaction(now, level, tokenValue - (levels[level].allowedForXCoins - issuedTokens)));
 			} else {
 				issuedTokens += tokenValue;
 				allowedAddress[msg.sender].level3Tokens += tokenValue;
 				balanceOf[msg.sender] += tokenValue;
+				allowedAddress[msg.sender].transactions.push(Transaction(now, level, tokenValue));
 			}
 		} else {
 			issuedTokens += tokenValue;
 			balanceOf[msg.sender] += tokenValue;
+			allowedAddress[msg.sender].transactions.push(Transaction(now, level, tokenValue));
 		}
 	}
 
