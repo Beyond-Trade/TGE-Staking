@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="369px" preserveAspectRatio="none" style="width:432px;height:369px;" version="1.1" viewBox="0 0 432 369" width="432px" zoomAndPan="magnify"><defs><filter height="300%" id="f1q72g6u2hh57t" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[0f6f50a2734d74680a3b4a49ee62eba7]
+class StakingFactory--><rect codeLine="11" fill="#FEFECE" filter="url(#f1q72g6u2hh57t)" height="240.0703" id="StakingFactory" style="stroke:#A80036;stroke-width:1.5;" width="409" x="9" y="7"/><ellipse cx="164.75" cy="23" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M167.0938,18.6719 C166.1563,18.2344 165.5625,18.0938 164.6875,18.0938 C162.0625,18.0938 160.0625,20.1719 160.0625,22.8906 L160.0625,24.0156 C160.0625,26.5938 162.1719,28.4844 165.0625,28.4844 C166.2813,28.4844 167.4375,28.1875 168.1875,27.6406 C168.7656,27.2344 169.0938,26.7813 169.0938,26.3906 C169.0938,25.9375 168.7031,25.5469 168.2344,25.5469 C168.0156,25.5469 167.8125,25.625 167.625,25.8125 C167.1719,26.2969 167.1719,26.2969 166.9844,26.3906 C166.5625,26.6563 165.875,26.7813 165.1094,26.7813 C163.0625,26.7813 161.7656,25.6875 161.7656,23.9844 L161.7656,22.8906 C161.7656,21.1094 163.0156,19.7969 164.75,19.7969 C165.3281,19.7969 165.9375,19.9531 166.4063,20.2031 C166.8906,20.4844 167.0625,20.7031 167.1563,21.1094 C167.2188,21.5156 167.25,21.6406 167.3906,21.7656 C167.5313,21.9063 167.7656,22.0156 167.9844,22.0156 C168.25,22.0156 168.5156,21.875 168.6875,21.6563 C168.7969,21.5 168.8281,21.3125 168.8281,20.8906 L168.8281,19.4688 C168.8281,19.0313 168.8125,18.9063 168.7188,18.75 C168.5625,18.4844 168.2813,18.3438 167.9844,18.3438 C167.6875,18.3438 167.4844,18.4375 167.2656,18.75 L167.0938,18.6719 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="89" x="185.25" y="27.1543">StakingFactory</text><line style="stroke:#A80036;stroke-width:1.5;" x1="10" x2="417" y1="39" y2="39"/><text fill="#000000" font-family="sans-serif" font-size="11" font-style="italic" lengthAdjust="spacing" textLength="49" x="29" y="53.2104">Ownable</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="0" x="33" y="66.0151"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="0" x="33" y="78.8198"/><polygon fill="none" points="20,83.4141,24,87.4141,20,91.4141,16,87.4141" style="stroke:#B38D22;stroke-width:1.0;"/><a href="Mock" target="_top" title="Mock" xlink:actuate="onRequest" xlink:href="Mock" xlink:show="new" xlink:title="Mock" xlink:type="simple"><text fill="#0000FF" font-family="sans-serif" font-size="11" lengthAdjust="spacing" text-decoration="underline" textLength="28" x="29" y="91.6245">Mock</text></a><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="80" x="61" y="91.6245">rewardsToken</text><ellipse cx="20" cy="101.2188" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;fill:none;"/><a href="uint256" target="_top" title="uint256" xlink:actuate="onRequest" xlink:href="uint256" xlink:show="new" xlink:title="uint256" xlink:type="simple"><text fill="#0000FF" font-family="sans-serif" font-size="11" lengthAdjust="spacing" text-decoration="underline" textLength="42" x="29" y="104.4292">uint256</text></a><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="54" x="75" y="104.4292">startTime</text><ellipse cx="20" cy="114.0234" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;fill:none;"/><a href="uint256" target="_top" title="uint256" xlink:actuate="onRequest" xlink:href="uint256" xlink:show="new" xlink:title="uint256" xlink:type="simple"><text fill="#0000FF" font-family="sans-serif" font-size="11" lengthAdjust="spacing" text-decoration="underline" textLength="42" x="29" y="117.2339">uint256</text></a><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="29" x="75" y="117.2339">level</text><ellipse cx="20" cy="126.8281" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;fill:none;"/><a href="address" target="_top" title="address" xlink:actuate="onRequest" xlink:href="address" xlink:show="new" xlink:title="address" xlink:type="simple"><text fill="#0000FF" font-family="sans-serif" font-size="11" lengthAdjust="spacing" text-decoration="underline" textLength="45" x="29" y="130.0386">address</text></a><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="81" x="78" y="130.0386">stakingTokens</text><ellipse cx="20" cy="139.6328" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;fill:none;"/><a href="address" target="_top" title="address" xlink:actuate="onRequest" xlink:href="address" xlink:show="new" xlink:title="address" xlink:type="simple"><text fill="#0000FF" font-family="sans-serif" font-size="11" lengthAdjust="spacing" text-decoration="underline" textLength="45" x="29" y="142.8433">address</text></a><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="133" x="78" y="142.8433">stakingContractAddress</text><ellipse cx="20" cy="152.4375" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;fill:none;"/><a href="mapping" target="_top" title="mapping" xlink:actuate="onRequest" xlink:href="mapping" xlink:show="new" xlink:title="mapping" xlink:type="simple"><text fill="#0000FF" font-family="sans-serif" font-size="11" lengthAdjust="spacing" text-decoration="underline" textLength="174" x="29" y="155.6479">address=&gt;StakingRewardsInfo</text></a><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="201" x="211" y="155.6479">stakingRewardsInfoByStakingToken</text><ellipse cx="20" cy="165.2422" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;fill:none;"/><a href="mapping" target="_top" title="mapping" xlink:actuate="onRequest" xlink:href="mapping" xlink:show="new" xlink:title="mapping" xlink:type="simple"><text fill="#0000FF" font-family="sans-serif" font-size="11" lengthAdjust="spacing" text-decoration="underline" textLength="119" x="29" y="168.4526">uint256=&gt;LevelData</text></a><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="35" x="156" y="168.4526">levels</text><line style="stroke:#A80036;stroke-width:1.5;" x1="10" x2="417" y1="175.0469" y2="175.0469"/><ellipse cx="20" cy="186.0469" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold" lengthAdjust="spacing" textLength="105" x="29" y="189.2573">__constructor__</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="8" x="134" y="189.2573">()</text><ellipse cx="20" cy="198.8516" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="47" x="29" y="202.062">deploy()</text><polygon fill="#FFFF44" points="20,206.6563,24,210.6563,20,214.6563,16,210.6563" style="stroke:#B38D22;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="83" x="29" y="214.8667">createLevels()</text><ellipse cx="20" cy="224.4609" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="89" x="29" y="227.6714">updateTokens()</text><ellipse cx="20" cy="237.2656" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="115" x="29" y="240.4761">updateLevelCheck()</text><!--MD5=[e8b38f76951d75a61b4cdf53a76e6409]
+class Ownable--><rect fill="#FEFECE" filter="url(#f1q72g6u2hh57t)" height="48" id="Ownable" style="stroke:#A80036;stroke-width:1.5;" width="85" x="171" y="307"/><ellipse cx="186" cy="323" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M188.3437,318.6719 C187.4062,318.2344 186.8125,318.0938 185.9375,318.0938 C183.3125,318.0938 181.3125,320.1719 181.3125,322.8906 L181.3125,324.0156 C181.3125,326.5938 183.4219,328.4844 186.3125,328.4844 C187.5312,328.4844 188.6875,328.1875 189.4375,327.6406 C190.0156,327.2344 190.3437,326.7813 190.3437,326.3906 C190.3437,325.9375 189.9531,325.5469 189.4844,325.5469 C189.2656,325.5469 189.0625,325.625 188.875,325.8125 C188.4219,326.2969 188.4219,326.2969 188.2344,326.3906 C187.8125,326.6563 187.125,326.7813 186.3594,326.7813 C184.3125,326.7813 183.0156,325.6875 183.0156,323.9844 L183.0156,322.8906 C183.0156,321.1094 184.2656,319.7969 186,319.7969 C186.5781,319.7969 187.1875,319.9531 187.6562,320.2031 C188.1406,320.4844 188.3125,320.7031 188.4062,321.1094 C188.4687,321.5156 188.5,321.6406 188.6406,321.7656 C188.7812,321.9063 189.0156,322.0156 189.2344,322.0156 C189.5,322.0156 189.7656,321.875 189.9375,321.6563 C190.0469,321.5 190.0781,321.3125 190.0781,320.8906 L190.0781,319.4688 C190.0781,319.0313 190.0625,318.9063 189.9687,318.75 C189.8125,318.4844 189.5312,318.3438 189.2344,318.3438 C188.9375,318.3438 188.7344,318.4375 188.5156,318.75 L188.3437,318.6719 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="53" x="200" y="327.1543">Ownable</text><line style="stroke:#A80036;stroke-width:1.5;" x1="172" x2="255" y1="339" y2="339"/><line style="stroke:#A80036;stroke-width:1.5;" x1="172" x2="255" y1="347" y2="347"/><!--MD5=[afe60e93ca3467f329ef61f01d80e06f]
+link StakingFactory to Ownable--><path codeLine="35" d="M213.5,247.256 C213.5,261.2792 213.5,274.8168 213.5,286.7383 " fill="none" id="StakingFactory-to-Ownable" style="stroke:#B8860B;stroke-width:1.0;"/><polygon fill="none" points="220.5,286.7865,213.5,306.7865,206.5,286.7864,220.5,286.7865" style="stroke:#B8860B;stroke-width:1.0;"/><!--MD5=[b5cd983f9b7267356d4e4391ee5d016c]
+@startuml
+' - - generated by: https://marketplace.visualstudio.com/items?itemName=tintinweb.solidity-visual-auditor
+'
+' - - for auto-render install: https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml
+' - - options - -
+
+
+
+' - - classes - -
+
+
+class StakingFactory {
+    ' - - inheritance - -
+	{abstract}Ownable
+
+    ' - - usingFor - -
+
+    ' - - vars - -
+	#[[Mock]] rewardsToken
+	+[[uint256]] startTime
+	+[[uint256]] level
+	+[[address]] stakingTokens
+	+[[address]] stakingContractAddress
+	+[[mapping address=>StakingRewardsInfo ]] stakingRewardsInfoByStakingToken
+	+[[mapping uint256=>LevelData ]] levels
+
+    ' - - methods - -
+	+**__constructor__**()
+	+deploy()
+	#createLevels()
+	+updateTokens()
+	+updateLevelCheck()
+
+}
+' - - inheritance / usingFor - -
+StakingFactory - -[#DarkGoldenRod]|> Ownable
+@enduml
+
+@startuml
+
+
+
+
+
+class StakingFactory {
+	{abstract}Ownable
+
+
+	#[[Mock]] rewardsToken
+	+[[uint256]] startTime
+	+[[uint256]] level
+	+[[address]] stakingTokens
+	+[[address]] stakingContractAddress
+	+[[mapping address=>StakingRewardsInfo ]] stakingRewardsInfoByStakingToken
+	+[[mapping uint256=>LevelData ]] levels
+
+	+**__constructor__**()
+	+deploy()
+	#createLevels()
+	+updateTokens()
+	+updateLevelCheck()
+
+}
+StakingFactory - -[#DarkGoldenRod]|> Ownable
+@enduml
+
+PlantUML version 1.2021.4beta3(Unknown compile time)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>
