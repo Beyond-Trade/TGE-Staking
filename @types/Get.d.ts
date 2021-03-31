@@ -11,7 +11,7 @@ export interface GetContract extends Truffle.Contract<GetInstance> {
 type AllEvents = never
 
 export interface GetInstance extends Truffle.ContractInstance {
-	allowedAddress(arg0: string | BigNumber, txDetails?: Truffle.TransactionDetails): Promise<boolean>
+	allowedAddress(arg0: string | BigNumber, txDetails?: Truffle.TransactionDetails): Promise<[boolean, BigNumber, BigNumber, BigNumber]>
 
 	balanceOf(arg0: string | BigNumber, txDetails?: Truffle.TransactionDetails): Promise<BigNumber>
 

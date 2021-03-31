@@ -57,7 +57,7 @@ export interface BYNInstance extends Truffle.ContractInstance {
 		estimateGas(_value: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<number>
 	}
 
-	allowedAddress(arg0: string | BigNumber, txDetails?: Truffle.TransactionDetails): Promise<boolean>
+	allowedAddress(arg0: string | BigNumber, txDetails?: Truffle.TransactionDetails): Promise<[boolean, BigNumber, BigNumber, BigNumber]>
 
 	balanceOf(arg0: string | BigNumber, txDetails?: Truffle.TransactionDetails): Promise<BigNumber>
 
@@ -83,6 +83,8 @@ export interface BYNInstance extends Truffle.ContractInstance {
 
 	get_transferLock(txDetails?: Truffle.TransactionDetails): Promise<boolean>
 
+	level(txDetails?: Truffle.TransactionDetails): Promise<BigNumber>
+
 	name(txDetails?: Truffle.TransactionDetails): Promise<string>
 
 	owner(txDetails?: Truffle.TransactionDetails): Promise<string>
@@ -99,6 +101,15 @@ export interface BYNInstance extends Truffle.ContractInstance {
 	totalSupply(txDetails?: Truffle.TransactionDetails): Promise<BigNumber>
 
 	withdraw: {
+		(txDetails?: Truffle.TransactionDetails): Promise<Truffle.TransactionResponse<AllEvents>>
+		call(txDetails?: Truffle.TransactionDetails): Promise<void>
+		sendTransaction(txDetails?: Truffle.TransactionDetails): Promise<string>
+		estimateGas(txDetails?: Truffle.TransactionDetails): Promise<number>
+	}
+
+	getTokenForEth(weiValue: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<BigNumber>
+
+	addTokens: {
 		(txDetails?: Truffle.TransactionDetails): Promise<Truffle.TransactionResponse<AllEvents>>
 		call(txDetails?: Truffle.TransactionDetails): Promise<void>
 		sendTransaction(txDetails?: Truffle.TransactionDetails): Promise<string>

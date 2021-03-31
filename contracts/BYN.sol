@@ -30,7 +30,7 @@ contract Staking {
 	IERC20 stakingToken;
 
 	function deposit(uint256 amount) public {
-		require(users[msg.sender].allowed);
+// 		require(users[msg.sender].allowed);
 		uint256 level = factory.level();
 		if (level == 1) {
 			users[msg.sender].level1Tokens += amount;

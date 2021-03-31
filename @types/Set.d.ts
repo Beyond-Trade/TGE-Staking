@@ -36,7 +36,7 @@ export interface Transfer {
 type AllEvents = Deposit | TokenBurn | Transfer
 
 export interface SetInstance extends Truffle.ContractInstance {
-	allowedAddress(arg0: string | BigNumber, txDetails?: Truffle.TransactionDetails): Promise<boolean>
+	allowedAddress(arg0: string | BigNumber, txDetails?: Truffle.TransactionDetails): Promise<[boolean, BigNumber, BigNumber, BigNumber]>
 
 	balanceOf(arg0: string | BigNumber, txDetails?: Truffle.TransactionDetails): Promise<BigNumber>
 

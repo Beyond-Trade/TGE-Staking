@@ -421,7 +421,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/Tokens.sol": "Mock"
+			"contracts/Tokens.sol": "Mock2"
 		},
 		"evmVersion": "istanbul",
 		"libraries": {},
