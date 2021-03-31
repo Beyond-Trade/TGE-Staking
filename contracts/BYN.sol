@@ -30,7 +30,9 @@ contract Staking {
 	IERC20 stakingToken;
 
 	function deposit(uint256 amount) public {
-// 		require(users[msg.sender].allowed);
+		// 		require(users[msg.sender].allowed);
+		// TODO:add fix for update only if success and succeds.
+		factory.updateLevel(amount);
 		uint256 level = factory.level();
 		if (level == 1) {
 			users[msg.sender].level1Tokens += amount;
@@ -44,26 +46,27 @@ contract Staking {
 		}
 		users[msg.sender].tokens += amount;
 		users[msg.sender].lastUpdateDate = block.timestamp;
+		factory.updateTokens(amount);
 	}
 
 	function calculateReward() public returns (UserData memory user) {
 		if (users[msg.sender].level1Tokens != 0) {
 			if (block.timestamp > factory.startTime() + 30 * oneDay) {
-				users[msg.sender].level1Reward = ((8219 * users[msg.sender].level1Tokens)) / 100;
+				users[msg.sender].level1Reward = ((8219 * users[msg.sender].level1Tokens)) / 10000;
 			}
 		}
 		if (users[msg.sender].level2Tokens != 0) {
 			if (block.timestamp > factory.startTime() + 30 * oneDay) {
-				users[msg.sender].level2Reward = ((3082 * users[msg.sender].level2Tokens)) / 100;
+				users[msg.sender].level2Reward = ((3082 * users[msg.sender].level2Tokens)) / 10000;
 			}
 		}
 		if (users[msg.sender].level3Tokens != 0) {
 			if (block.timestamp > factory.startTime() + 45 * oneDay) {
-				users[msg.sender].level3Reward = ((2613 * users[msg.sender].level3Tokens)) / 100;
+				users[msg.sender].level3Reward = ((2613 * users[msg.sender].level3Tokens)) / 10000;
 			}
 		} else {
 			if (block.timestamp > factory.startTime() + 60 * oneDay) {
-				users[msg.sender].level3Reward = ((2613 * users[msg.sender].level3Tokens)) / 100;
+				users[msg.sender].level3Reward = ((2613 * users[msg.sender].level3Tokens)) / 10000;
 			}
 		}
 		return users[msg.sender];
@@ -99,16 +102,27 @@ contract StakingFactory is Ownable {
 		uint256 rewardPercentTimes100;
 		uint256 lockedDuration;
 		uint256 allowedReward;
+		uint256 alloted;
 	}
 
-	mapping(int256 => LevelData) public levels;
+	mapping(uint256 => LevelData) public levels;
 
 	function createLevels() internal onlyOwner {
-		levels[1] = LevelData(300000, 8219, 30, 246575);
-		levels[2] = LevelData(600000, 3082, 45, 184932);
-		levels[3] = LevelData(1000000, 2630, 60, 263014);
+		levels[1] = LevelData(300000, 8219, 30, 246575, 0);
+		levels[2] = LevelData(600000, 3082, 45, 184932, 0);
+		levels[3] = LevelData(1000000, 2630, 60, 263014, 0);
 
 		level = 1;
+	}
+
+	function updateLevel(uint256 tokenValue) public {
+		if (levels[level].alloted >= levels[level].allowedForXCoins) {
+			level += 1;
+		}
+	}
+
+	function updateTokens(uint256 tokenValue) public {
+		levels[level].alloted += tokenValue;
 	}
 
 	constructor(address _rewardsToken, uint256 _startTime) {
