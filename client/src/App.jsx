@@ -35,9 +35,9 @@ class App extends React.Component {
 	stakingRewards = ''
 	web3
 
-	rewardContractAddress = '0xe9297437B3aFf06A03FF12547F2696a5cA4eB9F8'
-	stakingTokenAddress = '0x4375960D1E6C5BE2CC108736217C2CeD8bCE24FC'
-	stakingFactoryContractAddress = '0x83c73CdFc0F1DFe2e052bf5C5486dCAE48e8A561'
+	rewardContractAddress = '0x9e9BcBDd296BB631A06dAF80245D146136070229'
+	stakingTokenAddress = '0xddAce8a3a90a9f5D56CFeA50A55D028E66411886'
+	stakingFactoryContractAddress = '0xA28c5a67e5B087904910Adf4CDE054cF85142De5'
 
 	async updateBalances() {
 		console.log(this.state)
@@ -79,6 +79,11 @@ class App extends React.Component {
 		}
 	}
 
+	async level() {
+		const level = await this.state.stakingFactory.methods.level().call()
+		this.setState({ level })
+	}
+
 	async withdraw() {
 		try {
 			const web3 = this.web3
@@ -86,6 +91,7 @@ class App extends React.Component {
 			const stakingToken = new web3.eth.Contract(mock2Abi, this.stakingTokenAddress)
 
 			await staking.methods.withdraw(1).call()
+			this.level()
 		} catch (err) {
 			alert(err)
 		}
@@ -106,6 +112,7 @@ class App extends React.Component {
 			this.setState({
 				rewards: estimatedReward,
 			})
+			this.level()
 		} catch (error) {
 			console.error(error)
 

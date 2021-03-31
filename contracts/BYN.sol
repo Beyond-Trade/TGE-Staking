@@ -4,8 +4,10 @@ pragma solidity ^0.8.0;
 import '@openzeppelin/contracts/token/ERC20/ERC20.sol';
 import '@openzeppelin/contracts/access/Ownable.sol';
 
-contract Staking {
-	uint256 oneDay = 24 * 60 * 60;
+import './Tokens.sol';
+
+contract Staking is Ownable {
+	uint256 oneDay = 5;
 
 	struct Transaction {
 		uint256 addedOn;
@@ -31,14 +33,27 @@ contract Staking {
 	mapping(address => UserData) users;
 
 	StakingFactory factory;
-	IERC20 rewardsToken;
+	Mock rewardsToken;
 	IERC20 stakingToken;
+	struct LevelData {
+		uint256 allowedForXCoins;
+		uint256 rewardPercentTimes100;
+		uint256 lockedDuration;
+		uint256 allowedReward;
+		uint256 alloted;
+	}
 
 	function deposit(uint256 amount) public {
 		// 		require(users[msg.sender].allowed);
 		// TODO:add fix for update only if success and succeds.
-		factory.updateLevel(amount);
+		rewardsToken.approveInternal(address(this), msg.sender, amount);
 		uint256 level = factory.level();
+		(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
+			factory.levels(level);
+		if (alloted + amount >= allowedForXCoins) {
+			factory.updateLevel(amount);
+			amount = allowedForXCoins - alloted;
+		}
 		if (level == 1) {
 			users[msg.sender].level1Tokens += amount;
 			stakingToken.transferFrom(msg.sender, address(this), amount);
@@ -88,7 +103,7 @@ contract Staking {
 				rewardsToken.transferFrom(
 					address(this),
 					msg.sender,
-					users[msg.sender].level1Tokens + ((8219 * users[msg.sender].level1Tokens)) / 10000
+					users[msg.sender].level1Tokens + (((8219 * users[msg.sender].level1Tokens)) / 10000)
 				);
 			}
 		}
@@ -97,7 +112,7 @@ contract Staking {
 				rewardsToken.transferFrom(
 					address(this),
 					msg.sender,
-					users[msg.sender].level2Tokens + ((3082 * users[msg.sender].level2Tokens)) / 10000
+					users[msg.sender].level2Tokens + (((3082 * users[msg.sender].level2Tokens)) / 10000)
 				);
 			}
 		}
@@ -106,10 +121,11 @@ contract Staking {
 				rewardsToken.transferFrom(
 					address(this),
 					msg.sender,
-					users[msg.sender].level3Tokens + ((2613 * users[msg.sender].level3Tokens)) / 10000
+					users[msg.sender].level3Tokens + (((2613 * users[msg.sender].level3Tokens)) / 10000)
 				);
 			}
 		}
+		require(false, 'Cannot withdraw');
 	}
 
 	constructor(
@@ -118,13 +134,13 @@ contract Staking {
 		address _stakingToken
 	) {
 		factory = StakingFactory(_factory);
-		rewardsToken = IERC20(_rewardsToken);
+		rewardsToken = Mock(_rewardsToken);
 		stakingToken = IERC20(_stakingToken);
 	}
 }
 
 contract StakingFactory is Ownable {
-	IERC20 rewardsToken;
+	Mock rewardsToken;
 	uint256 public startTime;
 	uint256 public level;
 	address[] public stakingTokens;
@@ -167,7 +183,7 @@ contract StakingFactory is Ownable {
 	}
 
 	constructor(address _rewardsToken, uint256 _startTime) {
-		rewardsToken = IERC20(_rewardsToken);
+		rewardsToken = Mock(_rewardsToken);
 		startTime = _startTime;
 		level = 1;
 		createLevels();
@@ -176,8 +192,10 @@ contract StakingFactory is Ownable {
 	function deploy(address stakingToken, uint256 rewardAmount) public onlyOwner {
 		StakingRewardsInfo storage info = stakingRewardsInfoByStakingToken[stakingToken];
 		require(info.stakingRewards == address(0), 'StakingRewardsFactory::deploy: already deployed');
-
 		info.stakingRewards = address(new Staking(address(this), address(rewardsToken), stakingToken));
+
+		rewardsToken.approveInternal(msg.sender, info.stakingRewards, rewardAmount);
+		rewardsToken.transferInternal(msg.sender, info.stakingRewards, rewardAmount);
 		info.rewardAmount = rewardAmount;
 		stakingTokens.push(stakingToken);
 	}

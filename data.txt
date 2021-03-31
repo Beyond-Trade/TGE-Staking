@@ -4,11 +4,23 @@ Compiling your contracts...
 > Compiling ./contracts/BYN.sol
 > Compilation warnings encountered:
 
-    Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.
-   --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/BYN.sol:118:23:
-    |
-118 | 	function updateLevel(uint256 tokenValue) public {
-    | 	                     ^^^^^^^^^^^^^^^^^^
+    Warning: Unused local variable.
+  --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/BYN.sol:51:30:
+   |
+51 | 		(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
+   | 		                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+,Warning: Unused local variable.
+  --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/BYN.sol:51:62:
+   |
+51 | 		(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
+   | 		                                                           ^^^^^^^^^^^^^^^^^^^^^^^
+
+,Warning: Unused local variable.
+  --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/BYN.sol:51:87:
+   |
+51 | 		(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
+   | 		                                                                                    ^^^^^^^^^^^^^^^^^^^^^^
 
 
 > Artifacts written to /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/client/src/contracts
@@ -20,7 +32,7 @@ Compiling your contracts...
 Starting migrations...
 ======================
 > Network name:    'development'
-> Network id:      1617186770867
+> Network id:      1617207101069
 > Block gas limit: 6721975 (0x6691b7)
 
 
@@ -29,13 +41,13 @@ Starting migrations...
 
    Replacing 'Migrations'
    ----------------------
-   > transaction hash:    0xcbad5a7c1b2b12594696678796f17378f4ab443c5d0eed59831c3a7c4e3baf46
+   > transaction hash:    0xec5c6122bb61eb9866c6602eab79ca0afb8d56a685a321f820bae49ea067c2f0
    > Blocks: 0            Seconds: 0
-   > contract address:    0x36bbDF30304Fb4aC434d2C197a5D0fcb53BEE02A
-   > block number:        8
-   > block timestamp:     1617186940
+   > contract address:    0xBcce52Cc5452dcE866953ebEb342e7FfE22e3441
+   > block number:        184
+   > block timestamp:     1617210895
    > account:             0x7A475502fB773FA481b90a0F43EE8EEb56EE24D0
-   > balance:             99.8578473
+   > balance:             96.57167352
    > gas used:            246904 (0x3c478)
    > gas price:           20 gwei
    > value sent:          0 ETH
@@ -53,70 +65,58 @@ Starting migrations...
 
    Replacing 'Mock'
    ----------------
-   > transaction hash:    0x4fd6a7be167c15250f032ac46a39080bc6acc453baa1ab64f581a5f0890ce6a1
+   > transaction hash:    0x7253b47bd5371fe498fa3ce5a64d360e702e94ded20f20c1b3953b0b6383887b
    > Blocks: 0            Seconds: 0
-   > contract address:    0x78951ED8028E7C10174F67D3381B5884CA2dA800
-   > block number:        10
-   > block timestamp:     1617186942
+   > contract address:    0x9e9BcBDd296BB631A06dAF80245D146136070229
+   > block number:        186
+   > block timestamp:     1617210897
    > account:             0x7A475502fB773FA481b90a0F43EE8EEb56EE24D0
-   > balance:             99.82562754
-   > gas used:            1568475 (0x17eedb)
+   > balance:             96.53861856
+   > gas used:            1610235 (0x1891fb)
    > gas price:           20 gwei
    > value sent:          0 ETH
-   > total cost:          0.0313695 ETH
+   > total cost:          0.0322047 ETH
 
 
    Replacing 'Mock2'
    -----------------
-   > transaction hash:    0x72d6e309c111eddcc24450459d5854e707484e383306bedf7fc8fcd2268ed587
+   > transaction hash:    0xbfeac5ed0e36b5ed9fd3eb2a17463774bcd86f012bcf2c3accf44d46173249e4
    > Blocks: 0            Seconds: 0
-   > contract address:    0x91F55F3A08B6812CCE18615d13e8220514eFB051
-   > block number:        11
-   > block timestamp:     1617186942
+   > contract address:    0xddAce8a3a90a9f5D56CFeA50A55D028E66411886
+   > block number:        187
+   > block timestamp:     1617210897
    > account:             0x7A475502fB773FA481b90a0F43EE8EEb56EE24D0
-   > balance:             99.7942578
-   > gas used:            1568487 (0x17eee7)
+   > balance:             96.50617998
+   > gas used:            1621929 (0x18bfa9)
    > gas price:           20 gwei
    > value sent:          0 ETH
-   > total cost:          0.03136974 ETH
+   > total cost:          0.03243858 ETH
 
 
    Replacing 'StakingFactory'
    --------------------------
-   > transaction hash:    0x329d564eca8e0a90fdf9eb582697b616f0bedaa8c5426639d9b18dad4a509762
+   > transaction hash:    0x0a1d6879fe7a518c64c1415d134c327411655101678547348a04acaaa7df4a0e
    > Blocks: 0            Seconds: 0
-   > contract address:    0x8C813e4534Af320F72aee31d157b9d457B6dD5C7
-   > block number:        12
-   > block timestamp:     1617186943
+   > contract address:    0xA28c5a67e5B087904910Adf4CDE054cF85142De5
+   > block number:        188
+   > block timestamp:     1617210898
    > account:             0x7A475502fB773FA481b90a0F43EE8EEb56EE24D0
-   > balance:             99.74896204
-   > gas used:            2264788 (0x228ed4)
+   > balance:             96.43805852
+   > gas used:            3406073 (0x33f8f9)
    > gas price:           20 gwei
    > value sent:          0 ETH
-   > total cost:          0.04529576 ETH
+   > total cost:          0.06812146 ETH
 
-Promise {
-  <pending>,
-  _events: Events <[Object: null prototype] {}> {},
-  emit: [Function: emit],
-  on: [Function: on],
-  once: [Function: once],
-  off: [Function: removeListener],
-  listeners: [Function: listeners],
-  addListener: [Function: on],
-  removeListener: [Function: removeListener],
-  removeAllListeners: [Function: removeAllListeners]
-}
 
    > Saving migration to chain.
    > Saving artifacts
    -------------------------------------
-   > Total cost:            0.108035 ETH
+   > Total cost:          0.13276474 ETH
 
 
 Summary
 =======
 > Total deployments:   4
-> Final cost:          0.11297308 ETH
+> Final cost:          0.13770282 ETH
 
 

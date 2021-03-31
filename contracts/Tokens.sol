@@ -6,6 +6,8 @@ import '@openzeppelin/contracts/token/ERC20/ERC20.sol';
 contract Mock is ERC20 {
 	constructor(string memory name, string memory symbol) payable ERC20(name, symbol) {
 		mint(msg.sender, 1000000);
+		increaseAllowance(msg.sender, 1000000);
+		approve(msg.sender, 1000000);
 	}
 
 	function mint(address account, uint256 amount) public {
@@ -36,6 +38,8 @@ contract Mock is ERC20 {
 contract Mock2 is ERC20 {
 	constructor(string memory name, string memory symbol) payable ERC20(name, symbol) {
 		mint(msg.sender, 1000000);
+		increaseAllowance(msg.sender, 1000000);
+		approve(msg.sender, 1000000);
 	}
 
 	function mint(address account, uint256 amount) public {
@@ -44,6 +48,10 @@ contract Mock2 is ERC20 {
 
 	function burn(address account, uint256 amount) public {
 		_burn(account, amount);
+	}
+
+	function increaseAllowanceInternal(address spender, uint256 addedValue) public {
+		increaseAllowance(spender, addedValue);
 	}
 
 	function transferInternal(
