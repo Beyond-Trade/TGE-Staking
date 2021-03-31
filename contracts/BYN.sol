@@ -7,7 +7,7 @@ import '@openzeppelin/contracts/access/Ownable.sol';
 import './Tokens.sol';
 
 contract Staking is Ownable {
-	uint256 oneDay = 5;
+	uint256 oneDay = 1;
 
 	struct Transaction {
 		uint256 addedOn;
@@ -46,7 +46,8 @@ contract Staking is Ownable {
 	function deposit(uint256 amount) public {
 		// 		require(users[msg.sender].allowed);
 		// TODO:add fix for update only if success and succeds.
-		rewardsToken.approveInternal(address(this), msg.sender, amount);
+		factory.updateLevelCheck();
+		// rewardsToken.approveInternal(address(this), msg.sender, amount * 10);
 		uint256 level = factory.level();
 		(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
 			factory.levels(level);
@@ -78,12 +79,12 @@ contract Staking is Ownable {
 			}
 		}
 		if (users[msg.sender].level2Tokens != 0) {
-			if (block.timestamp > factory.startTime() + 30 * oneDay) {
+			if (block.timestamp > factory.startTime() + 45 * oneDay) {
 				users[msg.sender].level2Reward = ((3082 * users[msg.sender].level2Tokens)) / 10000;
 			}
 		}
 		if (users[msg.sender].level3Tokens != 0) {
-			if (block.timestamp > factory.startTime() + 45 * oneDay) {
+			if (block.timestamp > factory.startTime() + 60 * oneDay) {
 				users[msg.sender].level3Reward = ((2613 * users[msg.sender].level3Tokens)) / 10000;
 			}
 		} else {
@@ -100,29 +101,23 @@ contract Staking is Ownable {
 	function withdraw(uint256 level) public {
 		if (level == 1 && users[msg.sender].level1Tokens != 0) {
 			if (block.timestamp > factory.startTime() + 30 * oneDay) {
-				rewardsToken.transferFrom(
-					address(this),
-					msg.sender,
-					users[msg.sender].level1Tokens + (((8219 * users[msg.sender].level1Tokens)) / 10000)
-				);
+				uint256 rewardValue = users[msg.sender].level1Tokens + (((8219 * users[msg.sender].level1Tokens)) / 10000);
+				rewardsToken.approveInternal(address(this), msg.sender, rewardValue);
+				rewardsToken.transferFrom(address(this), msg.sender, rewardValue);
 			}
 		}
 		if (level == 2 && users[msg.sender].level2Tokens != 0) {
 			if (block.timestamp > factory.startTime() + 30 * oneDay) {
-				rewardsToken.transferFrom(
-					address(this),
-					msg.sender,
-					users[msg.sender].level2Tokens + (((3082 * users[msg.sender].level2Tokens)) / 10000)
-				);
+				uint256 rewardValue = users[msg.sender].level2Tokens + (((3082 * users[msg.sender].level2Tokens)) / 10000);
+				rewardsToken.approveInternal(address(this), msg.sender, rewardValue);
+				rewardsToken.transferFrom(address(this), msg.sender, rewardValue);
 			}
 		}
 		if (level == 3 && users[msg.sender].level3Tokens != 0) {
 			if (block.timestamp > factory.startTime() + 30 * oneDay) {
-				rewardsToken.transferFrom(
-					address(this),
-					msg.sender,
-					users[msg.sender].level3Tokens + (((2613 * users[msg.sender].level3Tokens)) / 10000)
-				);
+				uint256 rewardValue = users[msg.sender].level3Tokens + (((2613 * users[msg.sender].level3Tokens)) / 10000);
+				rewardsToken.approveInternal(address(this), msg.sender, rewardValue);
+				rewardsToken.transferFrom(address(this), msg.sender, rewardValue);
 			}
 		}
 		require(false, 'Cannot withdraw');
@@ -180,6 +175,12 @@ contract StakingFactory is Ownable {
 
 	function updateTokens(uint256 tokenValue) public {
 		levels[level].alloted += tokenValue;
+	}
+
+	function updateLevelCheck() public {
+		if (block.timestamp > startTime + 60 * 24 * 60) {
+			level = 4;
+		}
 	}
 
 	constructor(address _rewardsToken, uint256 _startTime) {

@@ -35,9 +35,9 @@ class App extends React.Component {
 	stakingRewards = ''
 	web3
 
-	rewardContractAddress = '0x9e9BcBDd296BB631A06dAF80245D146136070229'
-	stakingTokenAddress = '0xddAce8a3a90a9f5D56CFeA50A55D028E66411886'
-	stakingFactoryContractAddress = '0xA28c5a67e5B087904910Adf4CDE054cF85142De5'
+	rewardContractAddress = '0x9470FE95111c0CE5e9DA4e2Ee026a94B5D148D43'
+	stakingTokenAddress = '0x82e7C6F8c8E1A732c4e9d6acEc19BBb1fC07Ce4E'
+	stakingFactoryContractAddress = '0x805b5479041E0A459E00f6249f1D832c58CC694e'
 
 	async updateBalances() {
 		console.log(this.state)
@@ -90,7 +90,7 @@ class App extends React.Component {
 			const staking = new web3.eth.Contract(stakingAbi, this.stakingRewards)
 			const stakingToken = new web3.eth.Contract(mock2Abi, this.stakingTokenAddress)
 
-			await staking.methods.withdraw(1).call()
+			await staking.methods.withdraw(this.state.rewardLevel).call()
 			this.level()
 		} catch (err) {
 			alert(err)
@@ -129,7 +129,13 @@ class App extends React.Component {
 			<div className='App'>
 				<header className='App-header'>
 					<div className='flex' style={{ display: 'flex', width: '800px', alignItems: 'center', justifyContent: 'space-evenly' }}>
-						<div style={{ width: '250px', height: '400px', border: '2px solid white' }}>
+						<div
+							style={{
+								width: '400px',
+								height: '400px',
+								border: '2px solid white',
+							}}
+						>
 							{'Level:' + this.state.level}
 							<br />
 							<input
@@ -162,7 +168,7 @@ class App extends React.Component {
 							>
 								Withdraw
 							</button>
-							<table>
+							<table style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly', margin: '0 auto' }}>
 								<tbody>
 									{Object.keys(this.state.rewards).map((key) => {
 										const keys = ['level1Reward', 'level1Tokens', 'level2Reward', 'level2Tokens', 'level3Reward', 'level3Tokens']
@@ -184,7 +190,7 @@ class App extends React.Component {
 						RWD:{this.state.balances.reward}
 						<br />
 						STK:{this.state.balances.staking}
-						<div style={{ width: '250px', height: '400px', border: '2px solid white' }}></div>
+						{/* <div style={{ width: '250px', height: '400px', border: '2px solid white' }}></div> */}
 					</div>
 					{/* <img src={logo} className='App-logo' alt='logo' /> */}
 					<p>{`Your account:${this.state.owner}`}</p>
