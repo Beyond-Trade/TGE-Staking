@@ -11,7 +11,7 @@ import Web3 from 'web3'
 import React from 'react'
 
 class App extends React.Component {
-	state = { owner: '', level: 0 }
+	state = { owner: '', level: 0, rewardLevel: 1 }
 	stakingRewards = ''
 	web3
 
@@ -25,9 +25,9 @@ class App extends React.Component {
 			// const web3 = new Web3(new Web3.providers.HttpProvider(Web3.givenProvider))
 			// const accounts = await web3.eth.getAccounts()
 
-			const m1_ = new web3.eth.Contract(stakingFAbi, '0x86ca79eac0cFD9477216F704d47a7D35d0a1f4D2')
-			const reward = new web3.eth.Contract(mock1Abi, '0x5cC735f12A153458697AF255636a9DB3182133b7')
-			const stakingToken = new web3.eth.Contract(mock2Abi, '0x4F04e4c62E5017e2B402E2748C8Cd9d6F94d207C')
+			const m1_ = new web3.eth.Contract(stakingFAbi, '0x83c73CdFc0F1DFe2e052bf5C5486dCAE48e8A561')
+			const reward = new web3.eth.Contract(mock1Abi, '0xe9297437B3aFf06A03FF12547F2696a5cA4eB9F8')
+			const stakingToken = new web3.eth.Contract(mock2Abi, '0x4375960D1E6C5BE2CC108736217C2CeD8bCE24FC')
 			// 	window.m1_ = m1_
 			// window.mock1 = reward
 
@@ -57,10 +57,12 @@ class App extends React.Component {
 		try {
 			const web3 = this.web3
 			const staking = new web3.eth.Contract(stakingAbi, this.stakingRewards)
-			const stakingToken = new web3.eth.Contract(mock2Abi, '0x4F04e4c62E5017e2B402E2748C8Cd9d6F94d207C')
-			await stakingToken.methods.increaseAllowance(this.stakingRewards, 1000).send({ from: this.state.owner })
-			await staking.methods.deposit(1000).send({ from: this.state.owner, gas: 3000000 })
-			alert(JSON.stringify(await staking.methods.calculateReward().call()))
+			const stakingToken = new web3.eth.Contract(mock2Abi, '0x4375960D1E6C5BE2CC108736217C2CeD8bCE24FC')
+			await stakingToken.methods.increaseAllowance(this.stakingRewards, this.state.deposit).send({ from: this.state.owner })
+			await staking.methods.deposit(this.state.deposit).send({ from: this.state.owner, gas: 3000000 })
+			const estimatedReward = await staking.methods.calculateReward().call()
+			console.log(estimatedReward)
+			alert(JSON.stringify(estimatedReward))
 		} catch (error) {
 			console.error(error)
 
@@ -82,6 +84,22 @@ class App extends React.Component {
 								onChange={(e) => {
 									this.setState({ deposit: e.target.value })
 								}}
+							/>
+							<button
+								onClick={() => {
+									this.deposit()
+								}}
+							>
+								Deposit
+							</button>
+							<br />
+							<input
+								type='text'
+								name='level'
+								onChange={(e) => {
+									this.setState({ rewardLevel: e.target.value })
+								}}
+								placeholder='Level'
 							/>
 							<button
 								onClick={() => {

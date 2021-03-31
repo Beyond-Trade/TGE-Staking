@@ -1,0 +1,122 @@
+
+Compiling your contracts...
+===========================
+> Compiling ./contracts/BYN.sol
+> Compilation warnings encountered:
+
+    Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/BYN.sol:118:23:
+    |
+118 | 	function updateLevel(uint256 tokenValue) public {
+    | 	                     ^^^^^^^^^^^^^^^^^^
+
+
+> Artifacts written to /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/client/src/contracts
+> Compiled successfully using:
+   - solc: 0.8.1+commit.df193b15.Emscripten.clang
+
+
+
+Starting migrations...
+======================
+> Network name:    'development'
+> Network id:      1617186770867
+> Block gas limit: 6721975 (0x6691b7)
+
+
+1_initial_migration.js
+======================
+
+   Replacing 'Migrations'
+   ----------------------
+   > transaction hash:    0xcbad5a7c1b2b12594696678796f17378f4ab443c5d0eed59831c3a7c4e3baf46
+   > Blocks: 0            Seconds: 0
+   > contract address:    0x36bbDF30304Fb4aC434d2C197a5D0fcb53BEE02A
+   > block number:        8
+   > block timestamp:     1617186940
+   > account:             0x7A475502fB773FA481b90a0F43EE8EEb56EE24D0
+   > balance:             99.8578473
+   > gas used:            246904 (0x3c478)
+   > gas price:           20 gwei
+   > value sent:          0 ETH
+   > total cost:          0.00493808 ETH
+
+
+   > Saving migration to chain.
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:          0.00493808 ETH
+
+
+2_byn.js
+========
+
+   Replacing 'Mock'
+   ----------------
+   > transaction hash:    0x4fd6a7be167c15250f032ac46a39080bc6acc453baa1ab64f581a5f0890ce6a1
+   > Blocks: 0            Seconds: 0
+   > contract address:    0x78951ED8028E7C10174F67D3381B5884CA2dA800
+   > block number:        10
+   > block timestamp:     1617186942
+   > account:             0x7A475502fB773FA481b90a0F43EE8EEb56EE24D0
+   > balance:             99.82562754
+   > gas used:            1568475 (0x17eedb)
+   > gas price:           20 gwei
+   > value sent:          0 ETH
+   > total cost:          0.0313695 ETH
+
+
+   Replacing 'Mock2'
+   -----------------
+   > transaction hash:    0x72d6e309c111eddcc24450459d5854e707484e383306bedf7fc8fcd2268ed587
+   > Blocks: 0            Seconds: 0
+   > contract address:    0x91F55F3A08B6812CCE18615d13e8220514eFB051
+   > block number:        11
+   > block timestamp:     1617186942
+   > account:             0x7A475502fB773FA481b90a0F43EE8EEb56EE24D0
+   > balance:             99.7942578
+   > gas used:            1568487 (0x17eee7)
+   > gas price:           20 gwei
+   > value sent:          0 ETH
+   > total cost:          0.03136974 ETH
+
+
+   Replacing 'StakingFactory'
+   --------------------------
+   > transaction hash:    0x329d564eca8e0a90fdf9eb582697b616f0bedaa8c5426639d9b18dad4a509762
+   > Blocks: 0            Seconds: 0
+   > contract address:    0x8C813e4534Af320F72aee31d157b9d457B6dD5C7
+   > block number:        12
+   > block timestamp:     1617186943
+   > account:             0x7A475502fB773FA481b90a0F43EE8EEb56EE24D0
+   > balance:             99.74896204
+   > gas used:            2264788 (0x228ed4)
+   > gas price:           20 gwei
+   > value sent:          0 ETH
+   > total cost:          0.04529576 ETH
+
+Promise {
+  <pending>,
+  _events: Events <[Object: null prototype] {}> {},
+  emit: [Function: emit],
+  on: [Function: on],
+  once: [Function: once],
+  off: [Function: removeListener],
+  listeners: [Function: listeners],
+  addListener: [Function: on],
+  removeListener: [Function: removeListener],
+  removeAllListeners: [Function: removeAllListeners]
+}
+
+   > Saving migration to chain.
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:            0.108035 ETH
+
+
+Summary
+=======
+> Total deployments:   4
+> Final cost:          0.11297308 ETH
+
+
