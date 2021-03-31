@@ -25,7 +25,10 @@ type AllEvents = OwnershipTransferred
 export interface StakingFactoryInstance extends Truffle.ContractInstance {
 	level(txDetails?: Truffle.TransactionDetails): Promise<BigNumber>
 
-	levels(arg0: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<[BigNumber, BigNumber, BigNumber, BigNumber]>
+	levels(
+		arg0: number | BigNumber | string,
+		txDetails?: Truffle.TransactionDetails
+	): Promise<[BigNumber, BigNumber, BigNumber, BigNumber, BigNumber]>
 
 	/**
 	 * Returns the address of the current owner.
@@ -56,6 +59,20 @@ export interface StakingFactoryInstance extends Truffle.ContractInstance {
 		call(newOwner: string | BigNumber, txDetails?: Truffle.TransactionDetails): Promise<void>
 		sendTransaction(newOwner: string | BigNumber, txDetails?: Truffle.TransactionDetails): Promise<string>
 		estimateGas(newOwner: string | BigNumber, txDetails?: Truffle.TransactionDetails): Promise<number>
+	}
+
+	updateLevel: {
+		(tokenValue: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<Truffle.TransactionResponse<AllEvents>>
+		call(tokenValue: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<void>
+		sendTransaction(tokenValue: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<string>
+		estimateGas(tokenValue: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<number>
+	}
+
+	updateTokens: {
+		(tokenValue: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<Truffle.TransactionResponse<AllEvents>>
+		call(tokenValue: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<void>
+		sendTransaction(tokenValue: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<string>
+		estimateGas(tokenValue: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<number>
 	}
 
 	deploy: {

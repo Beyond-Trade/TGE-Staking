@@ -38,8 +38,16 @@ export interface StakingInstance extends Truffle.ContractInstance {
 			level3Reward: BigNumber
 			tokens: BigNumber
 			lastUpdateDate: BigNumber
+			transactions: { addedOn: BigNumber; amount: BigNumber }[]
 		}>
 		sendTransaction(txDetails?: Truffle.TransactionDetails): Promise<string>
 		estimateGas(txDetails?: Truffle.TransactionDetails): Promise<number>
+	}
+
+	withdraw: {
+		(level: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<Truffle.TransactionResponse<AllEvents>>
+		call(level: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<void>
+		sendTransaction(level: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<string>
+		estimateGas(level: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<number>
 	}
 }

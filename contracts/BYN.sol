@@ -6,6 +6,12 @@ import '@openzeppelin/contracts/access/Ownable.sol';
 
 contract Staking {
 	uint256 oneDay = 24 * 60 * 60;
+
+	struct Transaction {
+		uint256 addedOn;
+		uint256 amount;
+	}
+
 	struct UserData {
 		bool allowed;
 		bool created;
@@ -18,9 +24,8 @@ contract Staking {
 		//
 		//
 		uint256 tokens;
-		//
-		//
 		uint256 lastUpdateDate;
+		Transaction[] transactions;
 	}
 
 	mapping(address => UserData) users;
@@ -43,8 +48,10 @@ contract Staking {
 		} else if (level == 3) {
 			users[msg.sender].level3Tokens += amount;
 			stakingToken.transferFrom(msg.sender, address(this), amount);
+		} else {
+			users[msg.sender].tokens += amount;
+			users[msg.sender].transactions.push(Transaction(block.timestamp, amount));
 		}
-		users[msg.sender].tokens += amount;
 		users[msg.sender].lastUpdateDate = block.timestamp;
 		factory.updateTokens(amount);
 	}
@@ -66,10 +73,43 @@ contract Staking {
 			}
 		} else {
 			if (block.timestamp > factory.startTime() + 60 * oneDay) {
-				users[msg.sender].level3Reward = ((2613 * users[msg.sender].level3Tokens)) / 10000;
+				// for (uint256 index = 0; index < users[msg.sender].transactions.length; index++) {
+				// 	users[]
+				// }
+				// users[msg.sender].level3Reward = ((2613 * users[msg.sender].level3Tokens)) / 10000;
 			}
 		}
 		return users[msg.sender];
+	}
+
+	function withdraw(uint256 level) public {
+		if (level == 1 && users[msg.sender].level1Tokens != 0) {
+			if (block.timestamp > factory.startTime() + 30 * oneDay) {
+				rewardsToken.transferFrom(
+					address(this),
+					msg.sender,
+					users[msg.sender].level1Tokens + ((8219 * users[msg.sender].level1Tokens)) / 10000
+				);
+			}
+		}
+		if (level == 2 && users[msg.sender].level2Tokens != 0) {
+			if (block.timestamp > factory.startTime() + 30 * oneDay) {
+				rewardsToken.transferFrom(
+					address(this),
+					msg.sender,
+					users[msg.sender].level2Tokens + ((3082 * users[msg.sender].level2Tokens)) / 10000
+				);
+			}
+		}
+		if (level == 3 && users[msg.sender].level3Tokens != 0) {
+			if (block.timestamp > factory.startTime() + 30 * oneDay) {
+				rewardsToken.transferFrom(
+					address(this),
+					msg.sender,
+					users[msg.sender].level3Tokens + ((2613 * users[msg.sender].level3Tokens)) / 10000
+				);
+			}
+		}
 	}
 
 	constructor(
@@ -109,14 +149,15 @@ contract StakingFactory is Ownable {
 
 	function createLevels() internal onlyOwner {
 		levels[1] = LevelData(300000, 8219, 30, 246575, 0);
-		levels[2] = LevelData(600000, 3082, 45, 184932, 0);
-		levels[3] = LevelData(1000000, 2630, 60, 263014, 0);
+		levels[2] = LevelData(900000, 3082, 45, 184932, 0);
+		levels[3] = LevelData(1900000, 2630, 60, 263014, 0);
+		levels[4] = LevelData(2900000, 416, 60, 41000, 0);
 
 		level = 1;
 	}
 
 	function updateLevel(uint256 tokenValue) public {
-		if (levels[level].alloted >= levels[level].allowedForXCoins) {
+		if (levels[level].alloted + tokenValue >= levels[level].allowedForXCoins) {
 			level += 1;
 		}
 	}
