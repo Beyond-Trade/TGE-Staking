@@ -1,4 +1,4 @@
-import logo from './logo.svg'
+// import logo from './logo.svg'
 import './App.css'
 
 import { abi as stakingFAbi } from './contracts/StakingFactory.json'
@@ -13,20 +13,25 @@ import React from 'react'
 class App extends React.Component {
 	state = { owner: '', level: 0 }
 	stakingRewards = ''
-	web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'))
+	web3
 
 	async componentWillMount() {
 		try {
-			const web3 = this.web3
+			console.log(await window.ethereum.enable())
+			const web3 = new Web3(Web3.givenProvider || 'http://localhost:8545')
+			this.web3 = web3
 			const accounts = await web3.eth.getAccounts()
 
-			const m1_ = new web3.eth.Contract(stakingFAbi, '0x83c73CdFc0F1DFe2e052bf5C5486dCAE48e8A561')
-			const reward = new web3.eth.Contract(mock1Abi, '0xe9297437B3aFf06A03FF12547F2696a5cA4eB9F8')
-			const stakingToken = new web3.eth.Contract(mock2Abi, '0x4375960D1E6C5BE2CC108736217C2CeD8bCE24FC')
-			window.m1_ = m1_
-			window.mock1 = reward
+			// const web3 = new Web3(new Web3.providers.HttpProvider(Web3.givenProvider))
+			// const accounts = await web3.eth.getAccounts()
 
-			window.mock2 = stakingToken
+			const m1_ = new web3.eth.Contract(stakingFAbi, '0x86ca79eac0cFD9477216F704d47a7D35d0a1f4D2')
+			const reward = new web3.eth.Contract(mock1Abi, '0x5cC735f12A153458697AF255636a9DB3182133b7')
+			const stakingToken = new web3.eth.Contract(mock2Abi, '0x4F04e4c62E5017e2B402E2748C8Cd9d6F94d207C')
+			// 	window.m1_ = m1_
+			// window.mock1 = reward
+
+			// 	window.mock2 = stakingToken
 			const level = await m1_.methods.level().call()
 
 			this.stakingRewards = (
@@ -35,14 +40,14 @@ class App extends React.Component {
 			console.log(this.stakingRewards)
 			this.setState({ owner: accounts[0], level })
 
-			await stakingToken.methods.approve(accounts[0], 1000).send({ from: accounts[0] })
-			await stakingToken.methods.approve(this.stakingRewards, 1000).send({ from: accounts[0] })
-			// await stakingToken.methods.increaseAllowance(accounts[0], 1000).call()
-			await stakingToken.methods.increaseAllowance(this.stakingRewards, 1000).send({ from: accounts[0] })
-			await stakingToken.methods.mint(accounts[0], 1000).send({ from: accounts[0] })
+			// // 	await stakingToken.methods.approve(accounts[0], 1000).send({ from: accounts[0] })
+			// await stakingToken.methods.approve(this.stakingRewards, 1000).send({ from: accounts[0] })
+			// 	// await stakingToken.methods.increaseAllowance(accounts[0], 1000).call()
 
-			const staking = new web3.eth.Contract(stakingAbi, this.stakingRewards)
-			window.staking = staking
+			// 	await stakingToken.methods.mint(accounts[0], 1000).send({ from: accounts[0] })
+
+			// 	const staking = new web3.eth.Contract(stakingAbi, this.stakingRewards)
+			// 	window.staking = staking
 		} catch (err) {
 			console.error(err)
 		}
@@ -52,10 +57,14 @@ class App extends React.Component {
 		try {
 			const web3 = this.web3
 			const staking = new web3.eth.Contract(stakingAbi, this.stakingRewards)
-			await staking.methods.deposit(1000).send({ from: '0x7A475502fB773FA481b90a0F43EE8EEb56EE24D0', gas: 3000000 })
+			const stakingToken = new web3.eth.Contract(mock2Abi, '0x4F04e4c62E5017e2B402E2748C8Cd9d6F94d207C')
+			await stakingToken.methods.increaseAllowance(this.stakingRewards, 1000).send({ from: this.state.owner })
+			await staking.methods.deposit(1000).send({ from: this.state.owner, gas: 3000000 })
 			alert(JSON.stringify(await staking.methods.calculateReward().call()))
 		} catch (error) {
-			alert(error)
+			console.error(error)
+
+			if (error.message) alert(error.message)
 		}
 	}
 

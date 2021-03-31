@@ -4,7 +4,9 @@ pragma solidity ^0.8.0;
 import '@openzeppelin/contracts/token/ERC20/ERC20.sol';
 
 contract Mock is ERC20 {
-	constructor(string memory name, string memory symbol) payable ERC20(name, symbol) {}
+	constructor(string memory name, string memory symbol) payable ERC20(name, symbol) {
+		mint(msg.sender, 1000000);
+	}
 
 	function mint(address account, uint256 amount) public {
 		_mint(account, amount);
@@ -32,7 +34,9 @@ contract Mock is ERC20 {
 }
 
 contract Mock2 is ERC20 {
-	constructor(string memory name, string memory symbol) payable ERC20(name, symbol) {}
+	constructor(string memory name, string memory symbol) payable ERC20(name, symbol) {
+		mint(msg.sender, 1000000);
+	}
 
 	function mint(address account, uint256 amount) public {
 		_mint(account, amount);
