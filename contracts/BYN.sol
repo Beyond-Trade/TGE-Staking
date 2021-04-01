@@ -58,6 +58,7 @@ contract Staking is Ownable {
 
 		factory.updateLevelCheck();
 		// Fetch the level.
+		uint256 remaining;
 		uint256 level = factory.level();
 		// Check if the amount updates the level and only deposit the amount which just updates
 		// and update the level. Return rest of the staking token to the user.
@@ -65,18 +66,28 @@ contract Staking is Ownable {
 			factory.levels(level);
 		if (alloted + amount >= allowedForXCoins) {
 			factory.updateLevel(amount);
+			remaining = amount - (allowedForXCoins - alloted);
 			amount = allowedForXCoins - alloted;
 		}
 		if (level == 1) {
 			users[msg.sender].level1Tokens += amount;
 			stakingToken.transferFrom(msg.sender, address(this), amount);
-		} else if (level == 2) {
+			level = factory.level();
+			amount = remaining;
+		}
+		if (level == 2) {
 			users[msg.sender].level2Tokens += amount;
 			stakingToken.transferFrom(msg.sender, address(this), amount);
-		} else if (level == 3) {
+			level = factory.level();
+			amount = remaining;
+		}
+		if (level == 3) {
 			users[msg.sender].level3Tokens += amount;
 			stakingToken.transferFrom(msg.sender, address(this), amount);
-		} else {
+			level = factory.level();
+			amount = remaining;
+		}
+		if (amount > 0) {
 			users[msg.sender].tokens += amount;
 			users[msg.sender].transactions.push(Transaction(block.timestamp, amount));
 		}

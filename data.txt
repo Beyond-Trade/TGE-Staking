@@ -1,59 +1,29 @@
 
 Compiling your contracts...
 ===========================
-> Compiling ./contracts/BYN.sol
-> Compiling ./contracts/Migrations.sol
-> Compiling ./contracts/Tokens.sol
-> Compiling @openzeppelin/contracts/access/Ownable.sol
-> Compiling @openzeppelin/contracts/token/ERC20/ERC20.sol
-> Compiling @openzeppelin/contracts/token/ERC20/IERC20.sol
-> Compiling @openzeppelin/contracts/utils/Context.sol
-> Compilation warnings encountered:
-
-    Warning: Unused local variable.
-  --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/BYN.sol:52:30:
-   |
-52 | 		(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-   | 		                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-,Warning: Unused local variable.
-  --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/BYN.sol:52:62:
-   |
-52 | 		(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-   | 		                                                           ^^^^^^^^^^^^^^^^^^^^^^^
-
-,Warning: Unused local variable.
-  --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/BYN.sol:52:87:
-   |
-52 | 		(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-   | 		                                                                                    ^^^^^^^^^^^^^^^^^^^^^^
-
-
-> Artifacts written to /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/client/src/contracts
-> Compiled successfully using:
-   - solc: 0.8.1+commit.df193b15.Emscripten.clang
+> Everything is up to date, there is nothing to compile.
 
 
 
 Starting migrations...
 ======================
 > Network name:    'development'
-> Network id:      1617236529793
+> Network id:      1617265283648
 > Block gas limit: 6721975 (0x6691b7)
 
 
 1_initial_migration.js
 ======================
 
-   Deploying 'Migrations'
+   Replacing 'Migrations'
    ----------------------
-   > transaction hash:    0x0b11626822356990b2ea7fd8438d1dc0187ac6749f873263d2a153c9fd114ac4
+   > transaction hash:    0xa463a22e4dc6bce70ec980bc5cdb0f976badaf28f9fa13bb4413f18c62645262
    > Blocks: 0            Seconds: 0
-   > contract address:    0x1787be16883132226634feF64E611Fd72d6682AC
-   > block number:        41
-   > block timestamp:     1617237325
+   > contract address:    0x394C2788A44d18699C6850960CD0660Ac3BeDB51
+   > block number:        17
+   > block timestamp:     1617265588
    > account:             0x7A475502fB773FA481b90a0F43EE8EEb56EE24D0
-   > balance:             99.40938474
+   > balance:             99.79487114
    > gas used:            246904 (0x3c478)
    > gas price:           20 gwei
    > value sent:          0 ETH
@@ -69,60 +39,60 @@ Starting migrations...
 2_byn.js
 ========
 
-   Deploying 'Mock'
+   Replacing 'Mock'
    ----------------
-   > transaction hash:    0x5a5872a27c12dc58d9394407f0e193b7f006bb755a6ef8baa3457f38079148db
+   > transaction hash:    0x4eb0f527ac5e0f64b386ad65c7376ed93ba1e342548ecfa3fe332b2868e0cdab
    > Blocks: 0            Seconds: 0
-   > contract address:    0x4ad334c35Dd393958aBc3F741c6528184e65fb48
-   > block number:        43
-   > block timestamp:     1617237326
+   > contract address:    0x4F04e4c62E5017e2B402E2748C8Cd9d6F94d207C
+   > block number:        19
+   > block timestamp:     1617265590
    > account:             0x7A475502fB773FA481b90a0F43EE8EEb56EE24D0
-   > balance:             99.37632978
+   > balance:             99.76181618
    > gas used:            1610235 (0x1891fb)
    > gas price:           20 gwei
    > value sent:          0 ETH
    > total cost:          0.0322047 ETH
 
 
-   Deploying 'Mock2'
+   Replacing 'Mock2'
    -----------------
-   > transaction hash:    0x779adb6d8bee78213a95f994d8a01d48f210b5a7496834da05e5a2a9a22a3fd6
+   > transaction hash:    0x62e05d66835874503ce72c4b8878990b448c776869596a494f5668a0d7b82892
    > Blocks: 0            Seconds: 0
-   > contract address:    0x5a869ED416A1005e44397e424DBe9068f880B949
-   > block number:        44
-   > block timestamp:     1617237326
+   > contract address:    0x86ca79eac0cFD9477216F704d47a7D35d0a1f4D2
+   > block number:        20
+   > block timestamp:     1617265591
    > account:             0x7A475502fB773FA481b90a0F43EE8EEb56EE24D0
-   > balance:             99.3438912
+   > balance:             99.7293776
    > gas used:            1621929 (0x18bfa9)
    > gas price:           20 gwei
    > value sent:          0 ETH
    > total cost:          0.03243858 ETH
 
 
-   Deploying 'StakingFactory'
+   Replacing 'StakingFactory'
    --------------------------
-   > transaction hash:    0xa99db6cdc85caf83016fff3354a94aa77f4d74da3eec9d45130b5d7cff154916
+   > transaction hash:    0xf5c20adedfbf3e0607eac29671ed94ff64867c6aed9bd33805333c07267f4299
    > Blocks: 0            Seconds: 0
-   > contract address:    0x173f407bE4B22BD81a5E5A1e71f2709ec1B78163
-   > block number:        45
-   > block timestamp:     1617237327
+   > contract address:    0x7ddf460e304BB77AA475c4A24ACdd522654E1d5c
+   > block number:        21
+   > block timestamp:     1617265592
    > account:             0x7A475502fB773FA481b90a0F43EE8EEb56EE24D0
-   > balance:             99.27208028
-   > gas used:            3590546 (0x36c992)
+   > balance:             99.65756644
+   > gas used:            3590558 (0x36c99e)
    > gas price:           20 gwei
    > value sent:          0 ETH
-   > total cost:          0.07181092 ETH
+   > total cost:          0.07181116 ETH
 
 
    > Saving migration to chain.
    > Saving artifacts
    -------------------------------------
-   > Total cost:           0.1364542 ETH
+   > Total cost:          0.13645444 ETH
 
 
 Summary
 =======
 > Total deployments:   4
-> Final cost:          0.14139228 ETH
+> Final cost:          0.14139252 ETH
 
 
