@@ -37,9 +37,9 @@ class App extends React.Component {
 	stakingRewards = ''
 	web3
 
-	rewardContractAddress = '0xA2354aDD6A5c4eeb891f18063eD6ec3a68BaD9Ab'
-	stakingTokenAddress = '0x905B4a10C492D5d4246eCB0d994B8a552721649e'
-	stakingFactoryContractAddress = '0x8f120760173163c78Ef554c054cfC6E4d6ce417F'
+	rewardContractAddress = '0x5E32D370114aEe42a44e2a55E867A6B3a3D196D6'
+	stakingTokenAddress = '0xd4D8d51945533102174217a0CAA0Aa02eE6718CD'
+	stakingFactoryContractAddress = '0x3F32F4141e0238b66ddf9972D3173b87e41a9E1a'
 
 	async updateBalances() {
 		console.log(this.state)
@@ -188,10 +188,10 @@ class App extends React.Component {
 											'level1Tokens',
 											'level2Reward',
 											'level2Tokens',
-											'level3Reward',
-											'level3Tokens',
-											'level4Tokens',
-											'level4Reward',
+											// 'level3Reward',
+											// 'level3Tokens',
+											// 'level4Tokens',
+											// 'level4Reward',
 										]
 										// console.log(key, keys.includes(key))
 										if (keys.includes(key)) {

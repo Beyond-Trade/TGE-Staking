@@ -56,7 +56,7 @@ contract Staking is Ownable {
 		uint256 alloted;
 	}
 
-	function checkUpdateLevel(uint256 amount,uint256 level) public returns (uint256, uint256){
+	function checkUpdateLevel(uint256 amount, uint256 level) public returns (uint256, uint256) {
 		uint256 remaining;
 		(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
 			factory.levels(level);
@@ -65,21 +65,23 @@ contract Staking is Ownable {
 			remaining = amount - (allowedForXCoins - alloted);
 			amount = allowedForXCoins - alloted;
 		}
-		return (amount,remaining);
+		return (amount, remaining);
 	}
 
 	/**deposit function */
 	function deposit(uint256 amount) public {
 		// Check if level has been updated due to time elapsed.
-
+		uint256 level = factory.level();
+		if (level == 3) {
+			return;
+		}
 		factory.updateLevelCheck();
 		// Fetch the level.
 		uint256 remaining;
-		uint256 level = factory.level();
 		// Check if the amount updates the level and only deposit the amount which just updates
 		// and update the level. Return rest of the staking token to the user.
 		if (level == 1) {
-			(amount,remaining)=checkUpdateLevel(amount, level);
+			(amount, remaining) = checkUpdateLevel(amount, level);
 			users[msg.sender].level1Tokens += amount;
 			stakingToken.transferFrom(msg.sender, address(this), amount);
 			factory.updateLevel(amount);
@@ -87,7 +89,7 @@ contract Staking is Ownable {
 			amount = remaining;
 		}
 		if (level == 2) {
-			(amount,remaining)=checkUpdateLevel(amount, level);
+			(amount, remaining) = checkUpdateLevel(amount, level);
 			users[msg.sender].level2Tokens += amount;
 			stakingToken.transferFrom(msg.sender, address(this), amount);
 			factory.updateLevel(amount);
@@ -95,23 +97,7 @@ contract Staking is Ownable {
 			amount = remaining;
 		}
 		if (level == 3) {
-			(amount,remaining)=checkUpdateLevel(amount, level);
-			users[msg.sender].level3Tokens += amount;
-			stakingToken.transferFrom(msg.sender, address(this), amount);
-			factory.updateLevel(amount);
-			level = factory.level();
-			amount = remaining;
-		}
-		if (level == 4) {
-			(amount,remaining)=checkUpdateLevel(amount, level);
-			users[msg.sender].level4Tokens += amount;
-			stakingToken.transferFrom(msg.sender, address(this), amount);
-			level = factory.level();
-			amount = remaining;
-		}
-		else if (amount > 0) {
-			users[msg.sender].tokens += amount;
-			users[msg.sender].transactions.push(Transaction(block.timestamp, amount));
+			return;
 		}
 		users[msg.sender].lastUpdateDate = block.timestamp;
 		factory.updateTokens(amount);
@@ -133,20 +119,6 @@ contract Staking is Ownable {
 				users[msg.sender].level2Reward = ((_rewardPercentTimes100 * users[msg.sender].level2Tokens)) / 10000;
 			}
 		}
-		if (users[msg.sender].level3Tokens != 0) {
-			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-				factory.levels(3);
-			if (block.timestamp > factory.startTime() + _lockedDuration * oneDay) {
-				users[msg.sender].level3Reward = ((_rewardPercentTimes100 * users[msg.sender].level3Tokens)) / 10000;
-			}
-		}
-		if (users[msg.sender].level4Tokens != 0) {
-			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-				factory.levels(4);
-			if (block.timestamp > factory.startTime() + _lockedDuration * oneDay) {
-				users[msg.sender].level4Reward = ((_rewardPercentTimes100 * users[msg.sender].level4Tokens)) / 10000;
-			}
-		}
 		return users[msg.sender];
 	}
 
@@ -155,7 +127,7 @@ contract Staking is Ownable {
 		if (level == 1 && users[msg.sender].level1Tokens != 0) {
 			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
 				factory.levels(1);
-			
+
 			if (block.timestamp > factory.startTime() + _lockedDuration * oneDay) {
 				uint256 rewardValue = users[msg.sender].level1Tokens + (((_rewardPercentTimes100 * users[msg.sender].level1Tokens)) / 10000);
 				rewardsToken.approveInternal(address(this), msg.sender, rewardValue);
@@ -173,28 +145,6 @@ contract Staking is Ownable {
 				rewardsToken.transferInternal(address(this), msg.sender, rewardValue);
 				users[msg.sender].level2Tokens = 0;
 				users[msg.sender].level2Reward = 0;
-				return;
-			}
-		} else if (level == 3 && users[msg.sender].level3Tokens != 0) {
-			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-				factory.levels(3);
-			if (block.timestamp > factory.startTime() + _lockedDuration * oneDay) {
-				uint256 rewardValue = users[msg.sender].level3Tokens + (((_rewardPercentTimes100 * users[msg.sender].level3Tokens)) / 10000);
-				rewardsToken.approveInternal(address(this), msg.sender, rewardValue);
-				rewardsToken.transferInternal(address(this), msg.sender, rewardValue);
-				users[msg.sender].level3Tokens = 0;
-				users[msg.sender].level3Reward = 0;
-				return;
-			}
-		}else if (level == 4 && users[msg.sender].level4Tokens != 0) {
-			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-				factory.levels(4);
-			if (block.timestamp > factory.startTime() + _lockedDuration * oneDay) {
-				uint256 rewardValue = users[msg.sender].level4Tokens + (((_rewardPercentTimes100 * users[msg.sender].level4Tokens)) / 10000);
-				rewardsToken.approveInternal(address(this), msg.sender, rewardValue);
-				rewardsToken.transferInternal(address(this), msg.sender, rewardValue);
-				users[msg.sender].level4Tokens = 0;
-				users[msg.sender].level4Reward = 0;
 				return;
 			}
 		}
@@ -241,10 +191,8 @@ contract StakingFactory is Ownable {
 	// TODO: init in constructor?
 	// Or create an array and provide user access to create them.
 	function createLevels() internal onlyOwner {
-		levels[1] = LevelData(100000, 4900, 15, 49315, 0);
-		levels[2] = LevelData(400000, 4100, 30, 123288, 0);
-		levels[3] = LevelData(800000, 4300, 45, 172603, 0);
-		levels[4] = LevelData(1500000, 3300, 60, 230137, 0);
+		levels[1] = LevelData(300000, 9900, 30, 295890, 0);
+		levels[2] = LevelData(200000, 4100, 30, 82192, 0);
 
 		level = 1;
 	}
