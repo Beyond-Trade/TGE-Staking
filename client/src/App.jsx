@@ -225,9 +225,9 @@ const DataApp = () => {
 		<Fragment>
 			<App
 				heading={'Mock Token'}
-				rewardContractAddress='0x1C374E6107f959DC15FB43c5383FCD30cb1e5d21'
-				stakingTokenAddress='0x41fae27fA5ab3F47a6665b95Ea1F7e6F4FD92c94'
-				stakingFactoryContractAddress='0xE94FE88Bc4C616D51f86cFEE30E8c0e55aD8b1E7'
+				rewardContractAddress='0x413f85E3D3fD5e39B06065e55692AD50c4b3A417'
+				stakingTokenAddress='0xbBC27DA2b9A6A92bBa9A553Cd1C926ef212814bb'
+				stakingFactoryContractAddress='0xA2354aDD6A5c4eeb891f18063eD6ec3a68BaD9Ab'
 				keys={[
 					'level1Reward',
 					'level1Tokens',
