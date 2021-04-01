@@ -15,7 +15,8 @@
 				}
 			],
 			"stateMutability": "payable",
-			"type": "constructor"
+			"type": "constructor",
+			"payable": true
 		},
 		{
 			"anonymous": false,
@@ -89,7 +90,8 @@
 				}
 			],
 			"stateMutability": "view",
-			"type": "function"
+			"type": "function",
+			"constant": true
 		},
 		{
 			"inputs": [
@@ -132,7 +134,8 @@
 				}
 			],
 			"stateMutability": "view",
-			"type": "function"
+			"type": "function",
+			"constant": true
 		},
 		{
 			"inputs": [],
@@ -145,7 +148,8 @@
 				}
 			],
 			"stateMutability": "view",
-			"type": "function"
+			"type": "function",
+			"constant": true
 		},
 		{
 			"inputs": [
@@ -206,7 +210,8 @@
 				}
 			],
 			"stateMutability": "view",
-			"type": "function"
+			"type": "function",
+			"constant": true
 		},
 		{
 			"inputs": [],
@@ -219,7 +224,8 @@
 				}
 			],
 			"stateMutability": "view",
-			"type": "function"
+			"type": "function",
+			"constant": true
 		},
 		{
 			"inputs": [],
@@ -232,7 +238,8 @@
 				}
 			],
 			"stateMutability": "view",
-			"type": "function"
+			"type": "function",
+			"constant": true
 		},
 		{
 			"inputs": [
@@ -16511,6 +16518,63 @@
 		"version": "0.8.1+commit.df193b15.Emscripten.clang"
 	},
 	"networks": {
+		"42": {
+			"events": {
+				"0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925": {
+					"anonymous": false,
+					"inputs": [
+						{
+							"indexed": true,
+							"internalType": "address",
+							"name": "owner",
+							"type": "address"
+						},
+						{
+							"indexed": true,
+							"internalType": "address",
+							"name": "spender",
+							"type": "address"
+						},
+						{
+							"indexed": false,
+							"internalType": "uint256",
+							"name": "value",
+							"type": "uint256"
+						}
+					],
+					"name": "Approval",
+					"type": "event"
+				},
+				"0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef": {
+					"anonymous": false,
+					"inputs": [
+						{
+							"indexed": true,
+							"internalType": "address",
+							"name": "from",
+							"type": "address"
+						},
+						{
+							"indexed": true,
+							"internalType": "address",
+							"name": "to",
+							"type": "address"
+						},
+						{
+							"indexed": false,
+							"internalType": "uint256",
+							"name": "value",
+							"type": "uint256"
+						}
+					],
+					"name": "Transfer",
+					"type": "event"
+				}
+			},
+			"links": {},
+			"address": "0xedB172EDF2De8554DaB8C69Ab32e73c59c658b53",
+			"transactionHash": "0x8448bdffd2c134236888dedab0701859651ad3e2f5644a6552dc184db1ac109d"
+		},
 		"1617236529793": {
 			"events": {
 				"0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925": {
@@ -16681,10 +16745,125 @@
 			"links": {},
 			"address": "0x4F04e4c62E5017e2B402E2748C8Cd9d6F94d207C",
 			"transactionHash": "0x4eb0f527ac5e0f64b386ad65c7376ed93ba1e342548ecfa3fe332b2868e0cdab"
+		},
+		"1617276474122": {
+			"events": {
+				"0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925": {
+					"anonymous": false,
+					"inputs": [
+						{
+							"indexed": true,
+							"internalType": "address",
+							"name": "owner",
+							"type": "address"
+						},
+						{
+							"indexed": true,
+							"internalType": "address",
+							"name": "spender",
+							"type": "address"
+						},
+						{
+							"indexed": false,
+							"internalType": "uint256",
+							"name": "value",
+							"type": "uint256"
+						}
+					],
+					"name": "Approval",
+					"type": "event"
+				},
+				"0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef": {
+					"anonymous": false,
+					"inputs": [
+						{
+							"indexed": true,
+							"internalType": "address",
+							"name": "from",
+							"type": "address"
+						},
+						{
+							"indexed": true,
+							"internalType": "address",
+							"name": "to",
+							"type": "address"
+						},
+						{
+							"indexed": false,
+							"internalType": "uint256",
+							"name": "value",
+							"type": "uint256"
+						}
+					],
+					"name": "Transfer",
+					"type": "event"
+				}
+			},
+			"links": {},
+			"address": "0xe9297437B3aFf06A03FF12547F2696a5cA4eB9F8",
+			"transactionHash": "0xbaa10a28a79254a646f97b96e752108e69508f046d9de2c77f0ce3356573fb61"
+		},
+		"1617276584584": {
+			"events": {
+				"0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925": {
+					"anonymous": false,
+					"inputs": [
+						{
+							"indexed": true,
+							"internalType": "address",
+							"name": "owner",
+							"type": "address"
+						},
+						{
+							"indexed": true,
+							"internalType": "address",
+							"name": "spender",
+							"type": "address"
+						},
+						{
+							"indexed": false,
+							"internalType": "uint256",
+							"name": "value",
+							"type": "uint256"
+						}
+					],
+					"name": "Approval",
+					"type": "event"
+				},
+				"0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef": {
+					"anonymous": false,
+					"inputs": [
+						{
+							"indexed": true,
+							"internalType": "address",
+							"name": "from",
+							"type": "address"
+						},
+						{
+							"indexed": true,
+							"internalType": "address",
+							"name": "to",
+							"type": "address"
+						},
+						{
+							"indexed": false,
+							"internalType": "uint256",
+							"name": "value",
+							"type": "uint256"
+						}
+					],
+					"name": "Transfer",
+					"type": "event"
+				}
+			},
+			"links": {},
+			"address": "0xA2354aDD6A5c4eeb891f18063eD6ec3a68BaD9Ab",
+			"transactionHash": "0xf0412ca33550a1993ead34c1ec156eb0aea5cc18c002eabba7c82999acc3dd62"
 		}
 	},
 	"schemaVersion": "3.3.4",
-	"updatedAt": "2021-04-01T11:10:18.786Z",
+	"updatedAt": "2021-04-01T11:34:37.428Z",
+	"networkType": "ethereum",
 	"devdoc": {
 		"kind": "dev",
 		"methods": {

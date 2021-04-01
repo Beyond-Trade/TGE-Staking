@@ -30,14 +30,16 @@ class App extends React.Component {
 			level2Tokens: '0',
 			level3Reward: '0',
 			level3Tokens: '0',
+			level4Reward: '0',
+			level4Tokens: '0',
 		},
 	}
 	stakingRewards = ''
 	web3
 
-	rewardContractAddress = '0x4F04e4c62E5017e2B402E2748C8Cd9d6F94d207C'
-	stakingTokenAddress = '0x86ca79eac0cFD9477216F704d47a7D35d0a1f4D2'
-	stakingFactoryContractAddress = '0x7ddf460e304BB77AA475c4A24ACdd522654E1d5c'
+	rewardContractAddress = '0xA2354aDD6A5c4eeb891f18063eD6ec3a68BaD9Ab'
+	stakingTokenAddress = '0x905B4a10C492D5d4246eCB0d994B8a552721649e'
+	stakingFactoryContractAddress = '0x8f120760173163c78Ef554c054cfC6E4d6ce417F'
 
 	async updateBalances() {
 		console.log(this.state)

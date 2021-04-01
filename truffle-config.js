@@ -18,11 +18,13 @@
  *
  */
 
-// const HDWalletProvider = require('@truffle/hdwallet-provider');
+const HDWalletProvider = require('@truffle/hdwallet-provider')
 // const infuraKey = "fj4jll3k.....";
 //
 // const fs = require('fs');
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
+const MNEMONIC = 'dial wave donor staff friend autumn occur town bring brown void bright write minor banner'
+const INFURA_API_KEY = '5e1066f684994b0e99a6fb0817a3eb2f'
 
 module.exports = {
 	contracts_build_directory: './client/src/contracts',
@@ -48,6 +50,17 @@ module.exports = {
 			host: '127.0.0.1', // Localhost (default: none)
 			port: 8545, // Standard Ethereum port (default: none)
 			network_id: '*', // Any network (default: none)
+		},
+		kovan: {
+			provider() {
+				if (!MNEMONIC || !INFURA_API_KEY) {
+					console.error('Environment variables MNEMONIC and INFURA_API_KEY are required')
+					process.exit(1)
+				}
+				return new HDWalletProvider(MNEMONIC, `wss://kovan.infura.io/ws/v3/${INFURA_API_KEY}`)
+			},
+			network_id: 42,
+			gasPrice: 2000000000, // 10 gwei (default: 20 gwei)
 		},
 		// Another network with more advanced options...
 		// advanced: {

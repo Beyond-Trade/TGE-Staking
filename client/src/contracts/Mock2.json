@@ -15,7 +15,8 @@
 				}
 			],
 			"stateMutability": "payable",
-			"type": "constructor"
+			"type": "constructor",
+			"payable": true
 		},
 		{
 			"anonymous": false,
@@ -89,7 +90,8 @@
 				}
 			],
 			"stateMutability": "view",
-			"type": "function"
+			"type": "function",
+			"constant": true
 		},
 		{
 			"inputs": [
@@ -132,7 +134,8 @@
 				}
 			],
 			"stateMutability": "view",
-			"type": "function"
+			"type": "function",
+			"constant": true
 		},
 		{
 			"inputs": [],
@@ -145,7 +148,8 @@
 				}
 			],
 			"stateMutability": "view",
-			"type": "function"
+			"type": "function",
+			"constant": true
 		},
 		{
 			"inputs": [
@@ -206,7 +210,8 @@
 				}
 			],
 			"stateMutability": "view",
-			"type": "function"
+			"type": "function",
+			"constant": true
 		},
 		{
 			"inputs": [],
@@ -219,7 +224,8 @@
 				}
 			],
 			"stateMutability": "view",
-			"type": "function"
+			"type": "function",
+			"constant": true
 		},
 		{
 			"inputs": [],
@@ -232,7 +238,8 @@
 				}
 			],
 			"stateMutability": "view",
-			"type": "function"
+			"type": "function",
+			"constant": true
 		},
 		{
 			"inputs": [
@@ -16529,6 +16536,12 @@
 		"version": "0.8.1+commit.df193b15.Emscripten.clang"
 	},
 	"networks": {
+		"42": {
+			"events": {},
+			"links": {},
+			"address": "0x00702b35344A261A256720092802e4838695b6Ee",
+			"transactionHash": "0x72f32bd9946cca14513d03b2a0c0fd6b6b072b63404097321c4bbf8564bb5793"
+		},
 		"1617236529793": {
 			"events": {},
 			"links": {},
@@ -16597,10 +16610,74 @@
 			"links": {},
 			"address": "0x86ca79eac0cFD9477216F704d47a7D35d0a1f4D2",
 			"transactionHash": "0x62e05d66835874503ce72c4b8878990b448c776869596a494f5668a0d7b82892"
+		},
+		"1617276474122": {
+			"events": {},
+			"links": {},
+			"address": "0x4375960D1E6C5BE2CC108736217C2CeD8bCE24FC",
+			"transactionHash": "0xff7bc57c5f4e51c231c9bc3ace58303b1bba6521796e477bf64b3e55f92a8053"
+		},
+		"1617276584584": {
+			"events": {
+				"0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925": {
+					"anonymous": false,
+					"inputs": [
+						{
+							"indexed": true,
+							"internalType": "address",
+							"name": "owner",
+							"type": "address"
+						},
+						{
+							"indexed": true,
+							"internalType": "address",
+							"name": "spender",
+							"type": "address"
+						},
+						{
+							"indexed": false,
+							"internalType": "uint256",
+							"name": "value",
+							"type": "uint256"
+						}
+					],
+					"name": "Approval",
+					"type": "event"
+				},
+				"0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef": {
+					"anonymous": false,
+					"inputs": [
+						{
+							"indexed": true,
+							"internalType": "address",
+							"name": "from",
+							"type": "address"
+						},
+						{
+							"indexed": true,
+							"internalType": "address",
+							"name": "to",
+							"type": "address"
+						},
+						{
+							"indexed": false,
+							"internalType": "uint256",
+							"name": "value",
+							"type": "uint256"
+						}
+					],
+					"name": "Transfer",
+					"type": "event"
+				}
+			},
+			"links": {},
+			"address": "0x905B4a10C492D5d4246eCB0d994B8a552721649e",
+			"transactionHash": "0x0822bc3f794de83e77d0331aa2abd71aeff3792ffe8a878db7a341ec60739b7f"
 		}
 	},
 	"schemaVersion": "3.3.4",
-	"updatedAt": "2021-04-01T11:10:18.819Z",
+	"updatedAt": "2021-04-01T11:34:37.467Z",
+	"networkType": "ethereum",
 	"devdoc": {
 		"kind": "dev",
 		"methods": {
