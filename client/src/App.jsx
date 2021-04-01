@@ -8,7 +8,7 @@ import { abi as mock2Abi } from './contracts/Mock2.json'
 
 import Web3 from 'web3'
 
-import React from 'react'
+import React, { Fragment } from 'react'
 
 class App extends React.Component {
 	state = {
@@ -37,6 +37,8 @@ class App extends React.Component {
 	stakingRewards = ''
 	web3
 
+	keys = ['level1Reward', 'level1Tokens', 'level2Reward', 'level2Tokens', 'level3Reward', 'level3Tokens', 'level4Tokens', 'level4Reward']
+
 	rewardContractAddress = '0x1f4FE2E48C1980e5074d341475A3132d7cB5cE63'
 	stakingTokenAddress = '0x6D4c2b63f936C4700CE3680c1F62D575B1573931'
 	stakingFactoryContractAddress = '0xA4EEdB661bBB50605B1165E1857205F90E094221'
@@ -51,6 +53,11 @@ class App extends React.Component {
 	}
 
 	async componentWillMount() {
+		const { rewardContractAddress, stakingTokenAddress, stakingFactoryContractAddress, keys } = this.props
+		this.rewardContractAddress = rewardContractAddress
+		this.stakingTokenAddress = stakingTokenAddress
+		this.keys = keys
+		this.stakingFactoryContractAddress = stakingFactoryContractAddress
 		try {
 			await window.ethereum.enable()
 			const web3 = new Web3(Web3.givenProvider || 'http://localhost:8545')
@@ -140,6 +147,7 @@ class App extends React.Component {
 		return (
 			<div className='App'>
 				<header className='App-header'>
+					<h1>{this.props.heading}</h1>
 					<div className='flex' style={{ display: 'flex', width: '800px', alignItems: 'center', justifyContent: 'space-evenly' }}>
 						<div
 							style={{
@@ -183,17 +191,8 @@ class App extends React.Component {
 							<table style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly', margin: '0 auto' }}>
 								<tbody>
 									{Object.keys(this.state.rewards).map((key) => {
-										const keys = [
-											'level1Reward',
-											'level1Tokens',
-											'level2Reward',
-											'level2Tokens',
-											// 'level3Reward',
-											// 'level3Tokens',
-											// 'level4Tokens',
-											// 'level4Reward',
-										]
-										// console.log(key, keys.includes(key))
+										const keys = this.keys
+
 										if (keys.includes(key)) {
 											return (
 												<tr key={key}>
@@ -221,4 +220,46 @@ class App extends React.Component {
 	}
 }
 
-export default App
+const DataApp = () => {
+	return (
+		<Fragment>
+			<App
+				heading={'Mock Token'}
+				rewardContractAddress='0x1C374E6107f959DC15FB43c5383FCD30cb1e5d21'
+				stakingTokenAddress='0x41fae27fA5ab3F47a6665b95Ea1F7e6F4FD92c94'
+				stakingFactoryContractAddress='0xE94FE88Bc4C616D51f86cFEE30E8c0e55aD8b1E7'
+				keys={[
+					'level1Reward',
+					'level1Tokens',
+					'level2Reward',
+					'level2Tokens',
+					'level3Reward',
+					'level3Tokens',
+					'level4Tokens',
+					'level4Reward',
+				]}
+			/>
+			{/* 0xddAce8a3a90a9f5D56CFeA50A55D028E66411886 */}
+
+			{/* 0xA28c5a67e5B087904910Adf4CDE054cF85142De5 */}
+			<App
+				heading={'LP'}
+				rewardContractAddress='0x1C374E6107f959DC15FB43c5383FCD30cb1e5d21'
+				stakingTokenAddress='0xA11a4e0326C87F87D32470b4E85a95F6ec0582d8'
+				stakingFactoryContractAddress='0x1de04B1Ed949eD528fDd001C9AEDc5ACAf5dDF0B'
+				keys={[
+					'level1Reward',
+					'level1Tokens',
+					'level2Reward',
+					'level2Tokens',
+					// 'level3Reward',
+					// 'level3Tokens',
+					// 'level4Tokens',
+					// 'level4Reward',
+				]}
+			/>
+		</Fragment>
+	)
+}
+
+export default DataApp

@@ -18,7 +18,7 @@ module.exports = function (deployer) {
 							await reward.approve(sf.address, 50000000)
 							await reward.increaseAllowance(sf.address, 50000000)
 
-							return sf.deploy(staking.address, 5000000).then(async () => {
+							return sf.deploy(staking.address, 50000000).then(async () => {
 								return
 							})
 						})
