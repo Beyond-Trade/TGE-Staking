@@ -37,12 +37,12 @@ contract Staking is Ownable {
 
 	mapping(address => UserData) users;
 
-	/**Contract which is creating this one. */
-	StakingFactory factory;
-	/**Reward Token */
-	Mock rewardsToken;
-	/**Staking Token */
-	IERC20 stakingToken;
+	StakingFactory factory; // Contract which is creating this one.
+
+	Mock rewardsToken; // Reward Token
+
+	IERC20 stakingToken; // Staking Token
+
 	/**Level Data. TODO: move to library */
 	struct LevelData {
 		uint256 allowedForXCoins;
@@ -54,9 +54,8 @@ contract Staking is Ownable {
 
 	/**deposit function */
 	function deposit(uint256 amount) public {
-		
 		// Check if level has been updated due to time elapsed.
-		
+
 		factory.updateLevelCheck();
 		// Fetch the level.
 		uint256 level = factory.level();
@@ -180,7 +179,7 @@ contract StakingFactory is Ownable {
 	}
 
 	mapping(uint256 => LevelData) public levels;
-	
+
 	// Create Levels
 	// TODO: init in constructor?
 	// Or create an array and provide user access to create them.
