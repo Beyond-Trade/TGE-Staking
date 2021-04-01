@@ -181,7 +181,16 @@ class App extends React.Component {
 							<table style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly', margin: '0 auto' }}>
 								<tbody>
 									{Object.keys(this.state.rewards).map((key) => {
-										const keys = ['level1Reward', 'level1Tokens', 'level2Reward', 'level2Tokens', 'level3Reward', 'level3Tokens']
+										const keys = [
+											'level1Reward',
+											'level1Tokens',
+											'level2Reward',
+											'level2Tokens',
+											'level3Reward',
+											'level3Tokens',
+											'level4Tokens',
+											'level4Reward',
+										]
 										// console.log(key, keys.includes(key))
 										if (keys.includes(key)) {
 											return (

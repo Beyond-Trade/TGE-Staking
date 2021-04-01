@@ -22,12 +22,16 @@ contract Staking is Ownable {
 	struct UserData {
 		bool allowed;
 		bool created;
+		//
 		uint256 level1Tokens;
 		uint256 level2Tokens;
 		uint256 level3Tokens;
+		uint256 level4Tokens;
+		//
 		uint256 level1Reward;
 		uint256 level2Reward;
 		uint256 level3Reward;
+		uint256 level4Reward;
 		//
 		//
 		uint256 tokens;
@@ -87,6 +91,12 @@ contract Staking is Ownable {
 			level = factory.level();
 			amount = remaining;
 		}
+		if (level == 4) {
+			users[msg.sender].level4Tokens += amount;
+			stakingToken.transferFrom(msg.sender, address(this), amount);
+			level = factory.level();
+			amount = remaining;
+		}
 		if (amount > 0) {
 			users[msg.sender].tokens += amount;
 			users[msg.sender].transactions.push(Transaction(block.timestamp, amount));
@@ -98,25 +108,31 @@ contract Staking is Ownable {
 	// TODO: Make this dynamic.
 	function calculateReward() public returns (UserData memory user) {
 		if (users[msg.sender].level1Tokens != 0) {
-			if (block.timestamp > factory.startTime() + 30 * oneDay) {
-				users[msg.sender].level1Reward = ((8219 * users[msg.sender].level1Tokens)) / 10000;
+			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
+				factory.levels(1);
+			if (block.timestamp > factory.startTime() + _lockedDuration * oneDay) {
+				users[msg.sender].level1Reward = ((_rewardPercentTimes100 * users[msg.sender].level1Tokens)) / 10000;
 			}
 		}
 		if (users[msg.sender].level2Tokens != 0) {
-			if (block.timestamp > factory.startTime() + 45 * oneDay) {
-				users[msg.sender].level2Reward = ((3082 * users[msg.sender].level2Tokens)) / 10000;
+			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
+				factory.levels(2);
+			if (block.timestamp > factory.startTime() + _lockedDuration * oneDay) {
+				users[msg.sender].level2Reward = ((_rewardPercentTimes100 * users[msg.sender].level2Tokens)) / 10000;
 			}
 		}
 		if (users[msg.sender].level3Tokens != 0) {
-			if (block.timestamp > factory.startTime() + 60 * oneDay) {
-				users[msg.sender].level3Reward = ((2613 * users[msg.sender].level3Tokens)) / 10000;
+			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
+				factory.levels(3);
+			if (block.timestamp > factory.startTime() + _lockedDuration * oneDay) {
+				users[msg.sender].level3Reward = ((_rewardPercentTimes100 * users[msg.sender].level3Tokens)) / 10000;
 			}
-		} else {
-			if (block.timestamp > factory.startTime() + 60 * oneDay) {
-				// for (uint256 index = 0; index < users[msg.sender].transactions.length; index++) {
-				// 	users[]
-				// }
-				// users[msg.sender].level3Reward = ((2613 * users[msg.sender].level3Tokens)) / 10000;
+		}
+		if (users[msg.sender].level4Tokens != 0) {
+			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
+				factory.levels(4);
+			if (block.timestamp > factory.startTime() + _lockedDuration * oneDay) {
+				users[msg.sender].level4Reward = ((_rewardPercentTimes100 * users[msg.sender].level4Tokens)) / 10000;
 			}
 		}
 		return users[msg.sender];
