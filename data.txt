@@ -32,7 +32,7 @@ Compiling your contracts...
 Starting migrations...
 ======================
 > Network name:    'development'
-> Network id:      1617207101069
+> Network id:      1617236529793
 > Block gas limit: 6721975 (0x6691b7)
 
 
@@ -41,13 +41,13 @@ Starting migrations...
 
    Replacing 'Migrations'
    ----------------------
-   > transaction hash:    0x832e4e982ff20cff534c30c47e134b96ddce66b016939f19706974a654dbfb3b
+   > transaction hash:    0x9178b2000ec29bcc76c657102eb422a61e4deaac16434034ee202c1539cb3052
    > Blocks: 0            Seconds: 0
-   > contract address:    0x399661B835A19c71C8686326B5ca9F34A1468F7a
-   > block number:        272
-   > block timestamp:     1617212799
+   > contract address:    0x394C2788A44d18699C6850960CD0660Ac3BeDB51
+   > block number:        17
+   > block timestamp:     1617236855
    > account:             0x7A475502fB773FA481b90a0F43EE8EEb56EE24D0
-   > balance:             95.60031562
+   > balance:             99.79577036
    > gas used:            246904 (0x3c478)
    > gas price:           20 gwei
    > value sent:          0 ETH
@@ -65,13 +65,13 @@ Starting migrations...
 
    Replacing 'Mock'
    ----------------
-   > transaction hash:    0xae52c4b94764cab69385892d83d48ded146102fdae56f86d67859ef723181278
+   > transaction hash:    0x32db3f0c8b92e4fb20f15c6ee123587d0d8a93036bf7ed437503417d634fc249
    > Blocks: 0            Seconds: 0
-   > contract address:    0x9470FE95111c0CE5e9DA4e2Ee026a94B5D148D43
-   > block number:        274
-   > block timestamp:     1617212801
+   > contract address:    0x4F04e4c62E5017e2B402E2748C8Cd9d6F94d207C
+   > block number:        19
+   > block timestamp:     1617236857
    > account:             0x7A475502fB773FA481b90a0F43EE8EEb56EE24D0
-   > balance:             95.56726066
+   > balance:             99.7627154
    > gas used:            1610235 (0x1891fb)
    > gas price:           20 gwei
    > value sent:          0 ETH
@@ -80,13 +80,13 @@ Starting migrations...
 
    Replacing 'Mock2'
    -----------------
-   > transaction hash:    0x771e37d5491848a355d2a3d9f1dda0f9b59c3ae0f2cefc015776ded5e6e9a71b
+   > transaction hash:    0xfe3bb643f9f67b233e6750ed5eda8389f047ea07560d8ed7e06ac8c066aabb6a
    > Blocks: 0            Seconds: 0
-   > contract address:    0x82e7C6F8c8E1A732c4e9d6acEc19BBb1fC07Ce4E
-   > block number:        275
-   > block timestamp:     1617212801
+   > contract address:    0x86ca79eac0cFD9477216F704d47a7D35d0a1f4D2
+   > block number:        20
+   > block timestamp:     1617236857
    > account:             0x7A475502fB773FA481b90a0F43EE8EEb56EE24D0
-   > balance:             95.53482208
+   > balance:             99.73027682
    > gas used:            1621929 (0x18bfa9)
    > gas price:           20 gwei
    > value sent:          0 ETH
@@ -95,28 +95,28 @@ Starting migrations...
 
    Replacing 'StakingFactory'
    --------------------------
-   > transaction hash:    0x4194840bf642f702f9f60f279e6743d5bb1f450b969072c1824631620b019c3c
+   > transaction hash:    0xcc1adb9b5162fb3ce191c92527902c0ff1dd589a2144f15b3a6040d4d16ef006
    > Blocks: 0            Seconds: 0
-   > contract address:    0x805b5479041E0A459E00f6249f1D832c58CC694e
-   > block number:        276
-   > block timestamp:     1617212802
+   > contract address:    0x7ddf460e304BB77AA475c4A24ACdd522654E1d5c
+   > block number:        21
+   > block timestamp:     1617236859
    > account:             0x7A475502fB773FA481b90a0F43EE8EEb56EE24D0
-   > balance:             95.46455006
-   > gas used:            3513601 (0x359d01)
+   > balance:             99.6584659
+   > gas used:            3590546 (0x36c992)
    > gas price:           20 gwei
    > value sent:          0 ETH
-   > total cost:          0.07027202 ETH
+   > total cost:          0.07181092 ETH
 
 
    > Saving migration to chain.
    > Saving artifacts
    -------------------------------------
-   > Total cost:           0.1349153 ETH
+   > Total cost:           0.1364542 ETH
 
 
 Summary
 =======
 > Total deployments:   4
-> Final cost:          0.13985338 ETH
+> Final cost:          0.14139228 ETH
 
 

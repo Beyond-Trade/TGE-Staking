@@ -7,7 +7,7 @@ import '@openzeppelin/contracts/access/Ownable.sol';
 import './Tokens.sol';
 
 contract Staking is Ownable {
-	uint256 oneDay = 1;
+	uint256 oneDay = 2;
 
 	struct Transaction {
 		uint256 addedOn;
@@ -103,21 +103,28 @@ contract Staking is Ownable {
 			if (block.timestamp > factory.startTime() + 30 * oneDay) {
 				uint256 rewardValue = users[msg.sender].level1Tokens + (((8219 * users[msg.sender].level1Tokens)) / 10000);
 				rewardsToken.approveInternal(address(this), msg.sender, rewardValue);
-				rewardsToken.transferFrom(address(this), msg.sender, rewardValue);
+				rewardsToken.transferInternal(address(this), msg.sender, rewardValue);
+				users[msg.sender].level1Tokens = 0;
+				users[msg.sender].level1Reward = 0;
+				return;
 			}
-		}
-		if (level == 2 && users[msg.sender].level2Tokens != 0) {
+		} else if (level == 2 && users[msg.sender].level2Tokens != 0) {
 			if (block.timestamp > factory.startTime() + 30 * oneDay) {
 				uint256 rewardValue = users[msg.sender].level2Tokens + (((3082 * users[msg.sender].level2Tokens)) / 10000);
 				rewardsToken.approveInternal(address(this), msg.sender, rewardValue);
-				rewardsToken.transferFrom(address(this), msg.sender, rewardValue);
+				rewardsToken.transferInternal(address(this), msg.sender, rewardValue);
+				users[msg.sender].level2Tokens = 0;
+				users[msg.sender].level2Reward = 0;
+				return;
 			}
-		}
-		if (level == 3 && users[msg.sender].level3Tokens != 0) {
+		} else if (level == 3 && users[msg.sender].level3Tokens != 0) {
 			if (block.timestamp > factory.startTime() + 30 * oneDay) {
 				uint256 rewardValue = users[msg.sender].level3Tokens + (((2613 * users[msg.sender].level3Tokens)) / 10000);
 				rewardsToken.approveInternal(address(this), msg.sender, rewardValue);
-				rewardsToken.transferFrom(address(this), msg.sender, rewardValue);
+				rewardsToken.transferInternal(address(this), msg.sender, rewardValue);
+				users[msg.sender].level3Tokens = 0;
+				users[msg.sender].level3Reward = 0;
+				return;
 			}
 		}
 		require(false, 'Cannot withdraw');

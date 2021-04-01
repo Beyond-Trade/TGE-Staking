@@ -35,9 +35,9 @@ class App extends React.Component {
 	stakingRewards = ''
 	web3
 
-	rewardContractAddress = '0x9470FE95111c0CE5e9DA4e2Ee026a94B5D148D43'
-	stakingTokenAddress = '0x82e7C6F8c8E1A732c4e9d6acEc19BBb1fC07Ce4E'
-	stakingFactoryContractAddress = '0x805b5479041E0A459E00f6249f1D832c58CC694e'
+	rewardContractAddress = '0x4F04e4c62E5017e2B402E2748C8Cd9d6F94d207C'
+	stakingTokenAddress = '0x86ca79eac0cFD9477216F704d47a7D35d0a1f4D2'
+	stakingFactoryContractAddress = '0x7ddf460e304BB77AA475c4A24ACdd522654E1d5c'
 
 	async updateBalances() {
 		console.log(this.state)
@@ -90,7 +90,17 @@ class App extends React.Component {
 			const staking = new web3.eth.Contract(stakingAbi, this.stakingRewards)
 			const stakingToken = new web3.eth.Contract(mock2Abi, this.stakingTokenAddress)
 
-			await staking.methods.withdraw(this.state.rewardLevel).call()
+			await staking.methods.withdraw(this.state.rewardLevel).send({ from: this.state.owner })
+
+			const estimatedReward = await this.calculateReward(this.state.staking)
+			await this.updateBalances()
+			console.log(estimatedReward)
+
+			alert(JSON.stringify(estimatedReward))
+			this.setState({
+				rewards: estimatedReward,
+			})
+			this.level()
 			this.level()
 		} catch (err) {
 			alert(err)
