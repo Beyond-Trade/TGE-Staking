@@ -2,6 +2,12 @@
 Compiling your contracts...
 ===========================
 > Compiling ./contracts/BYN.sol
+> Compiling ./contracts/Migrations.sol
+> Compiling ./contracts/Tokens.sol
+> Compiling @openzeppelin/contracts/access/Ownable.sol
+> Compiling @openzeppelin/contracts/token/ERC20/ERC20.sol
+> Compiling @openzeppelin/contracts/token/ERC20/IERC20.sol
+> Compiling @openzeppelin/contracts/utils/Context.sol
 > Compilation warnings encountered:
 
     Warning: Unused local variable.
@@ -39,15 +45,15 @@ Starting migrations...
 1_initial_migration.js
 ======================
 
-   Replacing 'Migrations'
+   Deploying 'Migrations'
    ----------------------
-   > transaction hash:    0x9178b2000ec29bcc76c657102eb422a61e4deaac16434034ee202c1539cb3052
+   > transaction hash:    0x0b11626822356990b2ea7fd8438d1dc0187ac6749f873263d2a153c9fd114ac4
    > Blocks: 0            Seconds: 0
-   > contract address:    0x394C2788A44d18699C6850960CD0660Ac3BeDB51
-   > block number:        17
-   > block timestamp:     1617236855
+   > contract address:    0x1787be16883132226634feF64E611Fd72d6682AC
+   > block number:        41
+   > block timestamp:     1617237325
    > account:             0x7A475502fB773FA481b90a0F43EE8EEb56EE24D0
-   > balance:             99.79577036
+   > balance:             99.40938474
    > gas used:            246904 (0x3c478)
    > gas price:           20 gwei
    > value sent:          0 ETH
@@ -63,45 +69,45 @@ Starting migrations...
 2_byn.js
 ========
 
-   Replacing 'Mock'
+   Deploying 'Mock'
    ----------------
-   > transaction hash:    0x32db3f0c8b92e4fb20f15c6ee123587d0d8a93036bf7ed437503417d634fc249
+   > transaction hash:    0x5a5872a27c12dc58d9394407f0e193b7f006bb755a6ef8baa3457f38079148db
    > Blocks: 0            Seconds: 0
-   > contract address:    0x4F04e4c62E5017e2B402E2748C8Cd9d6F94d207C
-   > block number:        19
-   > block timestamp:     1617236857
+   > contract address:    0x4ad334c35Dd393958aBc3F741c6528184e65fb48
+   > block number:        43
+   > block timestamp:     1617237326
    > account:             0x7A475502fB773FA481b90a0F43EE8EEb56EE24D0
-   > balance:             99.7627154
+   > balance:             99.37632978
    > gas used:            1610235 (0x1891fb)
    > gas price:           20 gwei
    > value sent:          0 ETH
    > total cost:          0.0322047 ETH
 
 
-   Replacing 'Mock2'
+   Deploying 'Mock2'
    -----------------
-   > transaction hash:    0xfe3bb643f9f67b233e6750ed5eda8389f047ea07560d8ed7e06ac8c066aabb6a
+   > transaction hash:    0x779adb6d8bee78213a95f994d8a01d48f210b5a7496834da05e5a2a9a22a3fd6
    > Blocks: 0            Seconds: 0
-   > contract address:    0x86ca79eac0cFD9477216F704d47a7D35d0a1f4D2
-   > block number:        20
-   > block timestamp:     1617236857
+   > contract address:    0x5a869ED416A1005e44397e424DBe9068f880B949
+   > block number:        44
+   > block timestamp:     1617237326
    > account:             0x7A475502fB773FA481b90a0F43EE8EEb56EE24D0
-   > balance:             99.73027682
+   > balance:             99.3438912
    > gas used:            1621929 (0x18bfa9)
    > gas price:           20 gwei
    > value sent:          0 ETH
    > total cost:          0.03243858 ETH
 
 
-   Replacing 'StakingFactory'
+   Deploying 'StakingFactory'
    --------------------------
-   > transaction hash:    0xcc1adb9b5162fb3ce191c92527902c0ff1dd589a2144f15b3a6040d4d16ef006
+   > transaction hash:    0xa99db6cdc85caf83016fff3354a94aa77f4d74da3eec9d45130b5d7cff154916
    > Blocks: 0            Seconds: 0
-   > contract address:    0x7ddf460e304BB77AA475c4A24ACdd522654E1d5c
-   > block number:        21
-   > block timestamp:     1617236859
+   > contract address:    0x173f407bE4B22BD81a5E5A1e71f2709ec1B78163
+   > block number:        45
+   > block timestamp:     1617237327
    > account:             0x7A475502fB773FA481b90a0F43EE8EEb56EE24D0
-   > balance:             99.6584659
+   > balance:             99.27208028
    > gas used:            3590546 (0x36c992)
    > gas price:           20 gwei
    > value sent:          0 ETH
