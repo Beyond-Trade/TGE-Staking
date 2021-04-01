@@ -5,9 +5,9 @@ import '@openzeppelin/contracts/token/ERC20/ERC20.sol';
 
 contract Mock is ERC20 {
 	constructor(string memory name, string memory symbol) payable ERC20(name, symbol) {
-		mint(msg.sender, 10000000);
-		increaseAllowance(msg.sender, 10000000);
-		approve(msg.sender, 10000000);
+		mint(msg.sender, 100000000);
+		increaseAllowance(msg.sender, 100000000);
+		approve(msg.sender, 100000000);
 	}
 
 	function mint(address account, uint256 amount) public {
@@ -37,9 +37,9 @@ contract Mock is ERC20 {
 
 contract Mock2 is ERC20 {
 	constructor(string memory name, string memory symbol) payable ERC20(name, symbol) {
-		mint(msg.sender, 10000000);
-		increaseAllowance(msg.sender, 10000000);
-		approve(msg.sender, 10000000);
+		mint(msg.sender, 100000000);
+		increaseAllowance(msg.sender, 100000000);
+		approve(msg.sender, 100000000);
 	}
 
 	function mint(address account, uint256 amount) public {

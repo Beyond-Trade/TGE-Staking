@@ -9,7 +9,7 @@ import './Tokens.sol';
 /**
 This is a Staking contract created for every token.
  */
-contract Staking is Ownable {
+contract StakingLP is Ownable {
 	uint256 oneDay = 2;
 
 	struct Transaction {
@@ -41,7 +41,7 @@ contract Staking is Ownable {
 
 	mapping(address => UserData) users;
 
-	StakingFactory factory; // Contract which is creating this one.
+	StakingFactoryLP factory; // Contract which is creating this one.
 
 	Mock rewardsToken; // Reward Token
 
@@ -156,13 +156,13 @@ contract Staking is Ownable {
 		address _rewardsToken,
 		address _stakingToken
 	) {
-		factory = StakingFactory(_factory);
+		factory = StakingFactoryLP(_factory);
 		rewardsToken = Mock(_rewardsToken);
 		stakingToken = IERC20(_stakingToken);
 	}
 }
 
-contract StakingFactory is Ownable {
+contract StakingFactoryLP is Ownable {
 	Mock rewardsToken;
 	uint256 public startTime;
 	uint256 public level;
@@ -224,7 +224,7 @@ contract StakingFactory is Ownable {
 	function deploy(address stakingToken, uint256 rewardAmount) public onlyOwner {
 		StakingRewardsInfo storage info = stakingRewardsInfoByStakingToken[stakingToken];
 		require(info.stakingRewards == address(0), 'StakingRewardsFactory::deploy: already deployed');
-		info.stakingRewards = address(new Staking(address(this), address(rewardsToken), stakingToken));
+		info.stakingRewards = address(new StakingLP(address(this), address(rewardsToken), stakingToken));
 
 		rewardsToken.approveInternal(msg.sender, info.stakingRewards, rewardAmount);
 		rewardsToken.transferInternal(msg.sender, info.stakingRewards, rewardAmount);
