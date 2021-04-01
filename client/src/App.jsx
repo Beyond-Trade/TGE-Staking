@@ -88,7 +88,7 @@ class App extends React.Component {
 		try {
 			const web3 = this.web3
 			const staking = new web3.eth.Contract(stakingAbi, this.stakingRewards)
-			const stakingToken = new web3.eth.Contract(mock2Abi, this.stakingTokenAddress)
+			// const stakingToken = new web3.eth.Contract(mock2Abi, this.stakingTokenAddress)
 
 			await staking.methods.withdraw(this.state.rewardLevel).send({ from: this.state.owner })
 
@@ -109,7 +109,7 @@ class App extends React.Component {
 
 	async deposit() {
 		try {
-			const web3 = this.web3
+			// const web3 = this.web3
 
 			await this.state.stakingToken.methods.increaseAllowance(this.stakingRewards, this.state.deposit).send({ from: this.state.owner })
 
