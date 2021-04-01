@@ -59,3 +59,24 @@ Migrations dry-run (simulation)
 
    Replacing 'StakingFactory'
    --------------------------
+   > block number:        24125135
+   > block timestamp:     1617292019
+   > account:             0x7A475502fB773FA481b90a0F43EE8EEb56EE24D0
+   > balance:             1.650833914
+   > gas used:            3959062 (0x3c6916)
+   > gas price:           2 gwei
+   > value sent:          0 ETH
+   > total cost:          0.007918124 ETH
+
+
+   Replacing 'Mock2'
+   -----------------
+   > block number:        24125139
+   > block timestamp:     1617292107
+   > account:             0x7A475502fB773FA481b90a0F43EE8EEb56EE24D0
+   > balance:             1.64229109
+   > gas used:            1546965 (0x179ad5)
+   > gas price:           2 gwei
+   > value sent:          0 ETH
+   > total cost:          0.00309393 ETH
+
