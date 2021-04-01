@@ -37,9 +37,9 @@ class App extends React.Component {
 	stakingRewards = ''
 	web3
 
-	rewardContractAddress = '0x5E32D370114aEe42a44e2a55E867A6B3a3D196D6'
-	stakingTokenAddress = '0xd4D8d51945533102174217a0CAA0Aa02eE6718CD'
-	stakingFactoryContractAddress = '0x3F32F4141e0238b66ddf9972D3173b87e41a9E1a'
+	rewardContractAddress = '0x1f4FE2E48C1980e5074d341475A3132d7cB5cE63'
+	stakingTokenAddress = '0x6D4c2b63f936C4700CE3680c1F62D575B1573931'
+	stakingFactoryContractAddress = '0xA4EEdB661bBB50605B1165E1857205F90E094221'
 
 	async updateBalances() {
 		console.log(this.state)
