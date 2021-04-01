@@ -6,6 +6,9 @@ import '@openzeppelin/contracts/access/Ownable.sol';
 
 import './Tokens.sol';
 
+/**
+This is a Staking contract created for every token.
+ */
 contract Staking is Ownable {
 	uint256 oneDay = 2;
 
@@ -13,7 +16,9 @@ contract Staking is Ownable {
 		uint256 addedOn;
 		uint256 amount;
 	}
-
+	/**
+	User Data
+	 */
 	struct UserData {
 		bool allowed;
 		bool created;
@@ -32,9 +37,13 @@ contract Staking is Ownable {
 
 	mapping(address => UserData) users;
 
+	/**Contract which is creating this one. */
 	StakingFactory factory;
+	/**Reward Token */
 	Mock rewardsToken;
+	/**Staking Token */
 	IERC20 stakingToken;
+	/**Level Data. TODO: move to library */
 	struct LevelData {
 		uint256 allowedForXCoins;
 		uint256 rewardPercentTimes100;
@@ -43,12 +52,16 @@ contract Staking is Ownable {
 		uint256 alloted;
 	}
 
+	/**deposit function */
 	function deposit(uint256 amount) public {
-		// 		require(users[msg.sender].allowed);
-		// TODO:add fix for update only if success and succeds.
+		
+		// Check if level has been updated due to time elapsed.
+		
 		factory.updateLevelCheck();
-		// rewardsToken.approveInternal(address(this), msg.sender, amount * 10);
+		// Fetch the level.
 		uint256 level = factory.level();
+		// Check if the amount updates the level and only deposit the amount which just updates
+		// and update the level. Return rest of the staking token to the user.
 		(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
 			factory.levels(level);
 		if (alloted + amount >= allowedForXCoins) {
@@ -72,6 +85,7 @@ contract Staking is Ownable {
 		factory.updateTokens(amount);
 	}
 
+	// TODO: Make this dynamic.
 	function calculateReward() public returns (UserData memory user) {
 		if (users[msg.sender].level1Tokens != 0) {
 			if (block.timestamp > factory.startTime() + 30 * oneDay) {
@@ -98,6 +112,7 @@ contract Staking is Ownable {
 		return users[msg.sender];
 	}
 
+	// Withdraw.
 	function withdraw(uint256 level) public {
 		if (level == 1 && users[msg.sender].level1Tokens != 0) {
 			if (block.timestamp > factory.startTime() + 30 * oneDay) {
@@ -155,6 +170,7 @@ contract StakingFactory is Ownable {
 	// rewards info by staking token
 	mapping(address => StakingRewardsInfo) public stakingRewardsInfoByStakingToken;
 
+	// LevelData
 	struct LevelData {
 		uint256 allowedForXCoins;
 		uint256 rewardPercentTimes100;
@@ -164,7 +180,10 @@ contract StakingFactory is Ownable {
 	}
 
 	mapping(uint256 => LevelData) public levels;
-
+	
+	// Create Levels
+	// TODO: init in constructor?
+	// Or create an array and provide user access to create them.
 	function createLevels() internal onlyOwner {
 		levels[1] = LevelData(300000, 8219, 30, 246575, 0);
 		levels[2] = LevelData(900000, 3082, 45, 184932, 0);
@@ -197,6 +216,7 @@ contract StakingFactory is Ownable {
 		createLevels();
 	}
 
+	// THis fucntion creates the Staking reward.
 	function deploy(address stakingToken, uint256 rewardAmount) public onlyOwner {
 		StakingRewardsInfo storage info = stakingRewardsInfoByStakingToken[stakingToken];
 		require(info.stakingRewards == address(0), 'StakingRewardsFactory::deploy: already deployed');
