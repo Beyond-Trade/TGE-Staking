@@ -163,6 +163,15 @@ export interface Mock2Instance extends Truffle.ContractInstance {
 		estimateGas(account: string | BigNumber, amount: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<number>
 	}
 
+	increaseAllowanceInternal: {
+		(spender: string | BigNumber, addedValue: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<
+			Truffle.TransactionResponse<AllEvents>
+		>
+		call(spender: string | BigNumber, addedValue: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<void>
+		sendTransaction(spender: string | BigNumber, addedValue: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<string>
+		estimateGas(spender: string | BigNumber, addedValue: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<number>
+	}
+
 	transferInternal: {
 		(from: string | BigNumber, to: string | BigNumber, value: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<
 			Truffle.TransactionResponse<AllEvents>

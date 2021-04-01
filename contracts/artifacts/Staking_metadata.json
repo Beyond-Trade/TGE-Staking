@@ -27,6 +27,25 @@
 				"type": "constructor"
 			},
 			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "previousOwner",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "newOwner",
+						"type": "address"
+					}
+				],
+				"name": "OwnershipTransferred",
+				"type": "event"
+			},
+			{
 				"inputs": [],
 				"name": "calculateReward",
 				"outputs": [
@@ -59,6 +78,11 @@
 							},
 							{
 								"internalType": "uint256",
+								"name": "level4Tokens",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
 								"name": "level1Reward",
 								"type": "uint256"
 							},
@@ -70,6 +94,11 @@
 							{
 								"internalType": "uint256",
 								"name": "level3Reward",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "level4Reward",
 								"type": "uint256"
 							},
 							{
@@ -103,22 +132,83 @@
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "owner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "renounceOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "newOwner",
+						"type": "address"
+					}
+				],
+				"name": "transferOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "level",
+						"type": "uint256"
+					}
+				],
+				"name": "withdraw",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
 			}
 		],
 		"devdoc": {
 			"kind": "dev",
-			"methods": {},
+			"methods": {
+				"owner()": {
+					"details": "Returns the address of the current owner."
+				},
+				"renounceOwnership()": {
+					"details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner."
+				},
+				"transferOwnership(address)": {
+					"details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+				}
+			},
 			"version": 1
 		},
 		"userdoc": {
 			"kind": "user",
-			"methods": {},
+			"methods": {
+				"deposit(uint256)": {
+					"notice": "deposit function "
+				}
+			},
+			"notice": "This is a Staking contract created for every token.",
 			"version": 1
 		}
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/BYN.sol": "Staking"
+			"contracts/StakingContract.sol": "Staking"
 		},
 		"evmVersion": "istanbul",
 		"libraries": {},
@@ -164,12 +254,20 @@
 				"dweb:/ipfs/QmTbFya18786ckJfLYUoWau9jBTKfmWnWm5XSViWvB7PXN"
 			]
 		},
-		"contracts/BYN.sol": {
-			"keccak256": "0x2d2747eca3ca0ae004af933e757b50f15766210fb86797262a6db6193cc28a3c",
+		"contracts/StakingContract.sol": {
+			"keccak256": "0x09ca5f471d1270f052fb0179874fc1bec06e93d06de5f3a477952402b5ecca72",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://dc9d0d94861630c38ee50e72c05f4f57035c93b3962dfc6ca9667e384e7ae82e",
-				"dweb:/ipfs/QmdRaeAbb7HNompbVYMCtK3X9HMAVS6Tgeg79qmpHZsMx7"
+				"bzz-raw://a55b7695dc2c2c77ab3d71f80804b43b548660f68b4e6a78bb16943679b48647",
+				"dweb:/ipfs/Qmc32eWM2Ueqvt5n1ya9m2cYxUT74RRGS33i9cNYvEd4Ky"
+			]
+		},
+		"contracts/Tokens.sol": {
+			"keccak256": "0x5f8b7d1739d4b5abf46761c9e57ae0e7f7cf75a66e0aa5ec664bda0200a14247",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://a5990b849d6b81fdd1a56d62e2c75d61cec1e15be2b01ea0cc8da85a6446eac8",
+				"dweb:/ipfs/QmRMgBHPVVmp6GU3C5t6XmPaaj4fbcLGu4iJFSvoRo5xBv"
 			]
 		}
 	},

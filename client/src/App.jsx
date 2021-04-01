@@ -225,9 +225,9 @@ const DataApp = () => {
 		<Fragment>
 			<App
 				heading={'Mock Token'}
-				rewardContractAddress='0x413f85E3D3fD5e39B06065e55692AD50c4b3A417'
-				stakingTokenAddress='0xbBC27DA2b9A6A92bBa9A553Cd1C926ef212814bb'
-				stakingFactoryContractAddress='0xA2354aDD6A5c4eeb891f18063eD6ec3a68BaD9Ab'
+				rewardContractAddress='0x394C2788A44d18699C6850960CD0660Ac3BeDB51'
+				stakingTokenAddress='0x5cC735f12A153458697AF255636a9DB3182133b7'
+				stakingFactoryContractAddress='0x4F04e4c62E5017e2B402E2748C8Cd9d6F94d207C'
 				keys={[
 					'level1Reward',
 					'level1Tokens',
@@ -244,9 +244,9 @@ const DataApp = () => {
 			{/* 0xA28c5a67e5B087904910Adf4CDE054cF85142De5 */}
 			<App
 				heading={'LP'}
-				rewardContractAddress='0x1C374E6107f959DC15FB43c5383FCD30cb1e5d21'
-				stakingTokenAddress='0xA11a4e0326C87F87D32470b4E85a95F6ec0582d8'
-				stakingFactoryContractAddress='0x1de04B1Ed949eD528fDd001C9AEDc5ACAf5dDF0B'
+				rewardContractAddress='0x394C2788A44d18699C6850960CD0660Ac3BeDB51'
+				stakingTokenAddress='0x7Cb5e8f5BC1b1a1B5e35CC222758568e5BC1d804'
+				stakingFactoryContractAddress='0x413f85E3D3fD5e39B06065e55692AD50c4b3A417'
 				keys={[
 					'level1Reward',
 					'level1Tokens',

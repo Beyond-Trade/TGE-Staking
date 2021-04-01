@@ -4,12 +4,12 @@
 
 import { BigNumber } from 'bignumber.js'
 
-export interface StakingFactoryContract extends Truffle.Contract<StakingFactoryInstance> {
+export interface StakingFactoryLPContract extends Truffle.Contract<StakingFactoryLPInstance> {
 	'new'(
 		_rewardsToken: string | BigNumber,
 		_startTime: number | BigNumber | string,
 		meta?: Truffle.TransactionDetails
-	): Promise<StakingFactoryInstance>
+	): Promise<StakingFactoryLPInstance>
 }
 
 export interface OwnershipTransferred {
@@ -22,7 +22,7 @@ export interface OwnershipTransferred {
 
 type AllEvents = OwnershipTransferred
 
-export interface StakingFactoryInstance extends Truffle.ContractInstance {
+export interface StakingFactoryLPInstance extends Truffle.ContractInstance {
 	level(txDetails?: Truffle.TransactionDetails): Promise<BigNumber>
 
 	levels(
@@ -61,23 +61,6 @@ export interface StakingFactoryInstance extends Truffle.ContractInstance {
 		estimateGas(newOwner: string | BigNumber, txDetails?: Truffle.TransactionDetails): Promise<number>
 	}
 
-	deploy: {
-		(stakingToken: string | BigNumber, rewardAmount: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<
-			Truffle.TransactionResponse<AllEvents>
-		>
-		call(stakingToken: string | BigNumber, rewardAmount: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<void>
-		sendTransaction(
-			stakingToken: string | BigNumber,
-			rewardAmount: number | BigNumber | string,
-			txDetails?: Truffle.TransactionDetails
-		): Promise<string>
-		estimateGas(
-			stakingToken: string | BigNumber,
-			rewardAmount: number | BigNumber | string,
-			txDetails?: Truffle.TransactionDetails
-		): Promise<number>
-	}
-
 	updateLevel: {
 		(tokenValue: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<Truffle.TransactionResponse<AllEvents>>
 		call(tokenValue: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<void>
@@ -97,5 +80,22 @@ export interface StakingFactoryInstance extends Truffle.ContractInstance {
 		call(txDetails?: Truffle.TransactionDetails): Promise<void>
 		sendTransaction(txDetails?: Truffle.TransactionDetails): Promise<string>
 		estimateGas(txDetails?: Truffle.TransactionDetails): Promise<number>
+	}
+
+	deploy: {
+		(stakingToken: string | BigNumber, rewardAmount: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<
+			Truffle.TransactionResponse<AllEvents>
+		>
+		call(stakingToken: string | BigNumber, rewardAmount: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<void>
+		sendTransaction(
+			stakingToken: string | BigNumber,
+			rewardAmount: number | BigNumber | string,
+			txDetails?: Truffle.TransactionDetails
+		): Promise<string>
+		estimateGas(
+			stakingToken: string | BigNumber,
+			rewardAmount: number | BigNumber | string,
+			txDetails?: Truffle.TransactionDetails
+		): Promise<number>
 	}
 }

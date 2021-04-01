@@ -2,59 +2,41 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { AdminContract } from './Admin'
-import { BYNContract } from './BYN'
 import { ERC20Contract } from './ERC20'
-import { EventContract } from './Event'
-import { GetContract } from './Get'
 import { IERC20Contract } from './IERC20'
-import { ManageAddressContract } from './ManageAddress'
 import { MigrationsContract } from './Migrations'
 import { MockContract } from './Mock'
 import { Mock2Contract } from './Mock2'
-import { ModifiersContract } from './Modifiers'
 import { OwnableContract } from './Ownable'
-import { SetContract } from './Set'
 import { StakingContract } from './Staking'
 import { StakingFactoryContract } from './StakingFactory'
-import { VariableContract } from './Variable'
+import { StakingFactoryLPContract } from './StakingFactoryLP'
+import { StakingLPContract } from './StakingLP'
 
 declare global {
 	namespace Truffle {
 		interface Artifacts {
-			require(name: 'Admin'): AdminContract
-			require(name: 'BYN'): BYNContract
 			require(name: 'ERC20'): ERC20Contract
-			require(name: 'Event'): EventContract
-			require(name: 'Get'): GetContract
 			require(name: 'IERC20'): IERC20Contract
-			require(name: 'manageAddress'): ManageAddressContract
 			require(name: 'Migrations'): MigrationsContract
 			require(name: 'Mock'): MockContract
 			require(name: 'Mock2'): Mock2Contract
-			require(name: 'Modifiers'): ModifiersContract
 			require(name: 'Ownable'): OwnableContract
-			require(name: 'Set'): SetContract
 			require(name: 'Staking'): StakingContract
 			require(name: 'StakingFactory'): StakingFactoryContract
-			require(name: 'Variable'): VariableContract
+			require(name: 'StakingFactoryLP'): StakingFactoryLPContract
+			require(name: 'StakingLP'): StakingLPContract
 		}
 	}
 }
 
-export { AdminContract, AdminInstance } from './Admin'
-export { BYNContract, BYNInstance } from './BYN'
 export { ERC20Contract, ERC20Instance } from './ERC20'
-export { EventContract, EventInstance } from './Event'
-export { GetContract, GetInstance } from './Get'
 export { IERC20Contract, IERC20Instance } from './IERC20'
-export { ManageAddressContract, ManageAddressInstance } from './ManageAddress'
 export { MigrationsContract, MigrationsInstance } from './Migrations'
 export { MockContract, MockInstance } from './Mock'
 export { Mock2Contract, Mock2Instance } from './Mock2'
-export { ModifiersContract, ModifiersInstance } from './Modifiers'
 export { OwnableContract, OwnableInstance } from './Ownable'
-export { SetContract, SetInstance } from './Set'
 export { StakingContract, StakingInstance } from './Staking'
 export { StakingFactoryContract, StakingFactoryInstance } from './StakingFactory'
-export { VariableContract, VariableInstance } from './Variable'
+export { StakingFactoryLPContract, StakingFactoryLPInstance } from './StakingFactoryLP'
+export { StakingLPContract, StakingLPInstance } from './StakingLP'

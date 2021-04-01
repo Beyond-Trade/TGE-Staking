@@ -1,285 +1,14 @@
 
 Compiling your contracts...
 ===========================
-> Compiling ./contracts/LpStakingContract.sol
-> Compiling ./contracts/StakingContract.sol
-> Compilation warnings encountered:
-
-    Warning: Unused local variable.
-  --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/LpStakingContract.sol:55:30:
-   |
-55 | 		(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-   | 		                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-,Warning: Unused local variable.
-  --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/LpStakingContract.sol:55:62:
-   |
-55 | 		(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-   | 		                                                           ^^^^^^^^^^^^^^^^^^^^^^^
-
-,Warning: Unused local variable.
-  --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/LpStakingContract.sol:55:87:
-   |
-55 | 		(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-   | 		                                                                                    ^^^^^^^^^^^^^^^^^^^^^^
-
-,Warning: Unused local variable.
-   --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/LpStakingContract.sol:102:5:
-    |
-102 | 			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-    | 			 ^^^^^^^^^^^^^^^^^^^^^^^^
-
-,Warning: Unused local variable.
-   --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/LpStakingContract.sol:102:88:
-    |
-102 | 			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-    | 			                                                                                    ^^^^^^^^^^^^^^^^^^^^^^
-
-,Warning: Unused local variable.
-   --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/LpStakingContract.sol:102:112:
-    |
-102 | 			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-    | 			                                                                                                            ^^^^^^^^^^^^^^^
-
-,Warning: Unused local variable.
-   --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/LpStakingContract.sol:109:5:
-    |
-109 | 			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-    | 			 ^^^^^^^^^^^^^^^^^^^^^^^^
-
-,Warning: Unused local variable.
-   --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/LpStakingContract.sol:109:88:
-    |
-109 | 			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-    | 			                                                                                    ^^^^^^^^^^^^^^^^^^^^^^
-
-,Warning: Unused local variable.
-   --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/LpStakingContract.sol:109:112:
-    |
-109 | 			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-    | 			                                                                                                            ^^^^^^^^^^^^^^^
-
-,Warning: Unused local variable.
-   --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/LpStakingContract.sol:121:5:
-    |
-121 | 			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-    | 			 ^^^^^^^^^^^^^^^^^^^^^^^^
-
-,Warning: Unused local variable.
-   --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/LpStakingContract.sol:121:88:
-    |
-121 | 			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-    | 			                                                                                    ^^^^^^^^^^^^^^^^^^^^^^
-
-,Warning: Unused local variable.
-   --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/LpStakingContract.sol:121:112:
-    |
-121 | 			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-    | 			                                                                                                            ^^^^^^^^^^^^^^^
-
-,Warning: Unused local variable.
-   --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/LpStakingContract.sol:133:5:
-    |
-133 | 			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-    | 			 ^^^^^^^^^^^^^^^^^^^^^^^^
-
-,Warning: Unused local variable.
-   --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/LpStakingContract.sol:133:88:
-    |
-133 | 			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-    | 			                                                                                    ^^^^^^^^^^^^^^^^^^^^^^
-
-,Warning: Unused local variable.
-   --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/LpStakingContract.sol:133:112:
-    |
-133 | 			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-    | 			                                                                                                            ^^^^^^^^^^^^^^^
-
-,Warning: Unused local variable.
-  --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/StakingContract.sol:66:30:
-   |
-66 | 		(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-   | 		                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-,Warning: Unused local variable.
-  --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/StakingContract.sol:66:62:
-   |
-66 | 		(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-   | 		                                                           ^^^^^^^^^^^^^^^^^^^^^^^
-
-,Warning: Unused local variable.
-  --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/StakingContract.sol:66:87:
-   |
-66 | 		(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-   | 		                                                                                    ^^^^^^^^^^^^^^^^^^^^^^
-
-,Warning: Unused local variable.
-   --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/StakingContract.sol:126:5:
-    |
-126 | 			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-    | 			 ^^^^^^^^^^^^^^^^^^^^^^^^
-
-,Warning: Unused local variable.
-   --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/StakingContract.sol:126:88:
-    |
-126 | 			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-    | 			                                                                                    ^^^^^^^^^^^^^^^^^^^^^^
-
-,Warning: Unused local variable.
-   --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/StakingContract.sol:126:112:
-    |
-126 | 			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-    | 			                                                                                                            ^^^^^^^^^^^^^^^
-
-,Warning: Unused local variable.
-   --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/StakingContract.sol:133:5:
-    |
-133 | 			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-    | 			 ^^^^^^^^^^^^^^^^^^^^^^^^
-
-,Warning: Unused local variable.
-   --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/StakingContract.sol:133:88:
-    |
-133 | 			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-    | 			                                                                                    ^^^^^^^^^^^^^^^^^^^^^^
-
-,Warning: Unused local variable.
-   --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/StakingContract.sol:133:112:
-    |
-133 | 			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-    | 			                                                                                                            ^^^^^^^^^^^^^^^
-
-,Warning: Unused local variable.
-   --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/StakingContract.sol:140:5:
-    |
-140 | 			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-    | 			 ^^^^^^^^^^^^^^^^^^^^^^^^
-
-,Warning: Unused local variable.
-   --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/StakingContract.sol:140:88:
-    |
-140 | 			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-    | 			                                                                                    ^^^^^^^^^^^^^^^^^^^^^^
-
-,Warning: Unused local variable.
-   --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/StakingContract.sol:140:112:
-    |
-140 | 			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-    | 			                                                                                                            ^^^^^^^^^^^^^^^
-
-,Warning: Unused local variable.
-   --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/StakingContract.sol:147:5:
-    |
-147 | 			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-    | 			 ^^^^^^^^^^^^^^^^^^^^^^^^
-
-,Warning: Unused local variable.
-   --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/StakingContract.sol:147:88:
-    |
-147 | 			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-    | 			                                                                                    ^^^^^^^^^^^^^^^^^^^^^^
-
-,Warning: Unused local variable.
-   --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/StakingContract.sol:147:112:
-    |
-147 | 			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-    | 			                                                                                                            ^^^^^^^^^^^^^^^
-
-,Warning: Unused local variable.
-   --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/StakingContract.sol:159:5:
-    |
-159 | 			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-    | 			 ^^^^^^^^^^^^^^^^^^^^^^^^
-
-,Warning: Unused local variable.
-   --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/StakingContract.sol:159:88:
-    |
-159 | 			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-    | 			                                                                                    ^^^^^^^^^^^^^^^^^^^^^^
-
-,Warning: Unused local variable.
-   --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/StakingContract.sol:159:112:
-    |
-159 | 			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-    | 			                                                                                                            ^^^^^^^^^^^^^^^
-
-,Warning: Unused local variable.
-   --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/StakingContract.sol:171:5:
-    |
-171 | 			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-    | 			 ^^^^^^^^^^^^^^^^^^^^^^^^
-
-,Warning: Unused local variable.
-   --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/StakingContract.sol:171:88:
-    |
-171 | 			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-    | 			                                                                                    ^^^^^^^^^^^^^^^^^^^^^^
-
-,Warning: Unused local variable.
-   --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/StakingContract.sol:171:112:
-    |
-171 | 			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-    | 			                                                                                                            ^^^^^^^^^^^^^^^
-
-,Warning: Unused local variable.
-   --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/StakingContract.sol:182:5:
-    |
-182 | 			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-    | 			 ^^^^^^^^^^^^^^^^^^^^^^^^
-
-,Warning: Unused local variable.
-   --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/StakingContract.sol:182:88:
-    |
-182 | 			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-    | 			                                                                                    ^^^^^^^^^^^^^^^^^^^^^^
-
-,Warning: Unused local variable.
-   --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/StakingContract.sol:182:112:
-    |
-182 | 			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-    | 			                                                                                                            ^^^^^^^^^^^^^^^
-
-,Warning: Unused local variable.
-   --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/StakingContract.sol:193:5:
-    |
-193 | 			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-    | 			 ^^^^^^^^^^^^^^^^^^^^^^^^
-
-,Warning: Unused local variable.
-   --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/StakingContract.sol:193:88:
-    |
-193 | 			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-    | 			                                                                                    ^^^^^^^^^^^^^^^^^^^^^^
-
-,Warning: Unused local variable.
-   --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/StakingContract.sol:193:112:
-    |
-193 | 			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-    | 			                                                                                                            ^^^^^^^^^^^^^^^
-
-,Warning: Function state mutability can be restricted to view
-  --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/LpStakingContract.sol:53:2:
-   |
-53 | 	function checkUpdateLevel(uint256 amount, uint256 level) public returns (uint256, uint256) {
-   | 	^ (Relevant source part starts here and spans across multiple lines).
-
-,Warning: Function state mutability can be restricted to view
-  --> /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/contracts/StakingContract.sol:64:2:
-   |
-64 | 	function checkUpdateLevel(uint256 amount, uint256 level) internal returns (uint256, uint256) {
-   | 	^ (Relevant source part starts here and spans across multiple lines).
-
-
-> Artifacts written to /media/aniket/home/aniket/Work/nonceblox-work/BF_Staking/client/src/contracts
-> Compiled successfully using:
-   - solc: 0.8.1+commit.df193b15.Emscripten.clang
+> Everything is up to date, there is nothing to compile.
 
 
 
 Starting migrations...
 ======================
 > Network name:    'development'
-> Network id:      1617285544603
+> Network id:      1617289380310
 > Block gas limit: 6721975 (0x6691b7)
 
 
@@ -288,13 +17,13 @@ Starting migrations...
 
    Replacing 'Migrations'
    ----------------------
-   > transaction hash:    0x194e111968f0c2d016fe0c2e76a1fb1a1e3e24a0fb2f951f23f0f1cdff88bebd
+   > transaction hash:    0x28b9acd87a4cbc5543c7d5e351446e29c1e6159d0202a0450f52f82c623a9c49
    > Blocks: 0            Seconds: 0
    > contract address:    0xC08D4999396a3C0895A3a733355c9833321D979B
    > block number:        15
-   > block timestamp:     1617287069
+   > block timestamp:     1617289445
    > account:             0x7A475502fB773FA481b90a0F43EE8EEb56EE24D0
-   > balance:             99.6323474
+   > balance:             99.636811
    > gas used:            246904 (0x3c478)
    > gas price:           20 gwei
    > value sent:          0 ETH
@@ -312,13 +41,13 @@ Starting migrations...
 
    Replacing 'Mock'
    ----------------
-   > transaction hash:    0xc67005456e2317e3232df378ab7ba5539ba92f20e7b139bddcf76d2785b6b506
+   > transaction hash:    0xc0ba0851deecaf4bd424a73ecd9a02d9447882fb596669f50e1399b11a09ef70
    > Blocks: 0            Seconds: 0
    > contract address:    0x394C2788A44d18699C6850960CD0660Ac3BeDB51
    > block number:        17
-   > block timestamp:     1617287071
+   > block timestamp:     1617289447
    > account:             0x7A475502fB773FA481b90a0F43EE8EEb56EE24D0
-   > balance:             99.59929196
+   > balance:             99.60375556
    > gas used:            1610259 (0x189213)
    > gas price:           20 gwei
    > value sent:          0 ETH
@@ -327,13 +56,13 @@ Starting migrations...
 
    Replacing 'Mock2'
    -----------------
-   > transaction hash:    0x3b3bd76622e69262477beb73415a85434c074215f43d1d8a8a27500635868543
+   > transaction hash:    0x61bc1d38e148b064866c5208f9fd5a6dd9d6c969e23a49701e65bd0f9bba8805
    > Blocks: 0            Seconds: 0
    > contract address:    0x5cC735f12A153458697AF255636a9DB3182133b7
    > block number:        18
-   > block timestamp:     1617287072
+   > block timestamp:     1617289448
    > account:             0x7A475502fB773FA481b90a0F43EE8EEb56EE24D0
-   > balance:             99.56685314
+   > balance:             99.57131674
    > gas used:            1621941 (0x18bfb5)
    > gas price:           20 gwei
    > value sent:          0 ETH
@@ -342,28 +71,28 @@ Starting migrations...
 
    Replacing 'StakingFactory'
    --------------------------
-   > transaction hash:    0x47c7f2c4cfd519c827b73ee04dc27341f6a6d76d498f58c99a282079e91736f4
+   > transaction hash:    0xe7d6674a1620bdedfbaa4007a3e319d7f9479c9db2478fdf6083e0e702e6063d
    > Blocks: 0            Seconds: 0
    > contract address:    0x4F04e4c62E5017e2B402E2748C8Cd9d6F94d207C
    > block number:        19
-   > block timestamp:     1617287073
+   > block timestamp:     1617289449
    > account:             0x7A475502fB773FA481b90a0F43EE8EEb56EE24D0
-   > balance:             99.48219464
-   > gas used:            4232925 (0x4096dd)
+   > balance:             99.4839873
+   > gas used:            4366472 (0x42a088)
    > gas price:           20 gwei
    > value sent:          0 ETH
-   > total cost:          0.0846585 ETH
+   > total cost:          0.08732944 ETH
 
 
    Replacing 'Mock2'
    -----------------
-   > transaction hash:    0xfd52004b26c6041077f4f17478fe65eb0a28fdb52a3bfbfd1ba6fade733f4a60
+   > transaction hash:    0xa5cb4de5038ad6512dccdcbe804ce80f49d56b9b52c95939c7c288898d4cbf0c
    > Blocks: 0            Seconds: 0
    > contract address:    0x7Cb5e8f5BC1b1a1B5e35CC222758568e5BC1d804
    > block number:        23
-   > block timestamp:     1617287075
+   > block timestamp:     1617289452
    > account:             0x7A475502fB773FA481b90a0F43EE8EEb56EE24D0
-   > balance:             99.39142826
+   > balance:             99.3927863
    > gas used:            1621965 (0x18bfcd)
    > gas price:           20 gwei
    > value sent:          0 ETH
@@ -372,13 +101,13 @@ Starting migrations...
 
    Replacing 'StakingFactoryLP'
    ----------------------------
-   > transaction hash:    0xcb4b4b701cf9e30d80f63df1b955099d2cf4cfd5bb7fb1b287c2ca085ace5376
+   > transaction hash:    0xf01bff5b818a8ba646276eee37654c07b05d8efd91ea4d6b958a61ca8cd70daa
    > Blocks: 0            Seconds: 0
    > contract address:    0x413f85E3D3fD5e39B06065e55692AD50c4b3A417
    > block number:        24
-   > block timestamp:     1617287075
+   > block timestamp:     1617289453
    > account:             0x7A475502fB773FA481b90a0F43EE8EEb56EE24D0
-   > balance:             99.32596722
+   > balance:             99.32732526
    > gas used:            3273052 (0x31f15c)
    > gas price:           20 gwei
    > value sent:          0 ETH
@@ -388,12 +117,12 @@ Starting migrations...
    > Saving migration to chain.
    > Saving artifacts
    -------------------------------------
-   > Total cost:          0.24720284 ETH
+   > Total cost:          0.24987378 ETH
 
 
 Summary
 =======
 > Total deployments:   6
-> Final cost:          0.25214092 ETH
+> Final cost:          0.25481186 ETH
 
 

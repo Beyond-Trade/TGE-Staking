@@ -213,6 +213,13 @@
 				"type": "function"
 			},
 			{
+				"inputs": [],
+				"name": "updateLevelCheck",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "uint256",
@@ -249,7 +256,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/BYN.sol": "StakingFactory"
+			"contracts/StakingContract.sol": "StakingFactory"
 		},
 		"evmVersion": "istanbul",
 		"libraries": {},
@@ -295,12 +302,20 @@
 				"dweb:/ipfs/QmTbFya18786ckJfLYUoWau9jBTKfmWnWm5XSViWvB7PXN"
 			]
 		},
-		"contracts/BYN.sol": {
-			"keccak256": "0x2d2747eca3ca0ae004af933e757b50f15766210fb86797262a6db6193cc28a3c",
+		"contracts/StakingContract.sol": {
+			"keccak256": "0x09ca5f471d1270f052fb0179874fc1bec06e93d06de5f3a477952402b5ecca72",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://dc9d0d94861630c38ee50e72c05f4f57035c93b3962dfc6ca9667e384e7ae82e",
-				"dweb:/ipfs/QmdRaeAbb7HNompbVYMCtK3X9HMAVS6Tgeg79qmpHZsMx7"
+				"bzz-raw://a55b7695dc2c2c77ab3d71f80804b43b548660f68b4e6a78bb16943679b48647",
+				"dweb:/ipfs/Qmc32eWM2Ueqvt5n1ya9m2cYxUT74RRGS33i9cNYvEd4Ky"
+			]
+		},
+		"contracts/Tokens.sol": {
+			"keccak256": "0x5f8b7d1739d4b5abf46761c9e57ae0e7f7cf75a66e0aa5ec664bda0200a14247",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://a5990b849d6b81fdd1a56d62e2c75d61cec1e15be2b01ea0cc8da85a6446eac8",
+				"dweb:/ipfs/QmRMgBHPVVmp6GU3C5t6XmPaaj4fbcLGu4iJFSvoRo5xBv"
 			]
 		}
 	},

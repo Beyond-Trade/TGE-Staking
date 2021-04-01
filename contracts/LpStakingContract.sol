@@ -12,10 +12,12 @@ This is a Staking contract created for every token.
 contract StakingLP is Ownable {
 	uint256 oneDay = 2;
 
-	struct Transaction {
-		uint256 addedOn;
-		uint256 amount;
-	}
+	StakingFactoryLP factory; // Contract which is creating this one.
+
+	Mock rewardsToken; // Reward Token
+
+	IERC20 stakingToken; // Staking Token
+
 	/**
 	User Data
 	 */
@@ -36,16 +38,7 @@ contract StakingLP is Ownable {
 		//
 		uint256 tokens;
 		uint256 lastUpdateDate;
-		Transaction[] transactions;
 	}
-
-	mapping(address => UserData) users;
-
-	StakingFactoryLP factory; // Contract which is creating this one.
-
-	Mock rewardsToken; // Reward Token
-
-	IERC20 stakingToken; // Staking Token
 
 	/**Level Data. TODO: move to library */
 	struct LevelData {
@@ -55,6 +48,7 @@ contract StakingLP is Ownable {
 		uint256 allowedReward;
 		uint256 alloted;
 	}
+	mapping(address => UserData) users;
 
 	function checkUpdateLevel(uint256 amount, uint256 level) public returns (uint256, uint256) {
 		uint256 remaining;
@@ -103,7 +97,6 @@ contract StakingLP is Ownable {
 		factory.updateTokens(amount);
 	}
 
-	// TODO: Make this dynamic.
 	function calculateReward() public returns (UserData memory user) {
 		if (users[msg.sender].level1Tokens != 0) {
 			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
@@ -173,9 +166,6 @@ contract StakingFactoryLP is Ownable {
 		uint256 rewardAmount;
 	}
 
-	// rewards info by staking token
-	mapping(address => StakingRewardsInfo) public stakingRewardsInfoByStakingToken;
-
 	// LevelData
 	struct LevelData {
 		uint256 allowedForXCoins;
@@ -184,6 +174,9 @@ contract StakingFactoryLP is Ownable {
 		uint256 allowedReward;
 		uint256 alloted;
 	}
+
+	// rewards info by staking token
+	mapping(address => StakingRewardsInfo) public stakingRewardsInfoByStakingToken;
 
 	mapping(uint256 => LevelData) public levels;
 
