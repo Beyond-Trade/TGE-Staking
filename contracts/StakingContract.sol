@@ -87,7 +87,8 @@ contract Staking is Ownable {
 			(amount, remaining) = checkUpdateLevel(amount, level);
 			users[msg.sender].level1Tokens += amount;
 			stakingToken.transferFrom(msg.sender, address(this), amount);
-			factory.updateLevel(amount);
+			factory.updateTokens(amount);
+			
 			level = factory.level();
 			amount = remaining;
 		}
@@ -95,7 +96,8 @@ contract Staking is Ownable {
 			(amount, remaining) = checkUpdateLevel(amount, level);
 			users[msg.sender].level2Tokens += amount;
 			stakingToken.transferFrom(msg.sender, address(this), amount);
-			factory.updateLevel(amount);
+			factory.updateTokens(amount);
+			
 			level = factory.level();
 			amount = remaining;
 		}
@@ -103,7 +105,8 @@ contract Staking is Ownable {
 			(amount, remaining) = checkUpdateLevel(amount, level);
 			users[msg.sender].level3Tokens += amount;
 			stakingToken.transferFrom(msg.sender, address(this), amount);
-			factory.updateLevel(amount);
+			factory.updateTokens(amount);
+			
 			level = factory.level();
 			amount = remaining;
 		}
@@ -111,12 +114,12 @@ contract Staking is Ownable {
 			(amount, remaining) = checkUpdateLevel(amount, level);
 			users[msg.sender].level4Tokens += amount;
 			stakingToken.transferFrom(msg.sender, address(this), amount);
+			factory.updateTokens(amount);
 			level = factory.level();
 			amount = remaining;
 		}
 
 		users[msg.sender].lastUpdateDate = block.timestamp;
-		factory.updateTokens(amount);
 	}
 
 	function calculateReward() public view returns (UserData memory user) {
@@ -146,7 +149,7 @@ contract Staking is Ownable {
 		if (userDetails.level4Tokens != 0) {
 			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
 				factory.levels(4);
-			if (block.timestamp > factory.startTime() + _lockedDuration * oneDay) {
+			if (block.timestamp > users[msg.sender].lastUpdateDate + _lockedDuration * oneDay) {
 				userDetails.level4Reward = ((_rewardPercentTimes100 * userDetails.level4Tokens)) / 10000;
 			}
 		}
@@ -225,7 +228,6 @@ contract StakingFactory is Ownable {
 		uint256 alloted;
 	}
 
-
 	address public stakingContractAddress;
 	// rewards info by staking token
 	mapping(address => StakingRewardsInfo) public stakingRewardsInfoByStakingToken;
@@ -243,10 +245,10 @@ contract StakingFactory is Ownable {
 	function deploy(address stakingToken, uint256 rewardAmount) public onlyOwner {
 		StakingRewardsInfo storage info = stakingRewardsInfoByStakingToken[stakingToken];
 		require(info.stakingRewards == address(0), 'StakingRewardsFactory::deploy: already deployed');
-		
+
 		info.stakingRewards = address(new Staking(address(this), address(rewardsToken), stakingToken));
 
-		stakingContractAddress=info.stakingRewards ;
+		stakingContractAddress = info.stakingRewards;
 
 		rewardsToken.approveInternal(msg.sender, info.stakingRewards, rewardAmount);
 		rewardsToken.transferInternal(msg.sender, info.stakingRewards, rewardAmount);
@@ -265,26 +267,24 @@ contract StakingFactory is Ownable {
 		level = 1;
 	}
 
-	modifier restricted(){
-		require(msg.sender == stakingContractAddress, "Sender has to be a staking contract.");
+	modifier restricted() {
+		require(msg.sender == stakingContractAddress, 'Sender has to be a staking contract.');
 		_;
-	}
-
-	function updateLevel(uint256 tokenValue) external restricted {
-		if (levels[level].alloted + tokenValue >= levels[level].allowedForXCoins) {
-			level += 1;
-		}
 	}
 
 	function updateTokens(uint256 tokenValue) external restricted {
 		levels[level].alloted += tokenValue;
+		if(level==4){
+			return;
+		}
+		if (levels[level].alloted >= levels[level].allowedForXCoins) {
+			level += 1;
+		}
 	}
 
-	function updateLevelCheck() external  {
+	function updateLevelCheck() external {
 		if (block.timestamp > startTime + 60 * 24 * 60) {
 			level = 4;
 		}
 	}
-
-	
 }
