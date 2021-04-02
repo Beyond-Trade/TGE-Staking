@@ -11,7 +11,7 @@ The StakingFactory receives a rewardToken and deploys a Staking contract for eac
 
 Run `truffle migrate`.
 
-Copy the contract addresses into the `client/App.jsx`
+Copy the contract addresses into the `client/src/config.js`
 
 `cd client`
 
