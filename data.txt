@@ -5,78 +5,124 @@ Compiling your contracts...
 
 
 
-Migrations dry-run (simulation)
-===============================
-> Network name:    'kovan-fork'
-> Network id:      42
-> Block gas limit: 12500000 (0xbebc20)
+Starting migrations...
+======================
+> Network name:    'development'
+> Network id:      1617352422363
+> Block gas limit: 6721975 (0x6691b7)
 
 
 1_initial_migration.js
 ======================
 
-   Replacing 'Migrations'
+   Deploying 'Migrations'
    ----------------------
-   > block number:        24125131
-   > block timestamp:     1617291864
+   > transaction hash:    0xc5365a7c6a4c496b8ee6586754da0f33e2642819624a4432ed5e660fa42e45e4
+   > Blocks: 0            Seconds: 0
+   > contract address:    0x32Df84e39A5008714F1e45DFADb0505bb2a9eE2B
+   > block number:        1
+   > block timestamp:     1617352433
    > account:             0x7A475502fB773FA481b90a0F43EE8EEb56EE24D0
-   > balance:             1.664971464
-   > gas used:            231904 (0x389e0)
-   > gas price:           2 gwei
+   > balance:             99.99506192
+   > gas used:            246904 (0x3c478)
+   > gas price:           20 gwei
    > value sent:          0 ETH
-   > total cost:          0.000463808 ETH
+   > total cost:          0.00493808 ETH
 
+
+   > Saving migration to chain.
+   > Saving artifacts
    -------------------------------------
-   > Total cost:         0.000463808 ETH
+   > Total cost:          0.00493808 ETH
 
 
 2_byn.js
 ========
 
-   Replacing 'Mock'
+   Deploying 'Mock'
    ----------------
-   > block number:        24125133
-   > block timestamp:     1617291902
+   > transaction hash:    0xbdd79bfc1a8fe53bf2e0da37567ec1d108dec52e9f42ab3880b85746592aaa5b
+   > Blocks: 0            Seconds: 0
+   > contract address:    0xe9297437B3aFf06A03FF12547F2696a5cA4eB9F8
+   > block number:        3
+   > block timestamp:     1617352435
    > account:             0x7A475502fB773FA481b90a0F43EE8EEb56EE24D0
-   > balance:             1.66184592
-   > gas used:            1535259 (0x176d1b)
-   > gas price:           2 gwei
+   > balance:             99.96200648
+   > gas used:            1610259 (0x189213)
+   > gas price:           20 gwei
    > value sent:          0 ETH
-   > total cost:          0.003070518 ETH
+   > total cost:          0.03220518 ETH
 
 
-   Replacing 'Mock2'
+   Deploying 'Mock2'
    -----------------
-   > block number:        24125134
-   > block timestamp:     1617291929
+   > transaction hash:    0xc1dcb02c8c3fbdd441bddcb2ef749942d7759b72f3965c826abc478806c18c3c
+   > Blocks: 0            Seconds: 0
+   > contract address:    0x4375960D1E6C5BE2CC108736217C2CeD8bCE24FC
+   > block number:        4
+   > block timestamp:     1617352436
    > account:             0x7A475502fB773FA481b90a0F43EE8EEb56EE24D0
-   > balance:             1.658752038
-   > gas used:            1546941 (0x179abd)
-   > gas price:           2 gwei
+   > balance:             99.92956766
+   > gas used:            1621941 (0x18bfb5)
+   > gas price:           20 gwei
    > value sent:          0 ETH
-   > total cost:          0.003093882 ETH
+   > total cost:          0.03243882 ETH
 
 
-   Replacing 'StakingFactory'
+   Deploying 'StakingFactory'
    --------------------------
-   > block number:        24125135
-   > block timestamp:     1617292019
+   > transaction hash:    0xc16a6572e314ee6b9b59d9b800877f2b6c98762b1d1a69b715e744eb283d3658
+   > Blocks: 0            Seconds: 0
+   > contract address:    0x83c73CdFc0F1DFe2e052bf5C5486dCAE48e8A561
+   > block number:        5
+   > block timestamp:     1617352437
    > account:             0x7A475502fB773FA481b90a0F43EE8EEb56EE24D0
-   > balance:             1.650833914
-   > gas used:            3959062 (0x3c6916)
-   > gas price:           2 gwei
+   > balance:             99.82662542
+   > gas used:            5147112 (0x4e89e8)
+   > gas price:           20 gwei
    > value sent:          0 ETH
-   > total cost:          0.007918124 ETH
+   > total cost:          0.10294224 ETH
 
 
    Replacing 'Mock2'
    -----------------
-   > block number:        24125139
-   > block timestamp:     1617292107
+   > transaction hash:    0x3458bff5f3869d514f032e6822aa6f54d584dc6f592c7ac8ffc68e36ba3f2957
+   > Blocks: 0            Seconds: 0
+   > contract address:    0x24fCc9642AcF46bae3d3FD9a34B2C25DAffBb3Bc
+   > block number:        9
+   > block timestamp:     1617352438
    > account:             0x7A475502fB773FA481b90a0F43EE8EEb56EE24D0
-   > balance:             1.64229109
-   > gas used:            1546965 (0x179ad5)
-   > gas price:           2 gwei
+   > balance:             99.72009098
+   > gas used:            1621965 (0x18bfcd)
+   > gas price:           20 gwei
    > value sent:          0 ETH
-   > total cost:          0.00309393 ETH
+   > total cost:          0.0324393 ETH
+
+
+   Deploying 'StakingFactoryLP'
+   ----------------------------
+   > transaction hash:    0x49b93dce46dee593d81929b72401761ecc2ff3999063964a38ec57914e9ffb7c
+   > Blocks: 0            Seconds: 0
+   > contract address:    0x78951ED8028E7C10174F67D3381B5884CA2dA800
+   > block number:        10
+   > block timestamp:     1617352439
+   > account:             0x7A475502fB773FA481b90a0F43EE8EEb56EE24D0
+   > balance:             99.65593188
+   > gas used:            3207955 (0x30f313)
+   > gas price:           20 gwei
+   > value sent:          0 ETH
+   > total cost:          0.0641591 ETH
+
+
+   > Saving migration to chain.
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:          0.26418464 ETH
+
+
+Summary
+=======
+> Total deployments:   6
+> Final cost:          0.26912272 ETH
+
 
