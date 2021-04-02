@@ -6,3 +6,13 @@
 -   StakingFactory
 
 The StakingFactory receives a rewardToken and deploys a Staking contract for each Staking token in which the currency is staked.
+
+## Running Instructions
+
+Run `truffle migrate`.
+
+Copy the contract addresses into the `client/App.jsx`
+
+`cd client`
+
+`yarn start`
