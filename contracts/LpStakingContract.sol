@@ -236,8 +236,8 @@ contract StakingFactoryLP is Ownable {
 	// Create Levels
 	// Or create an array and provide user access to create them.
 	function createLevels() internal {
-		levels[1] = LevelData(100000, 4900, 15, 49315, 0);
-		levels[2] = LevelData(400000, 4100, 30, 123288, 0);
+		levels[1] = LevelData(300000, 9900, 30, 295890, 0);
+		levels[2] = LevelData(200000, 4100, 30, 82192, 0);
 
 		level = 1;
 	}
