@@ -2,7 +2,11 @@
 import './App.css'
 
 import { abi as stakingFAbi } from './contracts/StakingFactory.json'
+import { abi as LpStakingFAbi } from './contracts/LpStakingFactory.json'
+
 import { abi as stakingAbi } from './contracts/Staking.json'
+import { abi as LpStakingAbi } from './contracts/LpStaking.json'
+
 import { abi as mock1Abi } from './contracts/Mock.json'
 import { abi as mock2Abi } from './contracts/Mock2.json'
 
@@ -26,6 +30,7 @@ class App extends React.Component {
 			staking: 0,
 			reward: 0,
 		},
+		withdrawAmount: 0,
 		stakingFactory: null,
 		rewardToken: null,
 		stakingToken: null,
@@ -100,6 +105,29 @@ class App extends React.Component {
 		this.setState({ level })
 	}
 
+	async withdrawByAmount() {
+		try {
+			const web3 = this.web3
+			const staking = new web3.eth.Contract(stakingAbi, this.stakingRewards)
+			// const stakingToken = new web3.eth.Contract(mock2Abi, this.stakingTokenAddress)
+
+			await staking.methods.withdrawByAmount(this.state.withdrawAmount).send({ from: this.state.owner })
+
+			const estimatedReward = await this.calculateReward(this.state.staking)
+			await this.updateBalances()
+			console.log(estimatedReward)
+
+			alert(JSON.stringify(estimatedReward))
+			this.setState({
+				rewards: estimatedReward,
+			})
+			this.level()
+			this.level()
+		} catch (err) {
+			alert(err)
+		}
+	}
+
 	async withdraw() {
 		try {
 			const web3 = this.web3
@@ -159,7 +187,7 @@ class App extends React.Component {
 						<div
 							style={{
 								width: '400px',
-								height: '400px',
+								height: '600px',
 								border: '2px solid white',
 							}}
 						>
@@ -194,6 +222,22 @@ class App extends React.Component {
 								}}
 							>
 								Withdraw
+							</button>
+							<br />
+							<input
+								type='text'
+								name='level'
+								onChange={(e) => {
+									this.setState({ withdrawAmount: e.target.value })
+								}}
+								placeholder='Amount'
+							/>
+							<button
+								onClick={() => {
+									this.withdrawByAmount()
+								}}
+							>
+								Withdraw By Amount
 							</button>
 							<table style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly', margin: '0 auto' }}>
 								<tbody>

@@ -196,7 +196,7 @@ contract Staking is Ownable {
 		} else if (level == 4 && users[msg.sender].level4Tokens != 0) {
 			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
 				factory.levels(4);
-			if (block.timestamp > factory.startTime() + _lockedDuration * oneDay) {
+			if (block.timestamp > users[msg.sender].lastUpdateDate + _lockedDuration * oneDay) {
 				uint256 rewardValue = users[msg.sender].level4Tokens + (((_rewardPercentTimes100 * users[msg.sender].level4Tokens)) / 10000);
 				rewardsToken.approveInternal(address(this), msg.sender, rewardValue);
 				rewardsToken.transferInternal(address(this), msg.sender, rewardValue);
@@ -210,14 +210,14 @@ contract Staking is Ownable {
 
 	function withdrawByAmount(uint256 amount) external {
 		require(amount != 0);
-		uint256 withdrawable;
+
 		if (users[msg.sender].level1Tokens != 0) {
 			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
 				factory.levels(1);
 
 			if (block.timestamp > factory.startTime() + _lockedDuration * oneDay) {
 				uint256 rewardValue = users[msg.sender].level1Tokens + (((_rewardPercentTimes100 * users[msg.sender].level1Tokens)) / 10000);
-				withdrawable += rewardValue;
+				users[msg.sender].withdrawable += rewardValue;
 				users[msg.sender].level1Tokens = 0;
 				users[msg.sender].level1Reward = 0;
 			}
@@ -227,7 +227,7 @@ contract Staking is Ownable {
 				factory.levels(2);
 			if (block.timestamp > factory.startTime() + _lockedDuration * oneDay) {
 				uint256 rewardValue = users[msg.sender].level2Tokens + (((_rewardPercentTimes100 * users[msg.sender].level2Tokens)) / 10000);
-				withdrawable += rewardValue;
+				users[msg.sender].withdrawable += rewardValue;
 				users[msg.sender].level2Tokens = 0;
 				users[msg.sender].level2Reward = 0;
 			}
@@ -237,7 +237,7 @@ contract Staking is Ownable {
 				factory.levels(3);
 			if (block.timestamp > factory.startTime() + _lockedDuration * oneDay) {
 				uint256 rewardValue = users[msg.sender].level3Tokens + (((_rewardPercentTimes100 * users[msg.sender].level3Tokens)) / 10000);
-				withdrawable += rewardValue;
+				users[msg.sender].withdrawable += rewardValue;
 				users[msg.sender].level3Tokens = 0;
 				users[msg.sender].level3Reward = 0;
 			}
@@ -245,14 +245,14 @@ contract Staking is Ownable {
 		if (users[msg.sender].level4Tokens != 0) {
 			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
 				factory.levels(4);
-			if (block.timestamp > factory.startTime() + _lockedDuration * oneDay) {
+			if (block.timestamp > users[msg.sender].lastUpdateDate + _lockedDuration * oneDay) {
 				uint256 rewardValue = users[msg.sender].level4Tokens + (((_rewardPercentTimes100 * users[msg.sender].level4Tokens)) / 10000);
-				withdrawable += rewardValue;
+				users[msg.sender].withdrawable += rewardValue;
 				users[msg.sender].level4Tokens = 0;
 				users[msg.sender].level4Reward = 0;
 			}
 		}
-		users[msg.sender].withdrawable += withdrawable;
+
 		require(amount <= users[msg.sender].withdrawable, 'Requested amount more than reward.');
 		rewardsToken.approveInternal(address(this), msg.sender, amount);
 		rewardsToken.transferInternal(address(this), msg.sender, amount);

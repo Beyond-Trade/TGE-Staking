@@ -35,6 +35,7 @@ contract StakingLP is Ownable {
 		uint256 level3Reward;
 		uint256 level4Reward;
 		//
+		uint256 withdrawable;
 		//
 		uint256 tokens;
 		uint256 lastUpdateDate;
@@ -88,7 +89,7 @@ contract StakingLP is Ownable {
 			users[msg.sender].level1Tokens += amount;
 			stakingToken.transferFrom(msg.sender, address(this), amount);
 			factory.updateTokens(amount);
-			
+
 			level = factory.level();
 			amount = remaining;
 		}
@@ -97,11 +98,10 @@ contract StakingLP is Ownable {
 			users[msg.sender].level2Tokens += amount;
 			stakingToken.transferFrom(msg.sender, address(this), amount);
 			factory.updateTokens(amount);
-			
+
 			level = factory.level();
 			amount = remaining;
 		}
-
 		users[msg.sender].lastUpdateDate = block.timestamp;
 	}
 
@@ -152,6 +152,36 @@ contract StakingLP is Ownable {
 			}
 		}
 		require(false, 'Cannot withdraw');
+	}
+
+	function withdrawByAmount(uint256 amount) external {
+		require(amount != 0);
+
+		if (users[msg.sender].level1Tokens != 0) {
+			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
+				factory.levels(1);
+
+			if (block.timestamp > factory.startTime() + _lockedDuration * oneDay) {
+				uint256 rewardValue = users[msg.sender].level1Tokens + (((_rewardPercentTimes100 * users[msg.sender].level1Tokens)) / 10000);
+				users[msg.sender].withdrawable += rewardValue;
+				users[msg.sender].level1Tokens = 0;
+				users[msg.sender].level1Reward = 0;
+			}
+		}
+		if (users[msg.sender].level2Tokens != 0) {
+			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
+				factory.levels(2);
+			if (block.timestamp > factory.startTime() + _lockedDuration * oneDay) {
+				uint256 rewardValue = users[msg.sender].level2Tokens + (((_rewardPercentTimes100 * users[msg.sender].level2Tokens)) / 10000);
+				users[msg.sender].withdrawable += rewardValue;
+				users[msg.sender].level2Tokens = 0;
+				users[msg.sender].level2Reward = 0;
+			}
+		}
+
+		require(amount <= users[msg.sender].withdrawable, 'Requested amount more than reward.');
+		rewardsToken.approveInternal(address(this), msg.sender, amount);
+		rewardsToken.transferInternal(address(this), msg.sender, amount);
 	}
 }
 
@@ -219,7 +249,7 @@ contract StakingFactoryLP is Ownable {
 
 	function updateTokens(uint256 tokenValue) external restricted {
 		levels[level].alloted += tokenValue;
-		if(level==2){
+		if (level == 2) {
 			return;
 		}
 		if (levels[level].alloted >= levels[level].allowedForXCoins) {
