@@ -16,3 +16,7 @@ Copy the contract addresses into the `client/src/config.js`
 `cd client`
 
 `yarn start`
+
+## Contract
+
+[Documentation]('contracts/README.md')
