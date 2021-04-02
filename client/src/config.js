@@ -1,0 +1,5 @@
+export const rewardContractAddress = '0xe9297437B3aFf06A03FF12547F2696a5cA4eB9F8'
+export const stakingTokenAddress = '0x4375960D1E6C5BE2CC108736217C2CeD8bCE24FC'
+export const stakingFactoryContractAddress = '0x83c73CdFc0F1DFe2e052bf5C5486dCAE48e8A561'
+export const stakingTokenAddressLP = '0x24fCc9642AcF46bae3d3FD9a34B2C25DAffBb3Bc'
+export const StakingFactoryContractAddressLP = '0x78951ED8028E7C10174F67D3381B5884CA2dA800'

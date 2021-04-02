@@ -9,6 +9,13 @@ import { abi as mock2Abi } from './contracts/Mock2.json'
 import Web3 from 'web3'
 
 import React, { Fragment } from 'react'
+import {
+	rewardContractAddress,
+	stakingTokenAddress,
+	stakingFactoryContractAddress,
+	stakingTokenAddressLP,
+	StakingFactoryContractAddressLP,
+} from './config'
 
 class App extends React.Component {
 	state = {
@@ -39,9 +46,9 @@ class App extends React.Component {
 
 	keys = ['level1Reward', 'level1Tokens', 'level2Reward', 'level2Tokens', 'level3Reward', 'level3Tokens', 'level4Tokens', 'level4Reward']
 
-	rewardContractAddress = '0x1f4FE2E48C1980e5074d341475A3132d7cB5cE63'
-	stakingTokenAddress = '0x6D4c2b63f936C4700CE3680c1F62D575B1573931'
-	stakingFactoryContractAddress = '0xA4EEdB661bBB50605B1165E1857205F90E094221'
+	rewardContractAddress = ''
+	stakingTokenAddress = ''
+	stakingFactoryContractAddress = ''
 
 	async updateBalances() {
 		console.log(this.state)
@@ -225,9 +232,9 @@ const DataApp = () => {
 		<Fragment>
 			<App
 				heading={'Mock Token'}
-				rewardContractAddress='0xe9297437B3aFf06A03FF12547F2696a5cA4eB9F8'
-				stakingTokenAddress='0x4375960D1E6C5BE2CC108736217C2CeD8bCE24FC'
-				stakingFactoryContractAddress='0x83c73CdFc0F1DFe2e052bf5C5486dCAE48e8A561'
+				rewardContractAddress={rewardContractAddress}
+				stakingTokenAddress={stakingTokenAddress}
+				stakingFactoryContractAddress={stakingFactoryContractAddress}
 				keys={[
 					'level1Reward',
 					'level1Tokens',
@@ -237,26 +244,16 @@ const DataApp = () => {
 					'level3Tokens',
 					'level4Tokens',
 					'level4Reward',
+					'withdrawable',
 				]}
 			/>
-			{/* 0xddAce8a3a90a9f5D56CFeA50A55D028E66411886 */}
 
-			{/* 0xA28c5a67e5B087904910Adf4CDE054cF85142De5 */}
 			<App
 				heading={'LP'}
-				rewardContractAddress='0xe9297437B3aFf06A03FF12547F2696a5cA4eB9F8'
-				stakingTokenAddress='0x24fCc9642AcF46bae3d3FD9a34B2C25DAffBb3Bc'
-				stakingFactoryContractAddress='0x78951ED8028E7C10174F67D3381B5884CA2dA800'
-				keys={[
-					'level1Reward',
-					'level1Tokens',
-					'level2Reward',
-					'level2Tokens',
-					// 'level3Reward',
-					// 'level3Tokens',
-					// 'level4Tokens',
-					// 'level4Reward',
-				]}
+				rewardContractAddress={rewardContractAddress}
+				stakingTokenAddress={stakingTokenAddressLP}
+				stakingFactoryContractAddress={StakingFactoryContractAddressLP}
+				keys={['level1Reward', 'level1Tokens', 'level2Reward', 'level2Tokens', 'withdrawable']}
 			/>
 		</Fragment>
 	)
