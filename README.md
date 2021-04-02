@@ -19,4 +19,4 @@ Copy the contract addresses into the `client/src/config.js`
 
 ## Contract
 
-[Documentation]('contracts/README.md')
+[Documentation](contracts/README.md)
