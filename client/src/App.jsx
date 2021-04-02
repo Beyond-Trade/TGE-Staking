@@ -2,10 +2,10 @@
 import './App.css'
 
 import { abi as stakingFAbi } from './contracts/StakingFactory.json'
-import { abi as LpStakingFAbi } from './contracts/LpStakingFactory.json'
+import { abi as LpStakingFAbi } from './contracts/StakingFactoryLP.json'
 
 import { abi as stakingAbi } from './contracts/Staking.json'
-import { abi as LpStakingAbi } from './contracts/LpStaking.json'
+import { abi as LpStakingAbi } from './contracts/StakingLP.json'
 
 import { abi as mock1Abi } from './contracts/Mock.json'
 import { abi as mock2Abi } from './contracts/Mock2.json'
@@ -64,7 +64,13 @@ class App extends React.Component {
 		this.setState({ balances })
 	}
 
+	stakingFAbi
+	stakingAbi
+
 	async componentWillMount() {
+		const { stakingFAbi, stakingAbi } = this.props
+		this.stakingFAbi = stakingFAbi
+		this.stakingAbi = stakingAbi
 		const { rewardContractAddress, stakingTokenAddress, stakingFactoryContractAddress, keys } = this.props
 		this.rewardContractAddress = rewardContractAddress
 		this.stakingTokenAddress = stakingTokenAddress
@@ -76,7 +82,7 @@ class App extends React.Component {
 			this.web3 = web3
 			const accounts = await web3.eth.getAccounts()
 
-			const stakingFactory = new web3.eth.Contract(stakingFAbi, this.stakingFactoryContractAddress)
+			const stakingFactory = new web3.eth.Contract(this.stakingFAbi, this.stakingFactoryContractAddress)
 			const rewardToken = new web3.eth.Contract(mock1Abi, this.rewardContractAddress)
 			const stakingToken = new web3.eth.Contract(mock2Abi, this.stakingTokenAddress)
 			const balances = {
@@ -90,7 +96,7 @@ class App extends React.Component {
 				await stakingFactory.methods.stakingRewardsInfoByStakingToken(await stakingFactory.methods.stakingTokens(0).call()).call()
 			).stakingRewards
 
-			const staking = new web3.eth.Contract(stakingAbi, this.stakingRewards)
+			const staking = new web3.eth.Contract(this.stakingAbi, this.stakingRewards)
 			window.staking = staking
 
 			const estimatedReward = await this.calculateReward(staking)
@@ -108,7 +114,7 @@ class App extends React.Component {
 	async withdrawByAmount() {
 		try {
 			const web3 = this.web3
-			const staking = new web3.eth.Contract(stakingAbi, this.stakingRewards)
+			const staking = new web3.eth.Contract(this.stakingAbi, this.stakingRewards)
 			// const stakingToken = new web3.eth.Contract(mock2Abi, this.stakingTokenAddress)
 
 			await staking.methods.withdrawByAmount(this.state.withdrawAmount).send({ from: this.state.owner })
@@ -122,7 +128,6 @@ class App extends React.Component {
 				rewards: estimatedReward,
 			})
 			this.level()
-			this.level()
 		} catch (err) {
 			alert(err)
 		}
@@ -131,7 +136,7 @@ class App extends React.Component {
 	async withdraw() {
 		try {
 			const web3 = this.web3
-			const staking = new web3.eth.Contract(stakingAbi, this.stakingRewards)
+			const staking = new web3.eth.Contract(this.stakingAbi, this.stakingRewards)
 			// const stakingToken = new web3.eth.Contract(mock2Abi, this.stakingTokenAddress)
 
 			await staking.methods.withdraw(this.state.rewardLevel).send({ from: this.state.owner })
@@ -279,6 +284,8 @@ const DataApp = () => {
 				rewardContractAddress={rewardContractAddress}
 				stakingTokenAddress={stakingTokenAddress}
 				stakingFactoryContractAddress={stakingFactoryContractAddress}
+				stakingFAbi={stakingFAbi}
+				stakingAbi={stakingAbi}
 				keys={[
 					'level1Reward',
 					'level1Tokens',
@@ -294,6 +301,8 @@ const DataApp = () => {
 
 			<App
 				heading={'LP'}
+				stakingFAbi={LpStakingFAbi}
+				stakingAbi={LpStakingAbi}
 				rewardContractAddress={rewardContractAddress}
 				stakingTokenAddress={stakingTokenAddressLP}
 				stakingFactoryContractAddress={StakingFactoryContractAddressLP}
