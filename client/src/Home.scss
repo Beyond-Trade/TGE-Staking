@@ -1,0 +1,27 @@
+.home {
+	* {
+		// border: 1px solid red;
+	}
+
+	min-height: 100vh;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	.outer {
+		margin: 0 auto;
+		p {
+			text-align: center;
+		}
+		.inner {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-wrap: wrap;
+		}
+	}
+}
+
+.button {
+	margin-top: 7rem;
+}

@@ -9,3 +9,36 @@ body {
 code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
+
+h1 {
+	color: white;
+	text-align: center;
+}
+
+.card {
+	background-color: white;
+}
+
+p {
+	color: white;
+}
+
+.button {
+	background-color: #8363c9;
+	color: white;
+}
+
+a {
+	color: white;
+	text-decoration: none;
+}
+
+a:visited {
+	color: white;
+	text-decoration: none;
+}
+
+.App-header,
+.home {
+	background-color: #1b204b;
+}
