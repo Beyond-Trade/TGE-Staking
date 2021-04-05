@@ -3,8 +3,8 @@ import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 
 import './Card.scss'
-
-export const Card = ({ token, value, token_image, total_staked, link, children }) => {
+//
+export const Card = ({ token, token_r, value, value_r, token_image, total_staked, link, allowedReward, alloted, allowedForXCoins, children }) => {
 	return (
 		<Fragment>
 			<div className='card'>
@@ -16,7 +16,12 @@ export const Card = ({ token, value, token_image, total_staked, link, children }
 						<h1>
 							{value} {token}
 						</h1>
-						<p>{total_staked} Staked</p>
+						<h1>
+							{value_r} {token_r}
+						</h1>
+						<p>{}</p>
+						<p>{alloted} Alloted</p>
+						<p>{allowedForXCoins} Total</p>
 						<div className='button'>
 							<Link to={link}>
 								<span>Stake</span>

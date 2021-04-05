@@ -50,3 +50,8 @@ input[type='text'] {
 	margin-top: 25px;
 	border-radius: 1rem;
 }
+
+textarea:focus,
+input:focus {
+	outline: none;
+}

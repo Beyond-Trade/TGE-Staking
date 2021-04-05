@@ -51,7 +51,7 @@ const DataApp = () => {
 							reward_value={['level1Reward', 'level2Reward', 'level3Reward', 'level4Reward']}
 						/>
 					</Route>
-					<Route path='/BYNStake?token=LP' exact>
+					<Route path='/BYNStakeLP' exact>
 						<Main
 							heading={'BYN LP'}
 							stakingFAbi={LpStakingFAbi}
