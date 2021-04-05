@@ -72,6 +72,7 @@ export interface StakingInstance extends Truffle.ContractInstance {
 		level2Reward: BigNumber
 		level3Reward: BigNumber
 		level4Reward: BigNumber
+		withdrawable: BigNumber
 		tokens: BigNumber
 		lastUpdateDate: BigNumber
 	}>
@@ -81,5 +82,12 @@ export interface StakingInstance extends Truffle.ContractInstance {
 		call(level: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<void>
 		sendTransaction(level: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<string>
 		estimateGas(level: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<number>
+	}
+
+	withdrawByAmount: {
+		(amount: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<Truffle.TransactionResponse<AllEvents>>
+		call(amount: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<void>
+		sendTransaction(amount: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<string>
+		estimateGas(amount: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<number>
 	}
 }

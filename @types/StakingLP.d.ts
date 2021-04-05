@@ -49,23 +49,6 @@ export interface StakingLPInstance extends Truffle.ContractInstance {
 		estimateGas(newOwner: string | BigNumber, txDetails?: Truffle.TransactionDetails): Promise<number>
 	}
 
-	checkUpdateLevel: {
-		(amount: number | BigNumber | string, level: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<
-			Truffle.TransactionResponse<AllEvents>
-		>
-		call(
-			amount: number | BigNumber | string,
-			level: number | BigNumber | string,
-			txDetails?: Truffle.TransactionDetails
-		): Promise<[BigNumber, BigNumber]>
-		sendTransaction(
-			amount: number | BigNumber | string,
-			level: number | BigNumber | string,
-			txDetails?: Truffle.TransactionDetails
-		): Promise<string>
-		estimateGas(amount: number | BigNumber | string, level: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<number>
-	}
-
 	/**
 	 * deposit function
 	 */
@@ -76,32 +59,35 @@ export interface StakingLPInstance extends Truffle.ContractInstance {
 		estimateGas(amount: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<number>
 	}
 
-	calculateReward: {
-		(txDetails?: Truffle.TransactionDetails): Promise<Truffle.TransactionResponse<AllEvents>>
-		call(
-			txDetails?: Truffle.TransactionDetails
-		): Promise<{
-			allowed: boolean
-			created: boolean
-			level1Tokens: BigNumber
-			level2Tokens: BigNumber
-			level3Tokens: BigNumber
-			level4Tokens: BigNumber
-			level1Reward: BigNumber
-			level2Reward: BigNumber
-			level3Reward: BigNumber
-			level4Reward: BigNumber
-			tokens: BigNumber
-			lastUpdateDate: BigNumber
-		}>
-		sendTransaction(txDetails?: Truffle.TransactionDetails): Promise<string>
-		estimateGas(txDetails?: Truffle.TransactionDetails): Promise<number>
-	}
+	calculateReward(
+		txDetails?: Truffle.TransactionDetails
+	): Promise<{
+		allowed: boolean
+		created: boolean
+		level1Tokens: BigNumber
+		level2Tokens: BigNumber
+		level3Tokens: BigNumber
+		level4Tokens: BigNumber
+		level1Reward: BigNumber
+		level2Reward: BigNumber
+		level3Reward: BigNumber
+		level4Reward: BigNumber
+		withdrawable: BigNumber
+		tokens: BigNumber
+		lastUpdateDate: BigNumber
+	}>
 
 	withdraw: {
 		(level: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<Truffle.TransactionResponse<AllEvents>>
 		call(level: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<void>
 		sendTransaction(level: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<string>
 		estimateGas(level: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<number>
+	}
+
+	withdrawByAmount: {
+		(amount: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<Truffle.TransactionResponse<AllEvents>>
+		call(amount: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<void>
+		sendTransaction(amount: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<string>
+		estimateGas(amount: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<number>
 	}
 }
