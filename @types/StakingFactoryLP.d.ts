@@ -45,6 +45,8 @@ export interface StakingFactoryLPInstance extends Truffle.ContractInstance {
 		estimateGas(txDetails?: Truffle.TransactionDetails): Promise<number>
 	}
 
+	stakingContractAddress(txDetails?: Truffle.TransactionDetails): Promise<string>
+
 	stakingRewardsInfoByStakingToken(arg0: string | BigNumber, txDetails?: Truffle.TransactionDetails): Promise<[string, BigNumber]>
 
 	stakingTokens(arg0: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<string>
@@ -59,27 +61,6 @@ export interface StakingFactoryLPInstance extends Truffle.ContractInstance {
 		call(newOwner: string | BigNumber, txDetails?: Truffle.TransactionDetails): Promise<void>
 		sendTransaction(newOwner: string | BigNumber, txDetails?: Truffle.TransactionDetails): Promise<string>
 		estimateGas(newOwner: string | BigNumber, txDetails?: Truffle.TransactionDetails): Promise<number>
-	}
-
-	updateLevel: {
-		(tokenValue: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<Truffle.TransactionResponse<AllEvents>>
-		call(tokenValue: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<void>
-		sendTransaction(tokenValue: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<string>
-		estimateGas(tokenValue: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<number>
-	}
-
-	updateTokens: {
-		(tokenValue: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<Truffle.TransactionResponse<AllEvents>>
-		call(tokenValue: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<void>
-		sendTransaction(tokenValue: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<string>
-		estimateGas(tokenValue: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<number>
-	}
-
-	updateLevelCheck: {
-		(txDetails?: Truffle.TransactionDetails): Promise<Truffle.TransactionResponse<AllEvents>>
-		call(txDetails?: Truffle.TransactionDetails): Promise<void>
-		sendTransaction(txDetails?: Truffle.TransactionDetails): Promise<string>
-		estimateGas(txDetails?: Truffle.TransactionDetails): Promise<number>
 	}
 
 	deploy: {
@@ -97,5 +78,19 @@ export interface StakingFactoryLPInstance extends Truffle.ContractInstance {
 			rewardAmount: number | BigNumber | string,
 			txDetails?: Truffle.TransactionDetails
 		): Promise<number>
+	}
+
+	updateTokens: {
+		(tokenValue: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<Truffle.TransactionResponse<AllEvents>>
+		call(tokenValue: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<void>
+		sendTransaction(tokenValue: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<string>
+		estimateGas(tokenValue: number | BigNumber | string, txDetails?: Truffle.TransactionDetails): Promise<number>
+	}
+
+	updateLevelCheck: {
+		(txDetails?: Truffle.TransactionDetails): Promise<Truffle.TransactionResponse<AllEvents>>
+		call(txDetails?: Truffle.TransactionDetails): Promise<void>
+		sendTransaction(txDetails?: Truffle.TransactionDetails): Promise<string>
+		estimateGas(txDetails?: Truffle.TransactionDetails): Promise<number>
 	}
 }
