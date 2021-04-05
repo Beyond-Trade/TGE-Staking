@@ -39,7 +39,7 @@ export const Home = () => {
 				const accounts = await web3.eth.getAccounts()
 
 				const stakingFactory = new web3.eth.Contract(stakingFAbi, stakingFactoryContractAddress)
-				const stakingFactoryLp = new web3.eth.Contract(stakingFAbi, StakingFactoryContractAddressLP)
+				const stakingFactoryLp = new web3.eth.Contract(LpStakingFAbi, StakingFactoryContractAddressLP)
 				const rewardToken = new web3.eth.Contract(mock1Abi, rewardContractAddress)
 				const stakingToken = new web3.eth.Contract(mock2Abi, stakingTokenAddress)
 				const stakingTokenLp = new web3.eth.Contract(mock2Abi, stakingTokenAddressLP)
