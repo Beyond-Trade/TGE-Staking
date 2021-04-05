@@ -30,7 +30,7 @@ const DataApp = () => {
 					</Route>
 					<Route path='/BYNStake' exact>
 						<Main
-							heading={'Mock Token'}
+							heading={'BYN'}
 							rewardContractAddress={rewardContractAddress}
 							stakingTokenAddress={stakingTokenAddress}
 							stakingFactoryContractAddress={stakingFactoryContractAddress}
@@ -47,17 +47,21 @@ const DataApp = () => {
 								'level4Reward',
 								'withdrawable',
 							]}
+							token_value={['level1Tokens', 'level2Tokens', 'level3Tokens', 'level4Tokens']}
+							reward_value={['level1Reward', 'level2Reward', 'level3Reward', 'level4Reward']}
 						/>
 					</Route>
 					<Route path='/BYNStake?token=LP' exact>
 						<Main
-							heading={'LP'}
+							heading={'BYN LP'}
 							stakingFAbi={LpStakingFAbi}
 							stakingAbi={LpStakingAbi}
 							rewardContractAddress={rewardContractAddress}
 							stakingTokenAddress={stakingTokenAddressLP}
 							stakingFactoryContractAddress={StakingFactoryContractAddressLP}
 							keys={['level1Reward', 'level1Tokens', 'level2Reward', 'level2Tokens', 'withdrawable']}
+							token_value={['level1Tokens', 'level2Tokens']}
+							reward_value={['level1Reward', 'level2Reward']}
 						/>
 					</Route>
 				</Switch>

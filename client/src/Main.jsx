@@ -30,11 +30,15 @@ export class Main extends React.Component {
 			level4Reward: '0',
 			level4Tokens: '0',
 		},
+		i_token: 0,
+		i_reward: 0,
 	}
 	stakingRewards = ''
 	web3
 
 	keys = ['level1Reward', 'level1Tokens', 'level2Reward', 'level2Tokens', 'level3Reward', 'level3Tokens', 'level4Tokens', 'level4Reward']
+	token_value = ['level1Tokens', 'level2Tokens', 'level3Tokens', 'level4Tokens']
+	reward_value = ['level1Reward', 'level2Reward', 'level3Reward', 'level4Reward']
 
 	rewardContractAddress = ''
 	stakingTokenAddress = ''
@@ -56,10 +60,12 @@ export class Main extends React.Component {
 		const { stakingFAbi, stakingAbi } = this.props
 		this.stakingFAbi = stakingFAbi
 		this.stakingAbi = stakingAbi
-		const { rewardContractAddress, stakingTokenAddress, stakingFactoryContractAddress, keys } = this.props
+		const { rewardContractAddress, stakingTokenAddress, stakingFactoryContractAddress, keys, token_value, reward_value } = this.props
 		this.rewardContractAddress = rewardContractAddress
 		this.stakingTokenAddress = stakingTokenAddress
 		this.keys = keys
+		this.token_value = token_value
+		this.reward_value = reward_value
 		this.stakingFactoryContractAddress = stakingFactoryContractAddress
 		try {
 			await window.ethereum.enable()
@@ -162,10 +168,26 @@ export class Main extends React.Component {
 	}
 
 	async calculateReward(staking) {
-		return await staking.methods.calculateReward().call()
+		const estimatedReward = await staking.methods.calculateReward().call()
+		this.tokens(estimatedReward)
+		return estimatedReward
 	}
 
-	async tokens() {}
+	async tokens(estimatedReward) {
+		let i_token = 0
+		let i_reward = 0
+		this.token_value.forEach((elem) => {
+			i_token += parseInt(estimatedReward[elem])
+		})
+
+		this.reward_value.forEach((elem) => {
+			i_reward += parseInt(estimatedReward[elem])
+		})
+
+		this.setState({ i_token, i_reward }, () => {
+			console.log(this.state)
+		})
+	}
 
 	render() {
 		return (
@@ -176,7 +198,13 @@ export class Main extends React.Component {
 						<Card>
 							<div className='inner'>
 								<h3 style={{ margin: '0rem' }}>Level:{this.state.level}</h3>
-								<table style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly', margin: '0 auto' }}>
+								<h5 style={{ margin: '0rem' }}>Token:{this.state.i_token}</h5>
+
+								<h5 style={{ margin: '0rem' }}>Reward:{this.state.i_reward}</h5>
+
+								<h5 style={{ margin: '0rem' }}>Withdrwable:{this.state.rewards['withdrawable']}</h5>
+
+								{/* <table style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly', margin: '0 auto' }}>
 									<tbody style={{ fontSize: '1rem' }}>
 										{Object.keys(this.state.rewards).map((key) => {
 											const keys = this.keys
@@ -195,13 +223,14 @@ export class Main extends React.Component {
 											} else return <React.Fragment></React.Fragment>
 										})}
 									</tbody>
-								</table>
+								</table> */}
 								<input
 									type='text'
 									name='deposit'
 									onChange={(e) => {
 										this.setState({ deposit: e.target.value })
 									}}
+									placeholder='Deposit Amount'
 								/>
 								<div
 									className='button'
@@ -217,8 +246,8 @@ export class Main extends React.Component {
 						<Card>
 							<div className='inner'>
 								<h3 style={{ margin: 0 }}>Your Balances:</h3>
-								<p style={{ margin: '5px auto' }}>RWD:{this.state.balances.reward}</p>
-								<p style={{ margin: '5px auto' }}>STK:{this.state.balances.staking}</p>
+								<h5 style={{ margin: '5px auto' }}>RWD:{this.state.balances.reward}</h5>
+								<h5 style={{ margin: '5px auto' }}>STK:{this.state.balances.staking}</h5>
 								<input
 									type='text'
 									name='level'
