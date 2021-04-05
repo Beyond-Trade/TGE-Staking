@@ -10,10 +10,17 @@
 	align-items: center;
 	.outer {
 		margin: 0 auto;
+		h2 {
+			color: white;
+		}
 		p {
 			text-align: center;
 		}
 		.inner {
+			color: #333;
+			h2 {
+				color: #333;
+			}
 			display: flex;
 			justify-content: center;
 			align-items: center;

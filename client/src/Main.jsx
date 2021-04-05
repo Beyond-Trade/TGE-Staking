@@ -111,15 +111,21 @@ export class Main extends React.Component {
 
 			const estimatedReward = await this.calculateReward(this.state.staking)
 			await this.updateBalances()
-			console.log(estimatedReward)
+			// console.log(estimatedReward)
 
-			alert(JSON.stringify(estimatedReward))
+			console.log(JSON.stringify(estimatedReward))
+			alert('Successfully withdrawn')
 			this.setState({
 				rewards: estimatedReward,
 			})
 			this.level()
 		} catch (err) {
-			alert(err)
+			try {
+				alert('Failed', JSON.stringify(err))
+				console.error(err)
+			} catch (error) {
+				console.error(err)
+			}
 		}
 	}
 
@@ -132,16 +138,22 @@ export class Main extends React.Component {
 
 			const estimatedReward = await this.calculateReward(this.state.staking)
 			await this.updateBalances()
-			console.log(estimatedReward)
+			// console.log(estimatedReward)
 
-			alert(JSON.stringify(estimatedReward))
+			console.log(JSON.stringify(estimatedReward))
+			alert('Successfully withdrawn')
 			this.setState({
 				rewards: estimatedReward,
 			})
 			this.level()
 			this.level()
 		} catch (err) {
-			alert(err)
+			try {
+				alert('Failed', JSON.stringify(err))
+				console.error(err)
+			} catch (error) {
+				console.error(err)
+			}
 		}
 	}
 
@@ -153,9 +165,10 @@ export class Main extends React.Component {
 			await this.state.staking.methods.deposit(this.state.deposit).send({ from: this.state.owner, gas: 3000000 })
 			const estimatedReward = await this.calculateReward(this.state.staking)
 			await this.updateBalances()
-			console.log(estimatedReward)
+			// console.log(estimatedReward)
 
-			alert(JSON.stringify(estimatedReward))
+			console.log(JSON.stringify(estimatedReward))
+			alert('Staked')
 			this.setState({
 				rewards: estimatedReward,
 			})
@@ -164,6 +177,7 @@ export class Main extends React.Component {
 			console.error(error)
 
 			if (error.message) alert(error.message)
+			else alert('Something went wrong.')
 		}
 	}
 
