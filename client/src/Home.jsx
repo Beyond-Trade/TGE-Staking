@@ -87,10 +87,12 @@ export const Home = () => {
 			<div className='home'>
 				<div className='outer'>
 					<h1>BYN Staking</h1>
-					<p>Exchange tokens</p>
+					<h2>BYN Staked: {balances.alloted}</h2>
+					<h2>BYN/ETH Staked: {balances.allotedLp}</h2>
+					<p>Staking Program</p>
 					<div className='inner'>
 						<Card
-							token='STL'
+							token='BYN'
 							token_r='RWD'
 							value={balances.staking}
 							value_r={balances.reward}
@@ -102,7 +104,7 @@ export const Home = () => {
 							alloted={balances.alloted}
 						></Card>
 						<Card
-							token='STX'
+							token='BYN/ETH LP'
 							token_r='RWD'
 							value={balances.stakingLp}
 							value_r={balances.reward}

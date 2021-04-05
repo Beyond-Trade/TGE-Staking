@@ -14,14 +14,15 @@ export const Card = ({ token, token_r, value, value_r, token_image, total_staked
 					<>
 						<img src={token_image} alt='' />
 						<h1>
-							{value} {token}
+							{/* {value} */}
+							{token}
 						</h1>
-						<h1>
+						{/* <h1>
 							{value_r} {token_r}
-						</h1>
-						<p>{}</p>
-						<p>{alloted} Alloted</p>
-						<p>{allowedForXCoins} Total</p>
+						</h1> */}
+						<h2>Total Reward: {allowedReward}</h2>
+						<h2>Alloted Tokens: {alloted}</h2>
+						{/* <p>{allowedForXCoins} Total</p> */}
 						<div className='button'>
 							<Link to={link}>
 								<span>Stake</span>
