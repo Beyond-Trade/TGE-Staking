@@ -1,7 +1,18 @@
+const { writeFileSync } = require('fs')
+const { join } = require('path')
+
 const Mock = artifacts.require('Mock')
 const Mock2 = artifacts.require('Mock2')
 const BYN = artifacts.require('StakingFactory')
 const BYNLP = artifacts.require('StakingFactoryLP')
+
+const data = {
+	reward_token: '',
+	mock_token_1: '',
+	mock_token_2: '',
+	staking_factory: '',
+	staking_factory_lp: '',
+}
 
 module.exports = function (deployer) {
 	deployer.deploy(Mock, 'Reward', 'RWD').then((reward) => {
@@ -10,13 +21,21 @@ module.exports = function (deployer) {
 				await reward.approve(sf.address, 50000000)
 				await reward.increaseAllowance(sf.address, 50000000)
 
+				data.reward_token = reward.address
+				data.mock_token_1 = staking.address
+
+				data.staking_factory = sf.address
+
 				return sf.deploy(staking.address, 50000000).then(async () => {
-					//
 					return deployer.deploy(Mock2, 'StakingLP', 'STL').then(async (staking) => {
 						//
 						return deployer.deploy(BYNLP, reward.address, Math.floor(Date.now() / 1000)).then(async (sf) => {
 							await reward.approve(sf.address, 50000000)
 							await reward.increaseAllowance(sf.address, 50000000)
+
+							data.mock_token_2 = staking.address
+							data.staking_factory_lp = sf.address
+							writeFileSync(join(__dirname, '..', 'client', 'src', 'addresses.json'), JSON.stringify(data, undefined, 4))
 
 							return sf.deploy(staking.address, 50000000).then(async () => {
 								return
