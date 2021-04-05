@@ -117,6 +117,7 @@ export class Main extends React.Component {
 			alert('Successfully withdrawn')
 			this.setState({
 				rewards: estimatedReward,
+				withdrawAmount: '',
 			})
 			this.level()
 		} catch (err) {
@@ -144,6 +145,7 @@ export class Main extends React.Component {
 			alert('Successfully withdrawn')
 			this.setState({
 				rewards: estimatedReward,
+				rewardLevel: '',
 			})
 			this.level()
 			this.level()
@@ -171,6 +173,7 @@ export class Main extends React.Component {
 			alert('Staked')
 			this.setState({
 				rewards: estimatedReward,
+				deposit: '',
 			})
 			this.level()
 		} catch (error) {
