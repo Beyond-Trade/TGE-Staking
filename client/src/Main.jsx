@@ -55,6 +55,7 @@ export class Main extends React.Component {
 
 	stakingFAbi
 	stakingAbi
+	owner = ''
 
 	async componentWillMount() {
 		const { stakingFAbi, stakingAbi } = this.props
@@ -72,7 +73,8 @@ export class Main extends React.Component {
 			const web3 = new Web3(Web3.givenProvider || 'http://localhost:8545')
 			this.web3 = web3
 			const accounts = await web3.eth.getAccounts()
-
+			this.owner = accounts[0]
+			window.accounts = accounts
 			const stakingFactory = new web3.eth.Contract(this.stakingFAbi, this.stakingFactoryContractAddress)
 			const rewardToken = new web3.eth.Contract(mock1Abi, this.rewardContractAddress)
 			const stakingToken = new web3.eth.Contract(mock2Abi, this.stakingTokenAddress)
@@ -91,7 +93,12 @@ export class Main extends React.Component {
 			window.staking = staking
 
 			const estimatedReward = await this.calculateReward(staking)
-			this.setState({ owner: accounts[0], level, balances, stakingFactory, rewardToken, stakingToken, staking, rewards: estimatedReward })
+			this.setState(
+				{ owner: accounts[0], level, balances, stakingFactory, rewardToken, stakingToken, staking, rewards: estimatedReward },
+				() => {
+					console.log(this.state)
+				}
+			)
 		} catch (err) {
 			console.error(err)
 		}
@@ -185,7 +192,9 @@ export class Main extends React.Component {
 	}
 
 	async calculateReward(staking) {
-		const estimatedReward = await staking.methods.calculateReward().call()
+		const estimatedReward = await staking.methods.calculateReward().call({
+			from: this.owner,
+		})
 		this.tokens(estimatedReward)
 		return estimatedReward
 	}
