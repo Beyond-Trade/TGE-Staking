@@ -84,6 +84,7 @@ export const Home = () => {
 	}, [rewardContractAddress, stakingTokenAddress, stakingTokenAddressLP])
 	return (
 		<Fragment>
+			<div className='header'></div>
 			<div className='home'>
 				<div className='outer'>
 					<h1>BYN Staking</h1>

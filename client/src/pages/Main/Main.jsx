@@ -250,22 +250,27 @@ export class Main extends React.Component {
 										})}
 									</tbody>
 								</table> */}
-								<input
-									type='text'
-									name='deposit'
-									onChange={(e) => {
-										this.setState({ deposit: e.target.value })
-									}}
-									placeholder='Deposit Amount'
-								/>
+								<form autoComplete='off'>
+									<label htmlFor='deposit'>
+										<input
+											type='text'
+											autoComplete='off'
+											name='deposit'
+											onChange={(e) => {
+												this.setState({ deposit: e.target.value })
+											}}
+											placeholder='Deposit Amount'
+										/>
+									</label>
+								</form>
 								<div
 									className='button'
-									style={{ width: 'fit-content', padding: '1rem 1rem', marginTop: '10px', cursor: 'pointer' }}
+									style={{ marginTop: '10px' }}
 									onClick={() => {
 										this.deposit()
 									}}
 								>
-									Deposit
+									<span>Deposit</span>
 								</div>
 							</div>
 						</Card>
@@ -274,22 +279,27 @@ export class Main extends React.Component {
 								<h3 style={{ margin: 0 }}>Your Balances:</h3>
 								<h5 style={{ margin: '5px auto' }}>RWD:{this.state.balances.reward}</h5>
 								<h5 style={{ margin: '5px auto' }}>STK:{this.state.balances.staking}</h5>
-								<input
-									type='text'
-									name='level'
-									onChange={(e) => {
-										this.setState({ withdrawAmount: e.target.value })
-									}}
-									placeholder='Amount'
-								/>
+								<form>
+									<label htmlFor='level'>
+										<input
+											autoComplete='off'
+											type='text'
+											name='level'
+											onChange={(e) => {
+												this.setState({ withdrawAmount: e.target.value })
+											}}
+											placeholder='Amount'
+										/>
+									</label>
+								</form>
 								<div
-									style={{ width: 'fit-content', padding: '1rem 0.5rem', marginTop: '10px', cursor: 'pointer' }}
+									style={{ marginTop: '10px' }}
 									className='button'
 									onClick={() => {
 										this.withdrawByAmount()
 									}}
 								>
-									Withdraw By Amount
+									<span>Withdraw By Amount</span>
 								</div>
 							</div>
 						</Card>

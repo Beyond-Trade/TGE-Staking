@@ -3,12 +3,13 @@
 	width: 18.75rem;
 	border-radius: 1.25rem;
 	margin: 0.5rem;
-	h1 {
-		color: #222;
-	}
-	p {
-		color: #222;
-	}
+
+	background-color: #272727;
+
+	box-shadow: -5px -5px 20px #212121, 5px 5px 20px #141414;
+	appearance: none;
+	-webkit-appearance: none;
+
 	text-align: center;
 	img {
 		margin: 0 auto;
@@ -17,16 +18,20 @@
 	}
 	.button {
 		margin: 0 auto;
-		width: 6rem;
+		min-width: 10rem;
+		max-width: 13rem;
 		padding: 0.6rem 0;
+		// span {
+		// 	padding: 0 0.7rem;
+		// }
 
 		height: 1.5rem;
-		font-weight: 900;
-		font-size: 1.25rem;
+
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		font-size: 1rem;
 		border-radius: 1.25rem;
 		outline: none;
-		:active {
-			outline: none;
-		}
 	}
 }

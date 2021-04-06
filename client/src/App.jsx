@@ -1,4 +1,5 @@
 import './index.css'
+import './index.scss'
 import './App.scss'
 
 import { abi as stakingFAbi } from './contracts/StakingFactory.json'

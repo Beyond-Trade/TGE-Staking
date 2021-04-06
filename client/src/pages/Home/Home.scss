@@ -1,8 +1,18 @@
+.header {
+	position: absolute;
+	height: 6rem;
+	width: 100%;
+	// border-radius: 50px;
+	background: linear-gradient(145deg, #2a2a2a, #232323);
+	box-shadow: 20px 20px 44px #222222, -20px -20px 44px #2c2c2c;
+	background-color: #e7e7e7;
+}
 .home {
 	// * {
 	// 	// border: 1px solid red;
 	// }
 
+	background-color: #272727;
 	min-height: 100vh;
 
 	display: flex;
@@ -17,10 +27,6 @@
 			text-align: center;
 		}
 		.inner {
-			color: #333;
-			h2 {
-				color: #333;
-			}
 			display: flex;
 			justify-content: center;
 			align-items: center;
