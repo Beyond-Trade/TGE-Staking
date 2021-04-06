@@ -1,15 +1,15 @@
 $white: #feeeee;
-$color-bg: #272727;
-$color-shadow: #141414;
-$color-white: #212121;
+$color-bg: #e0e0e0;
+$color-shadow: #c4c4c4;
+$color-white: #b6b3b3;
 .button {
-	background-color: #272727;
-	box-shadow: -5px -5px 20px #212121, 5px 5px 20px #141414;
+	background-color: $color-bg;
+	box-shadow: -5px -5px 20px $color-shadow, 5px 5px 20px $color-white;
 	transition: all 0.2s ease-in-out;
 	cursor: pointer;
 
 	font-weight: 600;
-	color: white;
+	color: #222;
 	&:hover {
 		box-shadow: -2px -2px 5px $color-white, 2px 2px 5px $color-shadow;
 	}
@@ -24,17 +24,16 @@ input {
 
 	padding: 1rem;
 
-	background-color: $color-bg;
-	text-shadow: 1px 1px 0 $color-white;
-	color: $white;
-	caret-color: $white;
+	background-color: #e7e7e7;
+	// text-shadow: 1px 1px 0 $color-white;
+	color: rgb(80, 80, 80);
+	caret-color: #222;
 	box-shadow: inset 2px 2px 5px $color-shadow, inset -5px -5px 10px $color-white;
 	padding: 0.5rem 1.25rem;
 	width: 10rem;
 	font-size: 1.25rem;
 
-	border: 2px solid #272727;
-
+	border: 2px solid #e7e7e7;
 	margin-top: 25px;
 	border-radius: 4rem;
 }

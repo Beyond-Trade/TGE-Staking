@@ -3,16 +3,16 @@
 	height: 6rem;
 	width: 100%;
 	// border-radius: 50px;
-	background: linear-gradient(145deg, #2a2a2a, #232323);
-	box-shadow: 20px 20px 44px #222222, -20px -20px 44px #2c2c2c;
 	background-color: #e7e7e7;
+	// background: linear-gradient(145deg, #2a2a2a, #232323);
+	box-shadow: 10px 10px 2px #e2e2e2, -10px -10px 2px #ededed;
 }
 .home {
 	// * {
 	// 	// border: 1px solid red;
 	// }
 
-	background-color: #272727;
+	background-color: #e7e7e7;
 	min-height: 100vh;
 
 	display: flex;
@@ -20,9 +20,6 @@
 	align-items: center;
 	.outer {
 		margin: 0 auto;
-		h2 {
-			color: white;
-		}
 		p {
 			text-align: center;
 		}
