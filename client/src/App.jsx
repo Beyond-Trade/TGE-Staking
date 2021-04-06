@@ -15,10 +15,10 @@ import {
 	stakingTokenAddressLP,
 	StakingFactoryContractAddressLP,
 } from './config'
-import { Main } from './Main'
+import { Main } from './pages/Main/Main'
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import { Home } from './Home'
+import { Home } from './pages/Home/Home'
 
 const DataApp = () => {
 	return (

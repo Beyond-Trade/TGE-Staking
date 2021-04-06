@@ -47,7 +47,8 @@
 				}
 			],
 			"stateMutability": "view",
-			"type": "function"
+			"type": "function",
+			"constant": true
 		},
 		{
 			"inputs": [
@@ -86,7 +87,8 @@
 				}
 			],
 			"stateMutability": "view",
-			"type": "function"
+			"type": "function",
+			"constant": true
 		},
 		{
 			"inputs": [],
@@ -99,7 +101,8 @@
 				}
 			],
 			"stateMutability": "view",
-			"type": "function"
+			"type": "function",
+			"constant": true
 		},
 		{
 			"inputs": [],
@@ -119,7 +122,8 @@
 				}
 			],
 			"stateMutability": "view",
-			"type": "function"
+			"type": "function",
+			"constant": true
 		},
 		{
 			"inputs": [
@@ -143,7 +147,8 @@
 				}
 			],
 			"stateMutability": "view",
-			"type": "function"
+			"type": "function",
+			"constant": true
 		},
 		{
 			"inputs": [
@@ -162,7 +167,8 @@
 				}
 			],
 			"stateMutability": "view",
-			"type": "function"
+			"type": "function",
+			"constant": true
 		},
 		{
 			"inputs": [],
@@ -175,7 +181,8 @@
 				}
 			],
 			"stateMutability": "view",
-			"type": "function"
+			"type": "function",
+			"constant": true
 		},
 		{
 			"inputs": [
@@ -40047,9 +40054,37 @@
 		"name": "solc",
 		"version": "0.8.1+commit.df193b15.Emscripten.clang"
 	},
-	"networks": {},
+	"networks": {
+		"1617682517128": {
+			"events": {
+				"0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0": {
+					"anonymous": false,
+					"inputs": [
+						{
+							"indexed": true,
+							"internalType": "address",
+							"name": "previousOwner",
+							"type": "address"
+						},
+						{
+							"indexed": true,
+							"internalType": "address",
+							"name": "newOwner",
+							"type": "address"
+						}
+					],
+					"name": "OwnershipTransferred",
+					"type": "event"
+				}
+			},
+			"links": {},
+			"address": "0x83c73CdFc0F1DFe2e052bf5C5486dCAE48e8A561",
+			"transactionHash": "0x54028e0cd3e0bea439b05e2e328fd8d5fd0b3bf22e8b3d680e2fb25dc5ac0c8c"
+		}
+	},
 	"schemaVersion": "3.3.4",
-	"updatedAt": "2021-04-05T18:54:54.470Z",
+	"updatedAt": "2021-04-06T04:15:38.057Z",
+	"networkType": "ethereum",
 	"devdoc": {
 		"kind": "dev",
 		"methods": {

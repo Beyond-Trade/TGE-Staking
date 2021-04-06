@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react'
-import { Card } from './Card'
+import { Card } from '../../components/Card/Card'
 
 import Web3 from 'web3'
 
-import { abi as mock1Abi } from './contracts/Mock.json'
-import { abi as mock2Abi } from './contracts/Mock2.json'
+import { abi as mock1Abi } from '../../contracts/Mock.json'
+import { abi as mock2Abi } from '../../contracts/Mock2.json'
 
 import {
 	rewardContractAddress,
@@ -12,12 +12,12 @@ import {
 	stakingFactoryContractAddress,
 	stakingTokenAddressLP,
 	StakingFactoryContractAddressLP,
-} from './config'
+} from '../../config'
 
-import logo from './img.jpeg'
+import logo from '../../img.jpeg'
 
-import { abi as stakingFAbi } from './contracts/StakingFactory.json'
-import { abi as LpStakingFAbi } from './contracts/StakingFactoryLP.json'
+import { abi as stakingFAbi } from '../../contracts/StakingFactory.json'
+import { abi as LpStakingFAbi } from '../../contracts/StakingFactoryLP.json'
 
 import './Home.scss'
 export const Home = () => {
