@@ -4,8 +4,6 @@ pragma solidity ^0.8.0;
 import '@openzeppelin/contracts/token/ERC20/ERC20.sol';
 import '@openzeppelin/contracts/access/Ownable.sol';
 
-import './Tokens.sol';
-
 /**
 This is a Staking contract created for every token.
  */
@@ -14,7 +12,7 @@ contract Staking is Ownable {
 
 	StakingFactory factory; // Contract which is creating this one.
 
-	Mock rewardsToken; // Reward Token
+	IERC20 rewardsToken; // Reward Token
 
 	IERC20 stakingToken; // Staking Token
 
@@ -58,7 +56,7 @@ contract Staking is Ownable {
 		address _stakingToken
 	) {
 		factory = StakingFactory(_factory);
-		rewardsToken = Mock(_rewardsToken);
+		rewardsToken = IERC20(_rewardsToken);
 		stakingToken = IERC20(_stakingToken);
 	}
 
@@ -166,8 +164,7 @@ contract Staking is Ownable {
 
 			if (block.timestamp > factory.startTime() + _lockedDuration * oneDay) {
 				uint256 rewardValue = users[msg.sender].level1Tokens + (((_rewardPercentTimes100 * users[msg.sender].level1Tokens)) / 10000);
-				rewardsToken.approveInternal(address(this), msg.sender, rewardValue);
-				rewardsToken.transferInternal(address(this), msg.sender, rewardValue);
+				rewardsToken.transferFrom(address(this), msg.sender, rewardValue);
 				users[msg.sender].level1Tokens = 0;
 				users[msg.sender].level1Reward = 0;
 				return;
@@ -177,8 +174,7 @@ contract Staking is Ownable {
 				factory.levels(2);
 			if (block.timestamp > factory.startTime() + _lockedDuration * oneDay) {
 				uint256 rewardValue = users[msg.sender].level2Tokens + (((_rewardPercentTimes100 * users[msg.sender].level2Tokens)) / 10000);
-				rewardsToken.approveInternal(address(this), msg.sender, rewardValue);
-				rewardsToken.transferInternal(address(this), msg.sender, rewardValue);
+				rewardsToken.transferFrom(address(this), msg.sender, rewardValue);
 				users[msg.sender].level2Tokens = 0;
 				users[msg.sender].level2Reward = 0;
 				return;
@@ -188,8 +184,7 @@ contract Staking is Ownable {
 				factory.levels(3);
 			if (block.timestamp > users[msg.sender].lastUpdateDate + _lockedDuration * oneDay) {
 				uint256 rewardValue = users[msg.sender].level3Tokens + (((_rewardPercentTimes100 * users[msg.sender].level3Tokens)) / 10000);
-				rewardsToken.approveInternal(address(this), msg.sender, rewardValue);
-				rewardsToken.transferInternal(address(this), msg.sender, rewardValue);
+				rewardsToken.transferFrom(address(this), msg.sender, rewardValue);
 				users[msg.sender].level3Tokens = 0;
 				users[msg.sender].level3Reward = 0;
 				return;
@@ -200,8 +195,7 @@ contract Staking is Ownable {
 		// 		factory.levels(4);
 		// 	if (block.timestamp > users[msg.sender].lastUpdateDate + _lockedDuration * oneDay) {
 		// 		uint256 rewardValue = users[msg.sender].level4Tokens + (((_rewardPercentTimes100 * users[msg.sender].level4Tokens)) / 10000);
-		// 		rewardsToken.approveInternal(address(this), msg.sender, rewardValue);
-		// 		rewardsToken.transferInternal(address(this), msg.sender, rewardValue);
+		// 		rewardsToken.transferFrom(address(this), msg.sender, rewardValue);
 		// 		users[msg.sender].level4Tokens = 0;
 		// 		users[msg.sender].level4Reward = 0;
 		// 		return;
@@ -256,13 +250,12 @@ contract Staking is Ownable {
 		// }
 
 		require(amount <= users[msg.sender].withdrawable, 'Requested amount more than reward.');
-		rewardsToken.approveInternal(address(this), msg.sender, amount);
-		rewardsToken.transferInternal(address(this), msg.sender, amount);
+		rewardsToken.transferFrom(address(this), msg.sender, amount);
 	}
 }
 
 contract StakingFactory is Ownable {
-	Mock rewardsToken;
+	IERC20 rewardsToken;
 	uint256 public startTime;
 	uint256 public level;
 	address[] public stakingTokens;
@@ -288,7 +281,7 @@ contract StakingFactory is Ownable {
 	mapping(uint256 => LevelData) public levels;
 
 	constructor(address _rewardsToken, uint256 _startTime) {
-		rewardsToken = Mock(_rewardsToken);
+		rewardsToken = IERC20(_rewardsToken);
 		startTime = _startTime;
 		level = 1;
 		createLevels();
@@ -303,8 +296,7 @@ contract StakingFactory is Ownable {
 
 		stakingContractAddress = info.stakingRewards;
 
-		rewardsToken.approveInternal(msg.sender, info.stakingRewards, rewardAmount);
-		rewardsToken.transferInternal(msg.sender, info.stakingRewards, rewardAmount);
+		rewardsToken.transferFrom(msg.sender, info.stakingRewards, rewardAmount);
 		info.rewardAmount = rewardAmount;
 		stakingTokens.push(stakingToken);
 	}
@@ -337,7 +329,7 @@ contract StakingFactory is Ownable {
 	}
 
 	function updateLevelCheck() external {
-		if (block.timestamp > startTime + 60 * 24 * 60) {
+		if (block.timestamp > startTime * 60 * 24 * 60) {
 			// level = 4;
 			level = 3;
 		}
