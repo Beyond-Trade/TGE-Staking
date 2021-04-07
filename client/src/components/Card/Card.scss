@@ -2,12 +2,12 @@
 .card {
 	height: 25rem;
 	width: 18.75rem;
-	border-radius: 0.7rem;
+	// border-radius: 0.7rem;
 	margin: 0.5rem;
 
 	// background-color: #272727;
 
-	box-shadow: -2px -2px 8px #7a7a7a, 4px 4px 7px #ffdada;
+	// box-shadow: -2px -2px 8px #7a7a7a, 4px 4px 7px #ffdada;
 	appearance: none;
 	-webkit-appearance: none;
 
@@ -19,9 +19,10 @@
 	}
 	.button {
 		margin: 0 auto;
-		min-width: 10rem;
-		max-width: 13rem;
-		padding: 0.6rem 0;
+		min-width: 7rem;
+		width: fit-content;
+
+		padding: 0.6rem 2rem;
 		// span {
 		// 	padding: 0 0.7rem;
 		// }
