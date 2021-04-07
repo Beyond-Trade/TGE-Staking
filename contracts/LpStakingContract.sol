@@ -4,8 +4,6 @@ pragma solidity ^0.8.0;
 import '@openzeppelin/contracts/token/ERC20/ERC20.sol';
 import '@openzeppelin/contracts/access/Ownable.sol';
 
-import './Tokens.sol';
-
 /**
 This is a Staking contract created for every token.
  */
@@ -14,7 +12,7 @@ contract StakingLP is Ownable {
 
 	StakingFactoryLP factory; // Contract which is creating this one.
 
-	Mock rewardsToken; // Reward Token
+	IERC20 rewardsToken; // Reward Token
 
 	IERC20 stakingToken; // Staking Token
 
@@ -58,7 +56,7 @@ contract StakingLP is Ownable {
 		address _stakingToken
 	) {
 		factory = StakingFactoryLP(_factory);
-		rewardsToken = Mock(_rewardsToken);
+		rewardsToken = IERC20(_rewardsToken);
 		stakingToken = IERC20(_stakingToken);
 	}
 
@@ -86,9 +84,11 @@ contract StakingLP is Ownable {
 		// and update the level. Return rest of the staking token to the user.
 		if (level == 1) {
 			(amount, remaining) = checkUpdateLevel(amount, level);
-			users[msg.sender].level1Tokens += amount;
 			stakingToken.transferFrom(msg.sender, address(this), amount);
-			factory.updateTokens(amount);
+			users[msg.sender].level1Tokens += amount * 1000;
+			// 1LP will give 2K BYN
+			// Or equivalent to 100% interest on 1K BYN
+			factory.updateTokens(amount * 1000);
 
 			level = factory.level();
 			amount = remaining;
@@ -133,8 +133,8 @@ contract StakingLP is Ownable {
 
 			if (block.timestamp > factory.startTime() + _lockedDuration * oneDay) {
 				uint256 rewardValue = users[msg.sender].level1Tokens + (((_rewardPercentTimes100 * users[msg.sender].level1Tokens)) / 10000);
-				rewardsToken.approveInternal(address(this), msg.sender, rewardValue);
-				rewardsToken.transferInternal(address(this), msg.sender, rewardValue);
+				// rewardsToken.approveInternal(address(this), msg.sender, rewardValue);
+				rewardsToken.transferFrom(address(this), msg.sender, rewardValue);
 				users[msg.sender].level1Tokens = 0;
 				users[msg.sender].level1Reward = 0;
 				return;
@@ -181,13 +181,14 @@ contract StakingLP is Ownable {
 		// }
 
 		require(amount <= users[msg.sender].withdrawable, 'Requested amount more than reward.');
-		rewardsToken.approveInternal(address(this), msg.sender, amount);
-		rewardsToken.transferInternal(address(this), msg.sender, amount);
+		// rewardsToken.approveInternal(address(this), msg.sender, amount);
+		rewardsToken.transferFrom(address(this), msg.sender, amount);
+		users[msg.sender].withdrawable = users[msg.sender].withdrawable - amount;
 	}
 }
 
 contract StakingFactoryLP is Ownable {
-	Mock rewardsToken;
+	IERC20 rewardsToken;
 	uint256 public startTime;
 	uint256 public level;
 	address[] public stakingTokens;
@@ -213,7 +214,7 @@ contract StakingFactoryLP is Ownable {
 	mapping(uint256 => LevelData) public levels;
 
 	constructor(address _rewardsToken, uint256 _startTime) {
-		rewardsToken = Mock(_rewardsToken);
+		rewardsToken = IERC20(_rewardsToken);
 		startTime = _startTime;
 		level = 1;
 		createLevels();
@@ -228,8 +229,8 @@ contract StakingFactoryLP is Ownable {
 
 		stakingContractAddress = info.stakingRewards;
 
-		rewardsToken.approveInternal(msg.sender, info.stakingRewards, rewardAmount);
-		rewardsToken.transferInternal(msg.sender, info.stakingRewards, rewardAmount);
+		// rewardsToken.approveInternal(msg.sender, info.stakingRewards, rewardAmount);
+		rewardsToken.transferFrom(msg.sender, info.stakingRewards, rewardAmount);
 		info.rewardAmount = rewardAmount;
 		stakingTokens.push(stakingToken);
 	}
@@ -237,7 +238,8 @@ contract StakingFactoryLP is Ownable {
 	// Create Levels
 	// Or create an array and provide user access to create them.
 	function createLevels() internal {
-		levels[1] = LevelData(100000, 9900, 30, 200000, 0);
+		// 1LP will give 200K BYN add 100K BYN in token and 100K BYN in reward
+		levels[1] = LevelData(100000 ether, 10000, 30, 100000 ether, 0);
 		// levels[2] = LevelData(200000, 4100, 30, 82192, 0);
 
 		level = 1;
@@ -259,6 +261,8 @@ contract StakingFactoryLP is Ownable {
 	}
 
 	function updateLevelCheck() external {
+		// Stop accepting entries in level 1 after one day.
+		// Level 1 offer is only for one day.
 		if (block.timestamp > startTime + 60 * 24 * 60) {
 			level = 2;
 		}
