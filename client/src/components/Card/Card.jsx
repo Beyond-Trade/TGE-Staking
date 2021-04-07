@@ -13,16 +13,19 @@ export const Card = ({ token, token_r, value, value_r, token_image, total_staked
 				) : (
 					<>
 						<img src={token_image} alt='' />
-						<h1>
-							{/* {value} */}
-							{token}
-						</h1>
-						{/* <h1>
-							{value_r} {token_r}
-						</h1> */}
-						<h2>Total Reward: {allowedReward}</h2>
-						<h2>Alloted Tokens: {alloted}</h2>
-						{/* <p>{allowedForXCoins} Total</p> */}
+						<div className='token'>
+							<p>{token}</p>
+						</div>
+
+						<h2>
+							Total Reward:
+							<span className='consolas text-inner'>{allowedReward}</span>
+						</h2>
+						<h2>
+							Alloted Tokens:
+							<span className='consolas text-inner'>{alloted}</span>
+						</h2>
+
 						<Link to={link}>
 							<div className='button'>
 								<span>Stake</span>

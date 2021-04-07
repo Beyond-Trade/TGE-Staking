@@ -1,21 +1,49 @@
 @import '../../index.scss';
 .card {
-	height: 25rem;
+	background-color: #222429;
+	border-radius: 50px;
+	background: linear-gradient(145deg, #1f2025, #24272c);
+	box-shadow: 20px 20px 60px #1d1f23, -20px -20px 60px #27292f;
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6,
+	p {
+		color: white;
+	}
+	// height: 25rem;
+	.text-inner {
+		padding-left: 2px;
+	}
+	h2 {
+		font-size: 1.4rem;
+		margin-top: 2px;
+	}
 	width: 18.75rem;
-	// border-radius: 0.7rem;
+	border-radius: 0.7rem;
 	margin: 0.5rem;
 
-	// background-color: #272727;
-
-	// box-shadow: -2px -2px 8px #7a7a7a, 4px 4px 7px #ffdada;
 	appearance: none;
 	-webkit-appearance: none;
+	padding: 2rem 0;
+	// width: 80%;
+	.token {
+		padding: 0 2rem;
+		width: fit-content;
+		p {
+			color: #565a69;
+		}
+		font-weight: 500;
+	}
 
 	text-align: center;
 	img {
 		margin: 0 auto;
 		margin-top: 1.25rem;
 		height: 5rem;
+		display: none;
 	}
 	.button {
 		margin: 0 auto;
@@ -23,10 +51,6 @@
 		width: fit-content;
 
 		padding: 0.6rem 2rem;
-		// span {
-		// 	padding: 0 0.7rem;
-		// }
-
 		height: 1.5rem;
 
 		display: flex;
