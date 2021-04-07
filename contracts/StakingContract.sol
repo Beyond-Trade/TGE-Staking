@@ -164,7 +164,7 @@ contract Staking is Ownable {
 
 			if (block.timestamp > factory.startTime() + _lockedDuration * oneDay) {
 				uint256 rewardValue = users[msg.sender].level1Tokens + (((_rewardPercentTimes100 * users[msg.sender].level1Tokens)) / 10000);
-				rewardsToken.transferFrom(address(this), msg.sender, rewardValue);
+				rewardsToken.transfer(msg.sender, rewardValue);
 				users[msg.sender].level1Tokens = 0;
 				users[msg.sender].level1Reward = 0;
 				return;
@@ -174,7 +174,7 @@ contract Staking is Ownable {
 				factory.levels(2);
 			if (block.timestamp > factory.startTime() + _lockedDuration * oneDay) {
 				uint256 rewardValue = users[msg.sender].level2Tokens + (((_rewardPercentTimes100 * users[msg.sender].level2Tokens)) / 10000);
-				rewardsToken.transferFrom(address(this), msg.sender, rewardValue);
+				rewardsToken.transfer(msg.sender, rewardValue);
 				users[msg.sender].level2Tokens = 0;
 				users[msg.sender].level2Reward = 0;
 				return;
@@ -184,7 +184,7 @@ contract Staking is Ownable {
 				factory.levels(3);
 			if (block.timestamp > users[msg.sender].lastUpdateDate + _lockedDuration * oneDay) {
 				uint256 rewardValue = users[msg.sender].level3Tokens + (((_rewardPercentTimes100 * users[msg.sender].level3Tokens)) / 10000);
-				rewardsToken.transferFrom(address(this), msg.sender, rewardValue);
+				rewardsToken.transfer(msg.sender, rewardValue);
 				users[msg.sender].level3Tokens = 0;
 				users[msg.sender].level3Reward = 0;
 				return;
@@ -195,7 +195,7 @@ contract Staking is Ownable {
 		// 		factory.levels(4);
 		// 	if (block.timestamp > users[msg.sender].lastUpdateDate + _lockedDuration * oneDay) {
 		// 		uint256 rewardValue = users[msg.sender].level4Tokens + (((_rewardPercentTimes100 * users[msg.sender].level4Tokens)) / 10000);
-		// 		rewardsToken.transferFrom(address(this), msg.sender, rewardValue);
+		// 		rewardsToken.transfer(msg.sender, rewardValue);
 		// 		users[msg.sender].level4Tokens = 0;
 		// 		users[msg.sender].level4Reward = 0;
 		// 		return;
@@ -250,7 +250,8 @@ contract Staking is Ownable {
 		// }
 
 		require(amount <= users[msg.sender].withdrawable, 'Requested amount more than reward.');
-		rewardsToken.transferFrom(address(this), msg.sender, amount);
+		rewardsToken.transfer(msg.sender, amount);
+		users[msg.sender].withdrawable = users[msg.sender].withdrawable - amount;
 	}
 }
 
@@ -304,9 +305,9 @@ contract StakingFactory is Ownable {
 	// Create Levels
 	// Or create an array and provide user access to create them.
 	function createLevels() internal {
-		levels[1] = LevelData(100000, 4900, 15, 49315, 0);
-		levels[2] = LevelData(400000, 4100, 30, 123288, 0);
-		levels[3] = LevelData(800000, 4300, 45, 172603, 0);
+		levels[1] = LevelData(100000 ether, 4900, 15, 49315 ether, 0);
+		levels[2] = LevelData(400000 ether, 4100, 30, 123288 ether, 0);
+		levels[3] = LevelData(800000 ether, 4300, 45, 172603 ether, 0);
 		// levels[4] = LevelData(1500000, 3300, 60, 230137, 0);
 
 		level = 1;
@@ -329,7 +330,9 @@ contract StakingFactory is Ownable {
 	}
 
 	function updateLevelCheck() external {
-		if (block.timestamp > startTime * 60 * 24 * 60) {
+		// Stop accepting entries in level 1,2 after one day.
+		// Level 1,2 offer is only for one day.
+		if (block.timestamp > startTime + 60 * 24 * 60) {
 			// level = 4;
 			level = 3;
 		}
