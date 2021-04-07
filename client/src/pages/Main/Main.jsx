@@ -5,6 +5,7 @@ import React from 'react'
 import { Card } from '../../components/Card/Card'
 
 import './Main.scss'
+import BigNumber from 'bignumber.js'
 
 export class Main extends React.Component {
 	state = {
@@ -114,7 +115,7 @@ export class Main extends React.Component {
 			const web3 = this.web3
 			const staking = new web3.eth.Contract(this.stakingAbi, this.stakingRewards)
 			// const stakingToken = new web3.eth.Contract(mock2Abi, this.stakingTokenAddress)
-			await staking.methods.withdrawByAmount(this.state.withdrawAmount).send({ from: this.state.owner })
+			await staking.methods.withdrawByAmount(new BigNumber(this.state.withdrawAmount)).send({ from: this.state.owner })
 
 			const estimatedReward = await this.calculateReward(this.state.staking)
 			await this.updateBalances()
@@ -169,9 +170,11 @@ export class Main extends React.Component {
 	async deposit() {
 		try {
 			// const web3 = this.web3
-			await this.state.stakingToken.methods.increaseAllowance(this.stakingRewards, this.state.deposit).send({ from: this.state.owner })
+			await this.state.stakingToken.methods
+				.increaseAllowance(this.stakingRewards, new BigNumber(this.state.deposit))
+				.send({ from: this.state.owner })
 
-			await this.state.staking.methods.deposit(this.state.deposit).send({ from: this.state.owner, gas: 3000000 })
+			await this.state.staking.methods.deposit(new BigNumber(this.state.deposit)).send({ from: this.state.owner, gas: 3000000 })
 			const estimatedReward = await this.calculateReward(this.state.staking)
 			await this.updateBalances()
 			// console.log(estimatedReward)
@@ -195,6 +198,7 @@ export class Main extends React.Component {
 		const estimatedReward = await staking.methods.calculateReward().call({
 			from: this.owner,
 		})
+		console.log('calc:', estimatedReward)
 		this.tokens(estimatedReward)
 		return estimatedReward
 	}
@@ -216,6 +220,7 @@ export class Main extends React.Component {
 	}
 
 	render() {
+		console.log('reward: ', this.state.i_reward)
 		return (
 			<div className='App'>
 				<header className='App-header'>
@@ -226,18 +231,16 @@ export class Main extends React.Component {
 								<h2 style={{ margin: '0rem' }}>Level:{this.state.level}</h2>
 								<div className='lower'>
 									<h5 style={{ margin: '0rem' }}>
-										Tokens:
-										<span className='consolas'>{this.state.i_token}</span>
+										Tokens: <span className='consolas'>{(this.state.i_token / Math.pow(10, 18)).toFixed(4)}</span>
 									</h5>
 
 									<h5 style={{ margin: '0rem' }}>
-										Rewards:
-										<span className='consolas'>{this.state.i_reward}</span>
+										Rewards: <span className='consolas'>{(this.state.i_reward / Math.pow(10, 18)).toFixed(4)}</span>
 									</h5>
 
 									<h5 style={{ margin: '0rem' }}>
-										Withdrwable:
-										<span className='consolas'>{this.state.rewards['withdrawable']}</span>
+										Withdrwable:{' '}
+										<span className='consolas'>{(this.state.rewards['withdrawable'] / Math.pow(10, 18)).toFixed(4)}</span>
 									</h5>
 								</div>
 
@@ -268,7 +271,7 @@ export class Main extends React.Component {
 											autoComplete='off'
 											name='deposit'
 											onChange={(e) => {
-												this.setState({ deposit: e.target.value })
+												this.setState({ deposit: e.target.value * Math.pow(10, 18) })
 											}}
 											placeholder='Deposit Amount'
 										/>
@@ -291,11 +294,11 @@ export class Main extends React.Component {
 								<div className='lower'>
 									<h5 style={{ margin: 0 }}>
 										RWD:
-										<span className='consolas'>{this.state.balances.reward}</span>
+										<span className='consolas'>{Math.round(this.state.balances.reward / Math.pow(10, 18), 4)}</span>
 									</h5>
 									<h5 style={{ margin: 0 }}>
 										STK:
-										<span className='consolas'>{this.state.balances.staking}</span>
+										<span className='consolas'>{Math.round(this.state.balances.staking / Math.pow(10, 18), 4)}</span>
 									</h5>
 									<h5 style={{ margin: 0 }}>
 										<span style={{ visibility: 'hidden' }}>data</span>
@@ -308,7 +311,7 @@ export class Main extends React.Component {
 											type='text'
 											name='level'
 											onChange={(e) => {
-												this.setState({ withdrawAmount: e.target.value })
+												this.setState({ withdrawAmount: e.target.value * Math.pow(10, 18) })
 											}}
 											placeholder='Amount'
 										/>
