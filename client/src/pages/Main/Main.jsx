@@ -223,12 +223,23 @@ export class Main extends React.Component {
 					<div className='main'>
 						<Card>
 							<div className='inner'>
-								<h3 style={{ margin: '0rem' }}>Level:{this.state.level}</h3>
-								<h5 style={{ margin: '0rem' }}>Token:{this.state.i_token}</h5>
+								<h2 style={{ margin: '0rem' }}>Level:{this.state.level}</h2>
+								<div className='lower'>
+									<h5 style={{ margin: '0rem' }}>
+										Tokens:
+										<span className='consolas'>{this.state.i_token}</span>
+									</h5>
 
-								<h5 style={{ margin: '0rem' }}>Reward:{this.state.i_reward}</h5>
+									<h5 style={{ margin: '0rem' }}>
+										Rewards:
+										<span className='consolas'>{this.state.i_reward}</span>
+									</h5>
 
-								<h5 style={{ margin: '0rem' }}>Withdrwable:{this.state.rewards['withdrawable']}</h5>
+									<h5 style={{ margin: '0rem' }}>
+										Withdrwable:
+										<span className='consolas'>{this.state.rewards['withdrawable']}</span>
+									</h5>
+								</div>
 
 								{/* <table style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly', margin: '0 auto' }}>
 									<tbody style={{ fontSize: '1rem' }}>
@@ -276,9 +287,20 @@ export class Main extends React.Component {
 						</Card>
 						<Card>
 							<div className='inner'>
-								<h3 style={{ margin: 0 }}>Your Balances:</h3>
-								<h5 style={{ margin: '5px auto' }}>RWD:{this.state.balances.reward}</h5>
-								<h5 style={{ margin: '5px auto' }}>STK:{this.state.balances.staking}</h5>
+								<h2 style={{ margin: 0 }}>Your Balances:</h2>
+								<div className='lower'>
+									<h5 style={{ margin: 0 }}>
+										RWD:
+										<span className='consolas'>{this.state.balances.reward}</span>
+									</h5>
+									<h5 style={{ margin: 0 }}>
+										STK:
+										<span className='consolas'>{this.state.balances.staking}</span>
+									</h5>
+									<h5 style={{ margin: 0 }}>
+										<span style={{ visibility: 'hidden' }}>data</span>
+									</h5>
+								</div>
 								<form>
 									<label htmlFor='level'>
 										<input
@@ -379,7 +401,7 @@ export class Main extends React.Component {
 						{/* <div style={{ width: '250px', height: '400px', border: '2px solid white' }}></div> */}
 					{/* </div> */}
 
-					<p>{`Your account:${this.state.owner}`}</p>
+					<p>{`Your Account:${this.state.owner}`}</p>
 				</header>
 			</div>
 		)
