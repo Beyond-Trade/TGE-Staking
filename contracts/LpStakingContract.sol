@@ -86,7 +86,9 @@ contract StakingLP is Ownable {
 			(amount, remaining) = checkUpdateLevel(amount, level);
 			users[msg.sender].level1Tokens += amount;
 			stakingToken.transferFrom(msg.sender, address(this), amount);
-			factory.updateTokens(amount);
+			// 1LP will give 2K BYN
+			// Or equivalent to 100% interest on 1K BYN
+			factory.updateTokens(amount * 1000);
 
 			level = factory.level();
 			amount = remaining;
@@ -181,6 +183,7 @@ contract StakingLP is Ownable {
 		require(amount <= users[msg.sender].withdrawable, 'Requested amount more than reward.');
 		// rewardsToken.approveInternal(address(this), msg.sender, amount);
 		rewardsToken.transferFrom(address(this), msg.sender, amount);
+		users[msg.sender].withdrawable = users[msg.sender].withdrawable - amount;
 	}
 }
 
@@ -235,7 +238,8 @@ contract StakingFactoryLP is Ownable {
 	// Create Levels
 	// Or create an array and provide user access to create them.
 	function createLevels() internal {
-		levels[1] = LevelData(100000, 9900, 30, 200000, 0);
+		// 1LP will give 200K BYN add 100K BYN in token and 100K BYN in reward
+		levels[1] = LevelData(100000 ether, 10000, 30, 100000 ether, 0);
 		// levels[2] = LevelData(200000, 4100, 30, 82192, 0);
 
 		level = 1;
@@ -257,7 +261,9 @@ contract StakingFactoryLP is Ownable {
 	}
 
 	function updateLevelCheck() external {
-		if (block.timestamp > startTime * 60 * 24 * 60) {
+		// Stop accepting entries in level 1 after one day.
+		// Level 1 offer is only for one day.
+		if (block.timestamp > startTime + 60 * 24 * 60) {
 			level = 2;
 		}
 	}
