@@ -54,10 +54,6 @@ a:visited {
 	text-decoration: none;
 }
 
-.App-header {
-	background-color: white;
-}
-
 textarea:focus,
 input:focus {
 	outline: none;

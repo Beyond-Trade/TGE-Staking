@@ -26,7 +26,7 @@
 	}
 }
 .home {
-	background: #222429;
+	background: #0b1231;
 	// background: linear-gradient(90deg, rgba(22, 31, 38, 1) 0%, rgba(22, 31, 38, 1) 57%, rgba(42, 56, 66, 1) 100%);
 	// * {
 	// 	border: 1px solid red;
@@ -53,19 +53,19 @@
 	}
 	.card {
 		.button {
-			background-color: #1c2e47;
+			background-color: #0c1230;
 			color: #6da8dc;
 
 			&:hover {
-				background-color: #1d1f23;
 				color: white;
-				box-shadow: -2px -2px 5px #1d1f23, 2px 2px 5px #27292f;
+
+				box-shadow: 10px 10px 40px #141432, -10px -10px 40px #1a1c44;
 			}
 
 			&:active {
-				background-color: #1d1f23;
+				background-color: #141432;
 				color: white;
-				box-shadow: inset 1px 1px 2px #27292f, inset -1px -1px 2px #1d1f23;
+				box-shadow: 10px 10px 40px #141432, -10px -10px 40px #1a1c44;
 			}
 		}
 	}
