@@ -84,8 +84,8 @@ contract StakingLP is Ownable {
 		// and update the level. Return rest of the staking token to the user.
 		if (level == 1) {
 			(amount, remaining) = checkUpdateLevel(amount, level);
-			users[msg.sender].level1Tokens += amount;
 			stakingToken.transferFrom(msg.sender, address(this), amount);
+			users[msg.sender].level1Tokens += amount * 1000;
 			// 1LP will give 2K BYN
 			// Or equivalent to 100% interest on 1K BYN
 			factory.updateTokens(amount * 1000);

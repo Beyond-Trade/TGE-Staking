@@ -84,8 +84,8 @@ contract Staking is Ownable {
 		// and update the level. Return rest of the staking token to the user.
 		if (level == 1) {
 			(amount, remaining) = checkUpdateLevel(amount, level);
-			users[msg.sender].level1Tokens += amount;
 			stakingToken.transferFrom(msg.sender, address(this), amount);
+			users[msg.sender].level1Tokens += amount;
 			factory.updateTokens(amount);
 
 			level = factory.level();
@@ -93,8 +93,8 @@ contract Staking is Ownable {
 		}
 		if (level == 2) {
 			(amount, remaining) = checkUpdateLevel(amount, level);
-			users[msg.sender].level2Tokens += amount;
 			stakingToken.transferFrom(msg.sender, address(this), amount);
+			users[msg.sender].level2Tokens += amount;
 			factory.updateTokens(amount);
 
 			level = factory.level();
@@ -102,8 +102,8 @@ contract Staking is Ownable {
 		}
 		if (level == 3) {
 			(amount, remaining) = checkUpdateLevel(amount, level);
-			users[msg.sender].level3Tokens += amount;
 			stakingToken.transferFrom(msg.sender, address(this), amount);
+			users[msg.sender].level3Tokens += amount;
 			factory.updateTokens(amount);
 
 			level = factory.level();
