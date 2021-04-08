@@ -8,7 +8,7 @@ import '@openzeppelin/contracts/access/Ownable.sol';
 This is a Staking contract created for every token.
  */
 contract Staking is Ownable {
-	uint256 oneDay = 24 * 60 * 60;
+	uint256 oneDay = 2;
 
 	StakingFactory factory; // Contract which is creating this one.
 

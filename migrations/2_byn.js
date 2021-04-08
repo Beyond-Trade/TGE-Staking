@@ -7,6 +7,14 @@ const Mock2 = artifacts.require('Mock2')
 const BYN = artifacts.require('StakingFactory')
 const BYNLP = artifacts.require('StakingFactoryLP')
 
+const data = {
+	reward_token: '',
+	mock_token_1: '',
+	mock_token_2: '',
+	staking_factory: '',
+	staking_factory_lp: '',
+}
+
 module.exports = function (deployer) {
 	deployer.deploy(Mock, 'Reward', 'RWD').then((reward) => {
 		return deployer.deploy(Mock2, 'Staking', 'STK').then(async (staking) => {
