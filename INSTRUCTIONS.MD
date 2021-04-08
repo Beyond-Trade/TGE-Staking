@@ -52,3 +52,4 @@ For using existing:
 Run from top-level
 
 -   `git subtree push --prefix client heroku master`
+-   `heroku open`
