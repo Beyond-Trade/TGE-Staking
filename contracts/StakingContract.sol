@@ -8,7 +8,7 @@ import '@openzeppelin/contracts/access/Ownable.sol';
 This is a Staking contract created for every token.
  */
 contract Staking is Ownable {
-	uint256 oneDay = 2;
+	uint256 oneDay = 24 * 60 * 60;
 
 	StakingFactory factory; // Contract which is creating this one.
 
@@ -86,8 +86,8 @@ contract Staking is Ownable {
 			(amount, remaining) = checkUpdateLevel(amount, level);
 			stakingToken.transferFrom(msg.sender, address(this), amount);
 			users[msg.sender].level1Tokens += amount;
+			users[msg.sender].tokens += amount;
 			factory.updateTokens(amount);
-
 			level = factory.level();
 			amount = remaining;
 		}
@@ -95,6 +95,7 @@ contract Staking is Ownable {
 			(amount, remaining) = checkUpdateLevel(amount, level);
 			stakingToken.transferFrom(msg.sender, address(this), amount);
 			users[msg.sender].level2Tokens += amount;
+			users[msg.sender].tokens += amount;
 			factory.updateTokens(amount);
 
 			level = factory.level();
@@ -104,6 +105,7 @@ contract Staking is Ownable {
 			(amount, remaining) = checkUpdateLevel(amount, level);
 			stakingToken.transferFrom(msg.sender, address(this), amount);
 			users[msg.sender].level3Tokens += amount;
+			users[msg.sender].tokens += amount;
 			factory.updateTokens(amount);
 
 			level = factory.level();
