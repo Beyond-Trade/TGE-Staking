@@ -4,9 +4,11 @@
 
 Insert respective values.
 
--   INFURA_PROJECT_ID=<your-infura-project-id>
--   INFURA_PROJECT_SECRET=<your-infura-project-secret>
--   MNEMONIC=<your-mnemonic>
+```.env
+INFURA_PROJECT_ID=<your-infura-project-id>
+INFURA_PROJECT_SECRET=<your-infura-project-secret>
+MNEMONIC=<your-mnemonic>
+```
 
 # Update required parameters in [migration](migrations/2_byn.js)
 
