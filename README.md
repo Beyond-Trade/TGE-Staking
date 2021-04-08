@@ -1,5 +1,3 @@
-#
-
 ### There are two major contracts in contracts/BYN.sol
 
 -   Staking
@@ -20,3 +18,9 @@ Copy the contract addresses into the `client/src/config.js`
 ## Contract
 
 [Documentation](contracts/README.md)
+
+## Running Frontend
+
+-   Run Test network with Ganache or use: `npm run test:ethereum`
+-   Migrate the contract with: `truffle compile && truffle migrate`
+-   Run the frontend: `cd client && yarn start` (Note: run `yarn` before. [Docs](client/README.md))
