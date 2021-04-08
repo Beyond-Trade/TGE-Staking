@@ -8,6 +8,8 @@ Insert respective values.
 -   INFURA_PROJECT_SECRET=<your-infura-project-secret>
 -   MNEMONIC=<your-mnemonic>
 
+# Update required parameters in [migration](migrations/2_byn.js)
+
 # Install node_modules
 
 -   `npm i -g truffle yarn rimraf`
@@ -23,6 +25,8 @@ Insert respective values.
 -   `cd client && yarn build`
 
 # Deployment on heroku
+
+You can either push the deployment directy to heroku after build or use the cli:
 
 ### Install heroku
 
