@@ -17,10 +17,14 @@ export const Card = ({ token, token_r, value, value_r, token_image, total_staked
 							<p>{token}</p>
 						</div>
 
-						<h2>
-							Total Reward:
-							<span className='consolas text-inner'>{(allowedReward / Math.pow(10, 18)).toFixed(4)}</span>
-						</h2>
+						{token === 'BYN' ? (
+							<h2>
+								Total Reward:
+								<span className='consolas text-inner'>{(allowedReward / Math.pow(10, 18)).toFixed(4)}</span>
+							</h2>
+						) : (
+							<h2 style={{ visibility: 'hidden' }}>hidden_field</h2>
+						)}
 						<h2>
 							Alloted Tokens:
 							<span className='consolas text-inner'>{(alloted / Math.pow(10, 18)).toFixed(4)}</span>
