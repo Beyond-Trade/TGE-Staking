@@ -18,12 +18,10 @@ export const Card = ({ token, token_r, value, value_r, token_image, total_staked
 						</div>
 
 						<h2>
-							Total Reward:
-							<span className='consolas text-inner'>{(allowedReward / Math.pow(10, 18)).toFixed(4)}</span>
+							Total Reward: <span className='consolas text-inner'>{(allowedReward / Math.pow(10, 18)).toFixed(4)}</span>
 						</h2>
 						<h2>
-							Alloted Tokens:
-							<span className='consolas text-inner'>{(alloted / Math.pow(10, 18), 4).toFixed(4)}</span>
+							Alloted Tokens: <span className='consolas text-inner'>{(alloted / Math.pow(10, 18)).toFixed(4)}</span>
 						</h2>
 
 						<Link to={link}>
