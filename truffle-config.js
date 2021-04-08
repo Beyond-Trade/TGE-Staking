@@ -17,14 +17,19 @@
  * phrase from a file you've .gitignored so it doesn't accidentally become public.
  *
  */
-
+const { join } = require('path')
+const dotenv = require('dotenv')
+dotenv.config({
+	path: join(__dirname, '.env'),
+})
 const HDWalletProvider = require('@truffle/hdwallet-provider')
 // const infuraKey = "fj4jll3k.....";
 //
 // const fs = require('fs');
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
-const MNEMONIC = 'dial wave donor staff friend autumn occur town bring brown void bright write minor banner'
-const INFURA_API_KEY = '5e1066f684994b0e99a6fb0817a3eb2f'
+const MNEMONIC = process.env.MNEMONIC
+const INFURA_API_KEY = process.env.INFURA_PROJECT_ID
+const INFURA_PROJECT_ID = process.env.INFURA_PROJECT_ID
 
 module.exports = {
 	contracts_build_directory: './client/src/contracts',
@@ -62,6 +67,17 @@ module.exports = {
 			network_id: 42,
 			gasPrice: 2000000000, // 10 gwei (default: 20 gwei)
 		},
+		ropsten: {
+			provider: () => {
+				return new HDWalletProvider(MNEMONIC, `https://ropsten.infura.io/v3/${INFURA_PROJECT_ID}`)
+			},
+			network_id: 3, // Ropsten's id
+			gas: 5500000, // Ropsten has a lower block limit than mainnet
+			confirmations: 2, // # of confs to wait between deployments. (default: 0)
+			timeoutBlocks: 200, // # of blocks before a deployment times out  (minimum/default: 50)
+			skipDryRun: true, // Skip dry run before migrations? (default: false for public nets )
+		},
+
 		// Another network with more advanced options...
 		// advanced: {
 		// port: 8777,             // Custom port

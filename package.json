@@ -19,6 +19,8 @@
 		"@openzeppelin/contracts": "^4.0.0",
 		"@truffle/hdwallet-provider": "^1.2.6",
 		"@typechain/truffle-v4": "^3.0.0",
+		"@types/dotenv": "^8.2.0",
+		"dotenv": "^8.2.0",
 		"react-router": "^5.2.0",
 		"react-router-dom": "^5.2.0",
 		"typechain": "^4.0.3"
