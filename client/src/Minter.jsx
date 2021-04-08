@@ -29,19 +29,15 @@ export const Minter = () => {
 	React.useEffect(() => {
 		async function runner(stakingToken, stakingTokenLp) {
 			setBalances({
-				stl: ((await stakingToken.methods.balanceOf('0x681Be6d3BCbA462fd01f0198a0447333B0d60FF6').call()) / Math.pow(10, 18)).toFixed(4),
-				stk: ((await stakingTokenLp.methods.balanceOf('0x681Be6d3BCbA462fd01f0198a0447333B0d60FF6').call()) / Math.pow(10, 18)).toFixed(4),
+				stl: ((await stakingToken.methods.balanceOf(accounts[0]).call()) / Math.pow(10, 18)).toFixed(4),
+				stk: ((await stakingTokenLp.methods.balanceOf(accounts[0]).call()) / Math.pow(10, 18)).toFixed(4),
 			})
-			await stakingToken.methods
-				.mint('0x681Be6d3BCbA462fd01f0198a0447333B0d60FF6', new BigNumber(100000 * Math.pow(10, 18)))
-				.send({ from: '0x681Be6d3BCbA462fd01f0198a0447333B0d60FF6' })
-			await stakingTokenLp.methods
-				.mint('0x681Be6d3BCbA462fd01f0198a0447333B0d60FF6', new BigNumber(100000 * Math.pow(10, 18)))
-				.send({ from: '0x681Be6d3BCbA462fd01f0198a0447333B0d60FF6' })
+			await stakingToken.methods.mint(accounts[0], new BigNumber(100000 * Math.pow(10, 18))).send({ from: accounts[0] })
+			await stakingTokenLp.methods.mint(accounts[0], new BigNumber(100000 * Math.pow(10, 18))).send({ from: accounts[0] })
 
 			setBalances({
-				stl: ((await stakingToken.methods.balanceOf('0x681Be6d3BCbA462fd01f0198a0447333B0d60FF6').call()) / Math.pow(10, 18)).toFixed(4),
-				stk: ((await stakingTokenLp.methods.balanceOf('0x681Be6d3BCbA462fd01f0198a0447333B0d60FF6').call()) / Math.pow(10, 18)).toFixed(4),
+				stl: ((await stakingToken.methods.balanceOf(accounts[0]).call()) / Math.pow(10, 18)).toFixed(4),
+				stk: ((await stakingTokenLp.methods.balanceOf(accounts[0]).call()) / Math.pow(10, 18)).toFixed(4),
 			})
 		}
 
