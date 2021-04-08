@@ -294,11 +294,11 @@ export class Main extends React.Component {
 								<div className='lower'>
 									<h5 style={{ margin: 0 }}>
 										RWD:
-										<span className='consolas'>{Math.round(this.state.balances.reward / Math.pow(10, 18), 4)}</span>
+										<span className='consolas'>{(this.state.balances.reward / Math.pow(10, 18)).toFixed(4)}</span>
 									</h5>
 									<h5 style={{ margin: 0 }}>
 										STK:
-										<span className='consolas'>{Math.round(this.state.balances.staking / Math.pow(10, 18), 4)}</span>
+										<span className='consolas'>{(this.state.balances.staking / Math.pow(10, 18)).toFixed(4)}</span>
 									</h5>
 									<h5 style={{ margin: 0 }}>
 										<span style={{ visibility: 'hidden' }}>data</span>
