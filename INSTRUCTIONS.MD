@@ -49,6 +49,10 @@ For using existing:
 
 -   `git remote add heroku https://git.heroku.com/$APP_NAME.git`
 
+### Commit your changes before deployment
+
+`git add . && git commit -am <your commit message>`
+
 ### Push to heroku
 
 Run from top-level
