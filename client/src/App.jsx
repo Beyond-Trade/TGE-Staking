@@ -20,6 +20,7 @@ import { Main } from './pages/Main/Main'
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { Home } from './pages/Home/Home'
+import { Minter } from './Minter'
 
 const DataApp = () => {
 	return (
@@ -64,6 +65,9 @@ const DataApp = () => {
 							token_value={['level1Tokens', 'level2Tokens']}
 							reward_value={['level1Reward', 'level2Reward']}
 						/>
+					</Route>
+					<Route path='/mint'>
+						<Minter></Minter>
 					</Route>
 				</Switch>
 			</Router>
