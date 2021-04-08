@@ -1,3 +1,7 @@
+// DEPLOYMENT TIMESTAMP in miliseconds.
+// Update all tokens and values before production.
+const DEPLOYMENT_TIMESTAMP = Date.now()
+
 const { default: BigNumber } = require('bignumber.js')
 const { writeFileSync } = require('fs')
 const { join } = require('path')
@@ -18,7 +22,7 @@ const data = {
 module.exports = function (deployer) {
 	deployer.deploy(Mock, 'Reward', 'RWD').then((reward) => {
 		return deployer.deploy(Mock2, 'Staking', 'STK').then(async (staking) => {
-			return deployer.deploy(BYN, reward.address, Math.floor(Date.now() / 1000)).then(async (sf) => {
+			return deployer.deploy(BYN, reward.address, Math.floor(DEPLOYMENT_TIMESTAMP / 1000)).then(async (sf) => {
 				await reward.approve(sf.address, new BigNumber(500000 * Math.pow(10, 18)))
 				await reward.increaseAllowance(sf.address, new BigNumber(500000 * Math.pow(10, 18)))
 
