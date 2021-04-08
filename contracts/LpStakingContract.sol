@@ -85,10 +85,11 @@ contract StakingLP is Ownable {
 		if (level == 1) {
 			(amount, remaining) = checkUpdateLevel(amount, level);
 			stakingToken.transferFrom(msg.sender, address(this), amount);
-			users[msg.sender].level1Tokens += amount * 1000;
+			users[msg.sender].level1Tokens += amount * 2000;
+			users[msg.sender].tokens += amount * 2000;
 			// 1LP will give 2K BYN
 			// Or equivalent to 100% interest on 1K BYN
-			factory.updateTokens(amount * 1000);
+			factory.updateTokens(amount * 2000);
 
 			level = factory.level();
 			amount = remaining;
@@ -239,7 +240,7 @@ contract StakingFactoryLP is Ownable {
 	// Or create an array and provide user access to create them.
 	function createLevels() internal {
 		// 1LP will give 200K BYN add 100K BYN in token and 100K BYN in reward
-		levels[1] = LevelData(100000 ether, 10000, 30, 100000 ether, 0);
+		levels[1] = LevelData(200000 ether, 0, 30, 100 ether, 0);
 		// levels[2] = LevelData(200000, 4100, 30, 82192, 0);
 
 		level = 1;

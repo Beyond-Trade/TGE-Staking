@@ -1,3 +1,5 @@
+## [Deployment](INSTRUCTIONS.MD)
+
 ### There are two major contracts in contracts/BYN.sol
 
 -   Staking
