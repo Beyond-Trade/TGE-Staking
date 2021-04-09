@@ -29,8 +29,9 @@
 		]
 	},
 	"engines": {
-		"node": "^14",
-		"yarn": ">=1.22.10"
+		"node": "14.15.1",
+		"yarn": "1.22.10",
+		"npm": "7.9.0"
 	},
 	"browserslist": {
 		"production": [

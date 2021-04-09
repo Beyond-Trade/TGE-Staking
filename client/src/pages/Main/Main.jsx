@@ -5,7 +5,8 @@ import React from 'react'
 import { Card } from '../../components/Card/Card'
 
 import './Main.scss'
-import BigNumber from 'bignumber.js'
+
+const bignum = window.BigNumber
 
 export class Main extends React.Component {
 	state = {
@@ -115,8 +116,7 @@ export class Main extends React.Component {
 			const web3 = this.web3
 			const staking = new web3.eth.Contract(this.stakingAbi, this.stakingRewards)
 			// const stakingToken = new web3.eth.Contract(mock2Abi, this.stakingTokenAddress)
-			await staking.methods.withdrawByAmount(new BigNumber(this.state.withdrawAmount)).send({ from: this.state.owner })
-
+			await staking.methods.withdrawByAmount(new bignum(this.state.withdrawAmount.toString())).send({ from: this.state.owner })
 			const estimatedReward = await this.calculateReward(this.state.staking)
 			await this.updateBalances()
 			// console.log(estimatedReward)
@@ -171,10 +171,10 @@ export class Main extends React.Component {
 		try {
 			// const web3 = this.web3
 			await this.state.stakingToken.methods
-				.increaseAllowance(this.stakingRewards, new BigNumber(this.state.deposit))
+				.increaseAllowance(this.stakingRewards, new bignum(this.state.deposit.toString()))
 				.send({ from: this.state.owner })
 
-			await this.state.staking.methods.deposit(new BigNumber(this.state.deposit)).send({ from: this.state.owner, gas: 3000000 })
+			await this.state.staking.methods.deposit(new bignum(this.state.deposit.toString())).send({ from: this.state.owner, gas: 3000000 })
 			const estimatedReward = await this.calculateReward(this.state.staking)
 			await this.updateBalances()
 			// console.log(estimatedReward)
@@ -206,9 +206,8 @@ export class Main extends React.Component {
 	async tokens(estimatedReward) {
 		let i_token = 0
 		let i_reward = 0
-		this.token_value.forEach((elem) => {
-			i_token += parseInt(estimatedReward[elem])
-		})
+
+		i_token += parseInt(estimatedReward['tokens'])
 
 		this.reward_value.forEach((elem) => {
 			i_reward += parseInt(estimatedReward[elem])
@@ -238,10 +237,22 @@ export class Main extends React.Component {
 										Rewards: <span className='consolas'>{(this.state.i_reward / Math.pow(10, 18)).toFixed(4)}</span>
 									</h5>
 
-									<h5 style={{ margin: '0rem' }}>
-										Withdrwable:{' '}
-										<span className='consolas'>{(this.state.rewards['withdrawable'] / Math.pow(10, 18)).toFixed(4)}</span>
-									</h5>
+									{this.state.rewards['withdrawable'] > 0 ? (
+										<h5 style={{ margin: '0rem' }}>
+											Withdrwable:{' '}
+											<span className='consolas'>{(this.state.rewards['withdrawable'] / Math.pow(10, 18)).toFixed(4)}</span>
+										</h5>
+									) : (
+										<h5
+											style={{
+												visibility: 'hidden',
+												color: 'transparent',
+												margin: 0,
+											}}
+										>
+											hidden
+										</h5>
+									)}
 								</div>
 
 								{/* <table style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly', margin: '0 auto' }}>
@@ -293,12 +304,10 @@ export class Main extends React.Component {
 								<h2 style={{ margin: 0 }}>Your Balances:</h2>
 								<div className='lower'>
 									<h5 style={{ margin: 0 }}>
-										RWD:
-										<span className='consolas'>{(this.state.balances.reward / Math.pow(10, 18)).toFixed(4)}</span>
+										RWD: <span className='consolas'>{(this.state.balances.reward / Math.pow(10, 18)).toFixed(4)}</span>
 									</h5>
 									<h5 style={{ margin: 0 }}>
-										STK:
-										<span className='consolas'>{(this.state.balances.staking / Math.pow(10, 18)).toFixed(4)}</span>
+										STK: <span className='consolas'>{(this.state.balances.staking / Math.pow(10, 18)).toFixed(4)}</span>
 									</h5>
 									<h5 style={{ margin: 0 }}>
 										<span style={{ visibility: 'hidden' }}>data</span>
