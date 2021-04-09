@@ -5,7 +5,8 @@ import React from 'react'
 import { Card } from '../../components/Card/Card'
 
 import './Main.scss'
-import bignum from 'bignumber.js'
+
+const bignum = window.BigNumber
 
 export class Main extends React.Component {
 	state = {

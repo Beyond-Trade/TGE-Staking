@@ -21,12 +21,8 @@ import { Main } from './pages/Main/Main'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { Home } from './pages/Home/Home'
 import { Minter } from './Minter'
-import BigNumber from 'bignumber.js'
 
 const DataApp = () => {
-	React.useEffect(() => {
-		window.BigNumber = BigNumber
-	}, [])
 	return (
 		<Fragment>
 			<Router>
