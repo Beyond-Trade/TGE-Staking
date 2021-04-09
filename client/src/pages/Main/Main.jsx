@@ -5,7 +5,7 @@ import React from 'react'
 import { Card } from '../../components/Card/Card'
 
 import './Main.scss'
-import BigNumber from 'bignumber.js'
+import bignum from 'bignumber.js'
 
 export class Main extends React.Component {
 	state = {
@@ -115,7 +115,7 @@ export class Main extends React.Component {
 			const web3 = this.web3
 			const staking = new web3.eth.Contract(this.stakingAbi, this.stakingRewards)
 			// const stakingToken = new web3.eth.Contract(mock2Abi, this.stakingTokenAddress)
-			await staking.methods.withdrawByAmount(new BigNumber(this.state.withdrawAmount.toString())).send({ from: this.state.owner })
+			await staking.methods.withdrawByAmount(new bignum(this.state.withdrawAmount.toString())).send({ from: this.state.owner })
 			const estimatedReward = await this.calculateReward(this.state.staking)
 			await this.updateBalances()
 			// console.log(estimatedReward)
@@ -170,10 +170,10 @@ export class Main extends React.Component {
 		try {
 			// const web3 = this.web3
 			await this.state.stakingToken.methods
-				.increaseAllowance(this.stakingRewards, new BigNumber(this.state.deposit.toString()))
+				.increaseAllowance(this.stakingRewards, new bignum(this.state.deposit.toString()))
 				.send({ from: this.state.owner })
 
-			await this.state.staking.methods.deposit(new BigNumber(this.state.deposit.toString())).send({ from: this.state.owner, gas: 3000000 })
+			await this.state.staking.methods.deposit(new bignum(this.state.deposit.toString())).send({ from: this.state.owner, gas: 3000000 })
 			const estimatedReward = await this.calculateReward(this.state.staking)
 			await this.updateBalances()
 			// console.log(estimatedReward)
