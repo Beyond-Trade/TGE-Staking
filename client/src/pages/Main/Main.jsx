@@ -116,7 +116,6 @@ export class Main extends React.Component {
 			const staking = new web3.eth.Contract(this.stakingAbi, this.stakingRewards)
 			// const stakingToken = new web3.eth.Contract(mock2Abi, this.stakingTokenAddress)
 			await staking.methods.withdrawByAmount(new BigNumber(this.state.withdrawAmount)).send({ from: this.state.owner })
-
 			const estimatedReward = await this.calculateReward(this.state.staking)
 			await this.updateBalances()
 			// console.log(estimatedReward)
