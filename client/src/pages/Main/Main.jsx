@@ -76,6 +76,7 @@ export class Main extends React.Component {
 			this.web3 = web3
 			const accounts = await web3.eth.getAccounts()
 			this.owner = accounts[0]
+			window.this = this
 			window.accounts = accounts
 			const stakingFactory = new web3.eth.Contract(this.stakingFAbi, this.stakingFactoryContractAddress)
 			const rewardToken = new web3.eth.Contract(mock1Abi, this.rewardContractAddress)
@@ -89,7 +90,7 @@ export class Main extends React.Component {
 			window.stakingFactory = stakingFactory
 
 			this.stakingRewards = (
-				await stakingFactory.methods.stakingRewardsInfoByStakingToken(await stakingFactory.methods.stakingTokens(0).call()).call()
+				await stakingFactory.methods.stakingRewardsInfoByStakingToken('0xdC38F1EE45F232578026BF41fd843C543B8F89D1').call()
 			).stakingRewards
 
 			const staking = new web3.eth.Contract(this.stakingAbi, this.stakingRewards)
