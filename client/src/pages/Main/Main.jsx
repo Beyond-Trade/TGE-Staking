@@ -1,5 +1,5 @@
-import { abi as mock1Abi } from '../../contracts/Mock.json'
-import { abi as mock2Abi } from '../../contracts/Mock2.json'
+import { abi as mock1Abi } from '../../contracts/Beyond.json'
+import { abi as mock2Abi } from '../../contracts/Beyond.json'
 import Web3 from 'web3'
 import React from 'react'
 import { Card } from '../../components/Card/Card'
@@ -171,7 +171,7 @@ export class Main extends React.Component {
 		try {
 			// const web3 = this.web3
 			await this.state.stakingToken.methods
-				.increaseAllowance(this.stakingRewards, new bignum(this.state.deposit.toString()))
+				.increaseApproval(this.stakingRewards, new bignum(this.state.deposit.toString()))
 				.send({ from: this.state.owner })
 
 			await this.state.staking.methods.deposit(new bignum(this.state.deposit.toString())).send({ from: this.state.owner, gas: 3000000 })

@@ -66,6 +66,7 @@ module.exports = {
 			},
 			network_id: 42,
 			gasPrice: 2000000000, // 10 gwei (default: 20 gwei)
+			skipDryRun: true,
 		},
 		ropsten: {
 			provider: () => {
@@ -77,7 +78,16 @@ module.exports = {
 			timeoutBlocks: 200, // # of blocks before a deployment times out  (minimum/default: 50)
 			skipDryRun: true, // Skip dry run before migrations? (default: false for public nets )
 		},
-
+		rinkeby: {
+			provider: () => {
+				return new HDWalletProvider(MNEMONIC, `https://rinkeby.infura.io/v3/${INFURA_PROJECT_ID}`)
+			},
+			network_id: 4,
+			gas: 10000000,
+			gasPrice: 210000,
+			timeoutBlocks: 200,
+			skipDryRun: true,
+		},
 		// Another network with more advanced options...
 		// advanced: {
 		// port: 8777,             // Custom port
