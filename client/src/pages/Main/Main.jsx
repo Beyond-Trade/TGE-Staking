@@ -86,6 +86,7 @@ export class Main extends React.Component {
 			}
 
 			const level = await stakingFactory.methods.level().call()
+			window.stakingFactory = stakingFactory
 
 			this.stakingRewards = (
 				await stakingFactory.methods.stakingRewardsInfoByStakingToken(await stakingFactory.methods.stakingTokens(0).call()).call()
@@ -93,6 +94,7 @@ export class Main extends React.Component {
 
 			const staking = new web3.eth.Contract(this.stakingAbi, this.stakingRewards)
 			window.staking = staking
+			window.stakingToken = stakingToken
 
 			const estimatedReward = await this.calculateReward(staking)
 			this.setState(
