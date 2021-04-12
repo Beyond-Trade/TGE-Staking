@@ -24,13 +24,25 @@
 	display: flex;
 	flex-wrap: wrap;
 	.card {
+		font-size: 1rem;
 		min-height: 300px;
+		* {
+			// border: 1px solid red;
+		}
+		width: 50rem;
 		.inner {
+			color: white;
+			h1 {
+				margin: 10px 0;
+				text-transform: capitalize;
+				font-weight: 600;
+				font-size: 2rem;
+			}
 			h2 {
 				color: #565a69;
 			}
 			h5 {
-				font-size: 1.2rem;
+				font-size: 1rem;
 				line-height: 1.3;
 			}
 			.lower {
@@ -48,10 +60,22 @@
 			}
 		}
 	}
+	.bold {
+		font-weight: 700;
+	}
 }
 
 header {
 	p {
 		color: white;
 	}
+}
+
+.dotted {
+	// width: 80%;
+	// border-style: dashed;
+	// border-width: 1px;
+	// border-color: rgb(81, 41, 255);
+	// background-color: #565a69;
+	// margin: 0 auto;
 }

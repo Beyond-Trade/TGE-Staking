@@ -7,8 +7,9 @@ body {
 	cursor: pointer;
 
 	font-weight: 600;
-	background-color: #0c1230;
-	color: #6da8dc;
+	background: linear-gradient(to right, #4b40f9, #28cedc);
+	color: white;
+	text-transform: uppercase;
 
 	&:hover {
 		color: white;

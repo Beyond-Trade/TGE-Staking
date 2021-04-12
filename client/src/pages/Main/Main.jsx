@@ -1,8 +1,10 @@
-import { abi as mock1Abi } from '../../contracts/Mock.json'
-import { abi as mock2Abi } from '../../contracts/Mock2.json'
+import { abi as mock1Abi } from '../../contracts/Beyond.json'
+import { abi as mock2Abi } from '../../contracts/Beyond.json'
 import Web3 from 'web3'
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Card } from '../../components/Card/Card'
+
+import moment from 'moment'
 
 import './Main.scss'
 
@@ -22,6 +24,13 @@ export class Main extends React.Component {
 		rewardToken: null,
 		stakingToken: null,
 		staking: null,
+		levelsData: {
+			alloted: '0',
+			allowedForXCoins: '0',
+			allowedReward: '0',
+			lockedDuration: '0',
+			rewardPercentTimes100: '0',
+		},
 		rewards: {
 			level1Reward: '0',
 			level1Tokens: '0',
@@ -32,6 +41,7 @@ export class Main extends React.Component {
 			level4Reward: '0',
 			level4Tokens: '0',
 		},
+		startTime: 0,
 		i_token: 0,
 		i_reward: 0,
 	}
@@ -76,6 +86,7 @@ export class Main extends React.Component {
 			this.web3 = web3
 			const accounts = await web3.eth.getAccounts()
 			this.owner = accounts[0]
+			window.this = this
 			window.accounts = accounts
 			const stakingFactory = new web3.eth.Contract(this.stakingFAbi, this.stakingFactoryContractAddress)
 			const rewardToken = new web3.eth.Contract(mock1Abi, this.rewardContractAddress)
@@ -86,19 +97,22 @@ export class Main extends React.Component {
 			}
 
 			const level = await stakingFactory.methods.level().call()
+			const startTime = await stakingFactory.methods.startTime().call()
 
-			this.stakingRewards = (
-				await stakingFactory.methods.stakingRewardsInfoByStakingToken(await stakingFactory.methods.stakingTokens(0).call()).call()
-			).stakingRewards
+			window.stakingFactory = stakingFactory
+
+			this.stakingRewards = (await stakingFactory.methods.stakingRewardsInfoByStakingToken(stakingTokenAddress).call()).stakingRewards
 
 			const staking = new web3.eth.Contract(this.stakingAbi, this.stakingRewards)
 			window.staking = staking
+			window.stakingToken = stakingToken
 
 			const estimatedReward = await this.calculateReward(staking)
 			this.setState(
-				{ owner: accounts[0], level, balances, stakingFactory, rewardToken, stakingToken, staking, rewards: estimatedReward },
+				{ owner: accounts[0], level, balances, stakingFactory, rewardToken, stakingToken, staking, rewards: estimatedReward, startTime },
 				() => {
 					console.log(this.state)
+					this.level()
 				}
 			)
 		} catch (err) {
@@ -108,7 +122,10 @@ export class Main extends React.Component {
 
 	async level() {
 		const level = await this.state.stakingFactory.methods.level().call()
-		this.setState({ level })
+		const levelsData = await this.state.stakingFactory.methods.levels(level).call()
+		this.setState({ level, levelsData }, () => {
+			console.log(levelsData, 'levels')
+		})
 	}
 
 	async withdrawByAmount() {
@@ -171,7 +188,7 @@ export class Main extends React.Component {
 		try {
 			// const web3 = this.web3
 			await this.state.stakingToken.methods
-				.increaseAllowance(this.stakingRewards, new bignum(this.state.deposit.toString()))
+				.increaseApproval(this.stakingRewards, new bignum(this.state.deposit.toString()))
 				.send({ from: this.state.owner })
 
 			await this.state.staking.methods.deposit(new bignum(this.state.deposit.toString())).send({ from: this.state.owner, gas: 3000000 })
@@ -218,24 +235,56 @@ export class Main extends React.Component {
 		})
 	}
 
+	get_data_from_string(elem) {
+		return (parseInt(elem) / Math.pow(10, 18)).toFixed(2)
+	}
+
 	render() {
+		const TOKEN_NAME = 'BYN'
 		console.log('reward: ', this.state.i_reward)
 		return (
 			<div className='App'>
 				<header className='App-header'>
-					<h1>{this.props.heading}</h1>
+					<div style={{ margin: '10px' }} className='header'>
+						<div className='inner'>
+							<p>
+								<span className='caseupper'>
+									<span className='bold'>{TOKEN_NAME} </span>Staking Program
+								</span>
+								<br />
+							</p>
+						</div>
+					</div>
 					<div className='main'>
 						<Card>
 							<div className='inner'>
 								<h2 style={{ margin: '0rem' }}>Level:{this.state.level}</h2>
-								<div className='lower'>
-									<h5 style={{ margin: '0rem' }}>
-										Tokens: <span className='consolas'>{(this.state.i_token / Math.pow(10, 18)).toFixed(4)}</span>
-									</h5>
 
+								<div className='lower'>
+									<div style={{ display: 'flex', justifyContent: 'space-between' }} className='flex'>
+										<div className=''>
+											<h5 style={{ margin: '0rem' }}>
+												Your Total {TOKEN_NAME}:{' '}
+												<span className='consolas bold'>{(this.state.balances.reward / Math.pow(10, 18)).toFixed(2)}</span>
+											</h5>
+										</div>
+										<div className=''>
+											<h5 style={{ margin: '0rem' }}>
+												Currently Staked:{' '}
+												<span className='consolas bold'>{(this.state.i_token / Math.pow(10, 18)).toFixed(2)}</span>
+											</h5>
+										</div>
+									</div>
+									<p style={{ textAlign: 'center' }}>
+										{TOKEN_NAME} available for staking in this level{' '}
+										<span className='consolas bold'>{this.get_data_from_string(this.state.levelsData.allowedForXCoins)}</span>
+										{TOKEN_NAME}
+									</p>
+
+									{/* 
 									<h5 style={{ margin: '0rem' }}>
 										Rewards: <span className='consolas'>{(this.state.i_reward / Math.pow(10, 18)).toFixed(4)}</span>
-									</h5>
+									</h5> */}
 
 									{this.state.rewards['withdrawable'] > 0 ? (
 										<h5 style={{ margin: '0rem' }}>
@@ -243,15 +292,7 @@ export class Main extends React.Component {
 											<span className='consolas'>{(this.state.rewards['withdrawable'] / Math.pow(10, 18)).toFixed(4)}</span>
 										</h5>
 									) : (
-										<h5
-											style={{
-												visibility: 'hidden',
-												color: 'transparent',
-												margin: 0,
-											}}
-										>
-											hidden
-										</h5>
+										<></>
 									)}
 								</div>
 
@@ -276,30 +317,71 @@ export class Main extends React.Component {
 									</tbody>
 								</table> */}
 								<form autoComplete='off'>
-									<label htmlFor='deposit'>
-										<input
-											type='text'
-											autoComplete='off'
-											name='deposit'
-											onChange={(e) => {
-												this.setState({ deposit: e.target.value * Math.pow(10, 18) })
-											}}
-											placeholder='Deposit Amount'
-										/>
-									</label>
+									{/* <label htmlFor='deposit'> */}
+									<input
+										className='consolas'
+										style={{
+											marginTop: '0.5rem',
+											borderRadius: '8px',
+											backgroundColor: 'white',
+											color: 'black',
+											caretColor: 'black',
+										}}
+										type='text'
+										autoComplete='off'
+										name='deposit'
+										onChange={(e) => {
+											this.setState({ deposit: e.target.value * Math.pow(10, 18) })
+										}}
+										placeholder='Deposit Amount'
+									/>
+									{/* </label> */}
 								</form>
 								<div
 									className='button'
-									style={{ marginTop: '10px' }}
+									style={{ marginTop: '1rem' }}
 									onClick={() => {
 										this.deposit()
 									}}
 								>
-									<span>Deposit</span>
+									<span>Stake</span>
+								</div>
+								<div className='dotted'></div>
+								<div style={{ display: 'flex', marginTop: '1rem', justifyContent: 'space-between' }} className='flex'>
+									<div className='' style={{}}>
+										{this.left_data(TOKEN_NAME).map((elem) => {
+											return pragmata(elem)
+										})}
+									</div>
+									<div className='' style={{ textAlign: 'left' }}>
+										{this.right_data().map((elem) => {
+											return pragmata(elem)
+										})}
+									</div>
+								</div>
+								<div
+									style={{
+										display: 'flex',
+										flexDirection: 'column',
+										marginTop: '1rem',
+										justifyContent: 'flex-start',
+										textAlign: 'left',
+										alignItems: 'flex-start',
+									}}
+									className='flex'
+								>
+									<div className='' style={{}}>
+										<span className='bold'>Note 1.</span> The Staked BYN will be locked for the whole durationof the program. On
+										the reward date, total staked amount of BYN + staking rewards willbe distributed to this wallet address.
+									</div>
+									<div className='' style={{ padding: '5px' }}></div>
+									<div className=''>
+										<span className='bold'>Note 2.</span>Please use a different wallet if have any BYN locked in this wallet.
+									</div>
 								</div>
 							</div>
 						</Card>
-						<Card>
+						{/* <Card>
 							<div className='inner'>
 								<h2 style={{ margin: 0 }}>Your Balances:</h2>
 								<div className='lower'>
@@ -336,7 +418,7 @@ export class Main extends React.Component {
 									<span>Withdraw By Amount</span>
 								</div>
 							</div>
-						</Card>
+						</Card> */}
 					</div>
 					{/* <div className='flex' style={{ display: 'flex', width: '800px', alignItems: 'center', justifyContent: 'space-evenly' }}>
 						<div
@@ -413,9 +495,46 @@ export class Main extends React.Component {
 						{/* <div style={{ width: '250px', height: '400px', border: '2px solid white' }}></div> */}
 					{/* </div> */}
 
-					<p>{`Your Account:${this.state.owner}`}</p>
+					<p style={{ fontSize: '1rem' }}>{`Your Account:${this.state.owner}`}</p>
 				</header>
 			</div>
 		)
 	}
+
+	right_data() {
+		return [
+			{ name: 'Days of Staking: ', value: `${this.state.levelsData.lockedDuration} Days` },
+			{
+				name: 'Reward Date: ',
+				value: `${moment((parseInt(this.state.startTime) + 24 * 3600 * parseInt(this.state.levelsData.lockedDuration)) * 1000).format(
+					'MMM D, YYYY'
+				)}`,
+			},
+		]
+	}
+
+	left_data(TOKEN_NAME) {
+		return [
+			{
+				name: 'Total Staked: ',
+				value: `${this.get_data_from_string(this.state.levelsData.alloted)} ${TOKEN_NAME}`,
+			},
+			{
+				name: 'Total Reward: ',
+				value: `${this.get_data_from_string(this.state.levelsData.allowedReward)} ${TOKEN_NAME}`,
+			},
+		]
+	}
+}
+function pragmata(elem) {
+	return (
+		<Fragment>
+			<div style={{ display: 'flex', padding: '4px 0', lineHeight: '1' }} className=''>
+				<div className='name'>{elem.name} </div>
+				<div style={{ padding: '0 4px' }} className='value bold consolas'>
+					{elem.value}
+				</div>
+			</div>
+		</Fragment>
+	)
 }

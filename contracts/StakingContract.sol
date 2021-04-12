@@ -8,7 +8,7 @@ import '@openzeppelin/contracts/access/Ownable.sol';
 This is a Staking contract created for every token.
  */
 contract Staking is Ownable {
-	uint256 oneDay = 24 * 60 * 60;
+	uint256 oneDay = 2;
 
 	StakingFactory factory; // Contract which is creating this one.
 
@@ -74,6 +74,7 @@ contract Staking is Ownable {
 
 	/**deposit function */
 	function deposit(uint256 amount) external {
+		require(block.timestamp > factory.startTime(), 'Contract not open for deposit.');
 		// Check if level has been updated due to time elapsed.
 
 		factory.updateLevelCheck();
@@ -307,9 +308,9 @@ contract StakingFactory is Ownable {
 	// Create Levels
 	// Or create an array and provide user access to create them.
 	function createLevels() internal {
-		levels[1] = LevelData(100000 ether, 4900, 15, 49315 ether, 0);
-		levels[2] = LevelData(400000 ether, 4100, 30, 123288 ether, 0);
-		levels[3] = LevelData(800000 ether, 4300, 45, 172603 ether, 0);
+		levels[1] = LevelData(100000 ether, 5000, 60, 50000 ether, 0);
+		levels[2] = LevelData(400000 ether, 3000, 75, 120000 ether, 0);
+		levels[3] = LevelData(1000000 ether, 2500, 90, 25000 ether, 0);
 		// levels[4] = LevelData(1500000, 3300, 60, 230137, 0);
 
 		level = 1;

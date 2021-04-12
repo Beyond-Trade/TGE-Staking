@@ -10,14 +10,14 @@ import {
 	rewardContractAddress,
 	stakingTokenAddress,
 	stakingFactoryContractAddress,
-	stakingTokenAddressLP,
-	StakingFactoryContractAddressLP,
+	// stakingTokenAddressLP,
+	// StakingFactoryContractAddressLP,
 } from '../../config'
 
 import logo from '../../img.jpeg'
 
 import { abi as stakingFAbi } from '../../contracts/StakingFactory.json'
-import { abi as LpStakingFAbi } from '../../contracts/StakingFactoryLP.json'
+// import { abi as LpStakingFAbi } from '../../contracts/StakingFactoryLP.json'
 
 import './Home.scss'
 export const Home = () => {
@@ -28,6 +28,14 @@ export const Home = () => {
 		allowedReward: 0,
 		alloted: 0,
 		allowedForXCoins: 0,
+		levelsData: {
+			alloted: '0',
+			allowedForXCoins: '0',
+			allowedReward: '0',
+			lockedDuration: '0',
+			rewardPercentTimes100: '0',
+		},
+		level: 0,
 	})
 
 	React.useEffect(() => {
@@ -39,11 +47,13 @@ export const Home = () => {
 				const accounts = await web3.eth.getAccounts()
 
 				const stakingFactory = new web3.eth.Contract(stakingFAbi, stakingFactoryContractAddress)
-				const stakingFactoryLp = new web3.eth.Contract(LpStakingFAbi, StakingFactoryContractAddressLP)
+				// const stakingFactoryLp = new web3.eth.Contract(LpStakingFAbi, StakingFactoryContractAddressLP)
 				const rewardToken = new web3.eth.Contract(mock1Abi, rewardContractAddress)
 				const stakingToken = new web3.eth.Contract(mock2Abi, stakingTokenAddress)
-				const stakingTokenLp = new web3.eth.Contract(mock2Abi, stakingTokenAddressLP)
+				// const stakingTokenLp = new web3.eth.Contract(mock2Abi, stakingTokenAddressLP)
 				window.stakingFactory = stakingFactory
+				const level = await stakingFactory.methods.level().call()
+				const levels = await stakingFactory.methods.levels(level).call()
 
 				let allowedReward = 0
 				let alloted = 0
@@ -57,17 +67,19 @@ export const Home = () => {
 				let allowedRewardLp = 0
 				let allotedLp = 0
 				let allowedForXCoinsLp = 0
-				for (let i = 1; i <= 4; i++) {
-					allowedRewardLp += parseInt((await stakingFactoryLp.methods.levels(i).call()).allowedReward)
-					allowedForXCoinsLp += parseInt((await stakingFactoryLp.methods.levels(i).call()).allowedForXCoins)
-					allotedLp += parseInt((await stakingFactoryLp.methods.levels(i).call()).alloted)
-				}
+				// for (let i = 1; i <= 4; i++) {
+				// 	allowedRewardLp += parseInt((await stakingFactoryLp.methods.levels(i).call()).allowedReward)
+				// 	allowedForXCoinsLp += parseInt((await stakingFactoryLp.methods.levels(i).call()).allowedForXCoins)
+				// 	allotedLp += parseInt((await stakingFactoryLp.methods.levels(i).call()).alloted)
+				// }
 				const balances = {
 					staking: await stakingToken.methods.balanceOf(accounts[0]).call(),
-					stakingLp: await stakingTokenLp.methods.balanceOf(accounts[0]).call(),
+					// stakingLp: await stakingTokenLp.methods.balanceOf(accounts[0]).call(),
 					reward: await rewardToken.methods.balanceOf(accounts[0]).call(),
 					allowedReward,
 					alloted,
+					levelsData: levels,
+					level,
 					allowedForXCoins,
 					allowedRewardLp,
 					allowedForXCoinsLp,
@@ -81,19 +93,23 @@ export const Home = () => {
 		}
 		run()
 		// eslint-disable-next-line
-	}, [rewardContractAddress, stakingTokenAddress, stakingTokenAddressLP])
+	}, [rewardContractAddress, stakingTokenAddress])
 	return (
 		<Fragment>
-			<div className='header'>
-				<div className='inner'>
-					<img src={logo} alt='' />
-					<p>
-						<span className='bold'>BYN </span>
-						Staking
-					</p>
-				</div>
-			</div>
 			<div className='home'>
+				<div className='header'>
+					<div className='inner'>
+						{/* <img src={logo} alt='' /> */}
+						<p>
+							<span className='caseupper'>
+								<span className='bold'>Beyond </span>Staking
+							</span>
+							<br />
+							Welcome to Beyond Finnace Staking Platform! During this limited time period, we are giving the chance for our BYN token
+							holders to earn more BYN by staking at different reward levels, with flexible lock period. Stake now!
+						</p>
+					</div>
+				</div>
 				<div className='outer'>
 					<div className='inner'>
 						<Card
@@ -107,8 +123,10 @@ export const Home = () => {
 							allowedReward={balances.allowedReward}
 							allowedForXCoins={balances.allowedForXCoins}
 							alloted={balances.alloted}
+							level={balances.level}
+							levelsData={balances.levelsData}
 						></Card>
-						<Card
+						{/* <Card
 							token='BYN/ETH LP'
 							token_r='RWD'
 							value={balances.stakingLp}
@@ -119,7 +137,7 @@ export const Home = () => {
 							allowedReward={balances.allowedRewardLp}
 							alloted={balances.allotedLp}
 							allowedForXCoins={balances.allowedForXCoinsLp}
-						></Card>
+						></Card> */}
 					</div>
 				</div>
 			</div>
