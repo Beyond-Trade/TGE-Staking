@@ -28,6 +28,14 @@ export const Home = () => {
 		allowedReward: 0,
 		alloted: 0,
 		allowedForXCoins: 0,
+		levelsData: {
+			alloted: '0',
+			allowedForXCoins: '0',
+			allowedReward: '0',
+			lockedDuration: '0',
+			rewardPercentTimes100: '0',
+		},
+		level: 0,
 	})
 
 	React.useEffect(() => {
@@ -44,6 +52,8 @@ export const Home = () => {
 				const stakingToken = new web3.eth.Contract(mock2Abi, stakingTokenAddress)
 				// const stakingTokenLp = new web3.eth.Contract(mock2Abi, stakingTokenAddressLP)
 				window.stakingFactory = stakingFactory
+				const level = await stakingFactory.methods.level().call()
+				const levels = await stakingFactory.methods.levels(level).call()
 
 				let allowedReward = 0
 				let alloted = 0
@@ -68,6 +78,8 @@ export const Home = () => {
 					reward: await rewardToken.methods.balanceOf(accounts[0]).call(),
 					allowedReward,
 					alloted,
+					levelsData: levels,
+					level,
 					allowedForXCoins,
 					allowedRewardLp,
 					allowedForXCoinsLp,
@@ -81,19 +93,23 @@ export const Home = () => {
 		}
 		run()
 		// eslint-disable-next-line
-	}, [rewardContractAddress, stakingTokenAddress, stakingTokenAddressLP])
+	}, [rewardContractAddress, stakingTokenAddress])
 	return (
 		<Fragment>
-			<div className='header'>
-				<div className='inner'>
-					<img src={logo} alt='' />
-					<p>
-						<span className='bold'>BYN </span>
-						Staking
-					</p>
-				</div>
-			</div>
 			<div className='home'>
+				<div className='header'>
+					<div className='inner'>
+						{/* <img src={logo} alt='' /> */}
+						<p>
+							<span className='caseupper'>
+								<span className='bold'>Beyond </span>Staking
+							</span>
+							<br />
+							Welcome to Beyond Finnace Staking Platform! During this limited time period, we are giving the chance for our BYN token
+							holders to earn more BYN by staking at different reward levels, with flexible lock period. Stake now!
+						</p>
+					</div>
+				</div>
 				<div className='outer'>
 					<div className='inner'>
 						<Card
@@ -107,6 +123,8 @@ export const Home = () => {
 							allowedReward={balances.allowedReward}
 							allowedForXCoins={balances.allowedForXCoins}
 							alloted={balances.alloted}
+							level={balances.level}
+							levelsData={balances.levelsData}
 						></Card>
 						{/* <Card
 							token='BYN/ETH LP'

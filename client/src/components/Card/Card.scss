@@ -1,4 +1,5 @@
 @import '../../index.scss';
+
 .card {
 	background-color: #17183b;
 	position: relative;
@@ -43,6 +44,7 @@
 	appearance: none;
 	-webkit-appearance: none;
 	padding: 2rem 0;
+
 	// width: 80%;
 	.token {
 		padding: 0 2rem;
@@ -75,4 +77,36 @@
 		border-radius: 1.25rem;
 		outline: none;
 	}
+}
+
+.homer {
+	* {
+		// border: 1px solid red;
+	}
+	.row {
+		width: 100%;
+		p {
+			width: 100%;
+			text-align: left !important;
+			margin: 0;
+			margin-bottom: 10px;
+		}
+
+		.inner-left {
+			width: 66%;
+		}
+		.inner {
+			text-align: left;
+		}
+		color: white;
+		display: flex;
+	}
+	p {
+	}
+	.bold {
+		font-weight: 700;
+	}
+
+	width: 26rem;
+	padding: 2rem 3rem;
 }
