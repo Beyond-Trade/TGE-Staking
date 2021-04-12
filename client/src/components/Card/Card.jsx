@@ -31,7 +31,10 @@ export const Card = ({
 							{/* <tbody> */}
 							{[
 								{ name: 'Current Reward Level', value: `Level ${level}` },
-								{ name: 'Annual Percentage Yield', value: '304.2%' },
+								{
+									name: 'Annual Percentage Yield',
+									value: `${(levels.rewardPercentTimes100 * (levels.lockedDuration / 365)).toFixed(2)}%`,
+								},
 								{ name: 'Days of Staking', value: `${levels.lockedDuration} Days` },
 								{
 									name: 'Max BYN stake in this level',
