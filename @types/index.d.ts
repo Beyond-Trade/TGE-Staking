@@ -2,14 +2,41 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { MigrationsContract } from "./Migrations";
+import { ERC20Contract } from './ERC20'
+import { IERC20Contract } from './IERC20'
+import { MigrationsContract } from './Migrations'
+import { MockContract } from './Mock'
+import { Mock2Contract } from './Mock2'
+import { OwnableContract } from './Ownable'
+import { StakingContract } from './Staking'
+import { StakingFactoryContract } from './StakingFactory'
+import { StakingFactoryLPContract } from './StakingFactoryLP'
+import { StakingLPContract } from './StakingLP'
 
 declare global {
-  namespace Truffle {
-    interface Artifacts {
-      require(name: "Migrations"): MigrationsContract;
-    }
-  }
+	namespace Truffle {
+		interface Artifacts {
+			require(name: 'ERC20'): ERC20Contract
+			require(name: 'IERC20'): IERC20Contract
+			require(name: 'Migrations'): MigrationsContract
+			require(name: 'Mock'): MockContract
+			require(name: 'Mock2'): Mock2Contract
+			require(name: 'Ownable'): OwnableContract
+			require(name: 'Staking'): StakingContract
+			require(name: 'StakingFactory'): StakingFactoryContract
+			require(name: 'StakingFactoryLP'): StakingFactoryLPContract
+			require(name: 'StakingLP'): StakingLPContract
+		}
+	}
 }
 
-export { MigrationsContract, MigrationsInstance } from "./Migrations";
+export { ERC20Contract, ERC20Instance } from './ERC20'
+export { IERC20Contract, IERC20Instance } from './IERC20'
+export { MigrationsContract, MigrationsInstance } from './Migrations'
+export { MockContract, MockInstance } from './Mock'
+export { Mock2Contract, Mock2Instance } from './Mock2'
+export { OwnableContract, OwnableInstance } from './Ownable'
+export { StakingContract, StakingInstance } from './Staking'
+export { StakingFactoryContract, StakingFactoryInstance } from './StakingFactory'
+export { StakingFactoryLPContract, StakingFactoryLPInstance } from './StakingFactoryLP'
+export { StakingLPContract, StakingLPInstance } from './StakingLP'
