@@ -1,7 +1,7 @@
 import { abi as mock1Abi } from '../../contracts/Beyond.json'
 import { abi as mock2Abi } from '../../contracts/Beyond.json'
 import Web3 from 'web3'
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Card } from '../../components/Card/Card'
 
 import './Main.scss'
@@ -22,6 +22,13 @@ export class Main extends React.Component {
 		rewardToken: null,
 		stakingToken: null,
 		staking: null,
+		levelsData: {
+			alloted: '0',
+			allowedForXCoins: '0',
+			allowedReward: '0',
+			lockedDuration: '0',
+			rewardPercentTimes100: '0',
+		},
 		rewards: {
 			level1Reward: '0',
 			level1Tokens: '0',
@@ -32,6 +39,7 @@ export class Main extends React.Component {
 			level4Reward: '0',
 			level4Tokens: '0',
 		},
+		startTime: 0,
 		i_token: 0,
 		i_reward: 0,
 	}
@@ -87,6 +95,8 @@ export class Main extends React.Component {
 			}
 
 			const level = await stakingFactory.methods.level().call()
+			const startTime = await stakingFactory.methods.startTime().call()
+
 			window.stakingFactory = stakingFactory
 
 			this.stakingRewards = (await stakingFactory.methods.stakingRewardsInfoByStakingToken(stakingTokenAddress).call()).stakingRewards
@@ -97,9 +107,10 @@ export class Main extends React.Component {
 
 			const estimatedReward = await this.calculateReward(staking)
 			this.setState(
-				{ owner: accounts[0], level, balances, stakingFactory, rewardToken, stakingToken, staking, rewards: estimatedReward },
+				{ owner: accounts[0], level, balances, stakingFactory, rewardToken, stakingToken, staking, rewards: estimatedReward, startTime },
 				() => {
 					console.log(this.state)
+					this.level()
 				}
 			)
 		} catch (err) {
@@ -109,7 +120,10 @@ export class Main extends React.Component {
 
 	async level() {
 		const level = await this.state.stakingFactory.methods.level().call()
-		this.setState({ level })
+		const levelsData = await this.state.stakingFactory.methods.levels(level).call()
+		this.setState({ level, levelsData }, () => {
+			console.log(levelsData, 'levels')
+		})
 	}
 
 	async withdrawByAmount() {
@@ -219,28 +233,56 @@ export class Main extends React.Component {
 		})
 	}
 
+	get_data_from_string(elem) {
+		return (parseInt(elem) / Math.pow(10, 18)).toFixed(2)
+	}
+
 	render() {
 		console.log('reward: ', this.state.i_reward)
 		return (
 			<div className='App'>
 				<header className='App-header'>
-					{/* <h1>{this.props.heading}</h1> */}
+					<div style={{ margin: '10px' }} className='header'>
+						<div className='inner'>
+							{/* <img src={logo} alt='' /> */}
+							<p>
+								<span className='caseupper'>
+									<span className='bold'>BYN </span>Staking Program
+								</span>
+								<br />
+							</p>
+						</div>
+					</div>
 					<div className='main'>
 						<Card>
 							<div className='inner'>
-								<h1>{'BYN Staking Program'}</h1>
 								<h2 style={{ margin: '0rem' }}>Level:{this.state.level}</h2>
-								<div className='lower'>
-									<h5 style={{ margin: '0rem' }}>
-										Your Total BYN: <span className='consolas'>{(this.state.balances.reward / Math.pow(10, 18)).toFixed(2)}</span>
-									</h5>
-									<h5 style={{ margin: '0rem' }}>
-										Currently Staked: <span className='consolas'>{(this.state.i_token / Math.pow(10, 18)).toFixed(2)}</span>
-									</h5>
 
+								<div className='lower'>
+									<div style={{ display: 'flex' }} className='flex'>
+										<div className='' style={{ width: '50%' }}>
+											<h5 style={{ margin: '0rem' }}>
+												Your Total BYN:{' '}
+												<span className='consolas bold'>{(this.state.balances.reward / Math.pow(10, 18)).toFixed(2)}</span>
+											</h5>
+										</div>
+										<div className='' style={{ width: '50%' }}>
+											<h5 style={{ margin: '0rem' }}>
+												Currently Staked:{' '}
+												<span className='consolas bold'>{(this.state.i_token / Math.pow(10, 18)).toFixed(2)}</span>
+											</h5>
+										</div>
+									</div>
+									<p>
+										BYN available for staking in this level{' '}
+										<span className='consolas bold'>{this.get_data_from_string(this.state.levelsData.allowedForXCoins)}</span>
+										{' BYN'}
+									</p>
+
+									{/* 
 									<h5 style={{ margin: '0rem' }}>
 										Rewards: <span className='consolas'>{(this.state.i_reward / Math.pow(10, 18)).toFixed(4)}</span>
-									</h5>
+									</h5> */}
 
 									{this.state.rewards['withdrawable'] > 0 ? (
 										<h5 style={{ margin: '0rem' }}>
@@ -300,8 +342,36 @@ export class Main extends React.Component {
 										this.deposit()
 									}}
 								>
-									<span>Deposit</span>
+									<span>Stake</span>
 								</div>
+
+								{[
+									{ name: 'Days of Staking: ', value: `${this.state.levelsData.lockedDuration} Days` },
+									{
+										name: 'Total Staked: ',
+										value: `${this.get_data_from_string(this.state.levelsData.alloted)} BYN`,
+									},
+									{
+										name: 'Total Reward: ',
+										value: `${this.get_data_from_string(this.state.levelsData.allowedReward)} BYN`,
+									},
+									{
+										name: 'Reward Date: ',
+										value: `${new Date(
+											(parseInt(this.state.startTime) + 24 * 3600 * parseInt(this.state.levelsData.lockedDuration)) * 1000
+										)}`,
+									},
+								].map((elem) => {
+									console.log(parseInt(this.state.startTime), parseInt(this.state.levelsData.lockedDuration))
+									return (
+										<Fragment>
+											<div style={{ display: 'flex' }} className=''>
+												<div className='name'>{elem.name}</div>
+												<div className='value bold consolas'>{elem.value}</div>
+											</div>
+										</Fragment>
+									)
+								})}
 							</div>
 						</Card>
 						{/* <Card>

@@ -24,8 +24,12 @@
 	display: flex;
 	flex-wrap: wrap;
 	.card {
+		font-size: 1rem;
 		min-height: 300px;
-		width: 26rem;
+		* {
+			// border: 1px solid red;
+		}
+		width: 50rem;
 		.inner {
 			color: white;
 			h1 {
@@ -38,7 +42,7 @@
 				color: #565a69;
 			}
 			h5 {
-				font-size: 1.2rem;
+				font-size: 1rem;
 				line-height: 1.3;
 			}
 			.lower {
@@ -55,6 +59,9 @@
 				font-size: 1rem;
 			}
 		}
+	}
+	.bold {
+		font-weight: 700;
 	}
 }
 
