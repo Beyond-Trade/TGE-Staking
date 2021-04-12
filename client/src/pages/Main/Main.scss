@@ -25,7 +25,15 @@
 	flex-wrap: wrap;
 	.card {
 		min-height: 300px;
+		width: 26rem;
 		.inner {
+			color: white;
+			h1 {
+				margin: 10px 0;
+				text-transform: capitalize;
+				font-weight: 600;
+				font-size: 2rem;
+			}
 			h2 {
 				color: #565a69;
 			}

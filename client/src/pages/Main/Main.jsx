@@ -224,14 +224,18 @@ export class Main extends React.Component {
 		return (
 			<div className='App'>
 				<header className='App-header'>
-					<h1>{this.props.heading}</h1>
+					{/* <h1>{this.props.heading}</h1> */}
 					<div className='main'>
 						<Card>
 							<div className='inner'>
+								<h1>{'BYN Staking Program'}</h1>
 								<h2 style={{ margin: '0rem' }}>Level:{this.state.level}</h2>
 								<div className='lower'>
 									<h5 style={{ margin: '0rem' }}>
-										Tokens: <span className='consolas'>{(this.state.i_token / Math.pow(10, 18)).toFixed(4)}</span>
+										Your Total BYN: <span className='consolas'>{(this.state.balances.reward / Math.pow(10, 18)).toFixed(2)}</span>
+									</h5>
+									<h5 style={{ margin: '0rem' }}>
+										Currently Staked: <span className='consolas'>{(this.state.i_token / Math.pow(10, 18)).toFixed(2)}</span>
 									</h5>
 
 									<h5 style={{ margin: '0rem' }}>
@@ -300,7 +304,7 @@ export class Main extends React.Component {
 								</div>
 							</div>
 						</Card>
-						<Card>
+						{/* <Card>
 							<div className='inner'>
 								<h2 style={{ margin: 0 }}>Your Balances:</h2>
 								<div className='lower'>
@@ -337,7 +341,7 @@ export class Main extends React.Component {
 									<span>Withdraw By Amount</span>
 								</div>
 							</div>
-						</Card>
+						</Card> */}
 					</div>
 					{/* <div className='flex' style={{ display: 'flex', width: '800px', alignItems: 'center', justifyContent: 'space-evenly' }}>
 						<div
