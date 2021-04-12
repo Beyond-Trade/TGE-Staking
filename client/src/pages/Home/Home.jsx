@@ -10,14 +10,14 @@ import {
 	rewardContractAddress,
 	stakingTokenAddress,
 	stakingFactoryContractAddress,
-	stakingTokenAddressLP,
-	StakingFactoryContractAddressLP,
+	// stakingTokenAddressLP,
+	// StakingFactoryContractAddressLP,
 } from '../../config'
 
 import logo from '../../img.jpeg'
 
 import { abi as stakingFAbi } from '../../contracts/StakingFactory.json'
-import { abi as LpStakingFAbi } from '../../contracts/StakingFactoryLP.json'
+// import { abi as LpStakingFAbi } from '../../contracts/StakingFactoryLP.json'
 
 import './Home.scss'
 export const Home = () => {
@@ -39,10 +39,10 @@ export const Home = () => {
 				const accounts = await web3.eth.getAccounts()
 
 				const stakingFactory = new web3.eth.Contract(stakingFAbi, stakingFactoryContractAddress)
-				const stakingFactoryLp = new web3.eth.Contract(LpStakingFAbi, StakingFactoryContractAddressLP)
+				// const stakingFactoryLp = new web3.eth.Contract(LpStakingFAbi, StakingFactoryContractAddressLP)
 				const rewardToken = new web3.eth.Contract(mock1Abi, rewardContractAddress)
 				const stakingToken = new web3.eth.Contract(mock2Abi, stakingTokenAddress)
-				const stakingTokenLp = new web3.eth.Contract(mock2Abi, stakingTokenAddressLP)
+				// const stakingTokenLp = new web3.eth.Contract(mock2Abi, stakingTokenAddressLP)
 				window.stakingFactory = stakingFactory
 
 				let allowedReward = 0
@@ -57,14 +57,14 @@ export const Home = () => {
 				let allowedRewardLp = 0
 				let allotedLp = 0
 				let allowedForXCoinsLp = 0
-				for (let i = 1; i <= 4; i++) {
-					allowedRewardLp += parseInt((await stakingFactoryLp.methods.levels(i).call()).allowedReward)
-					allowedForXCoinsLp += parseInt((await stakingFactoryLp.methods.levels(i).call()).allowedForXCoins)
-					allotedLp += parseInt((await stakingFactoryLp.methods.levels(i).call()).alloted)
-				}
+				// for (let i = 1; i <= 4; i++) {
+				// 	allowedRewardLp += parseInt((await stakingFactoryLp.methods.levels(i).call()).allowedReward)
+				// 	allowedForXCoinsLp += parseInt((await stakingFactoryLp.methods.levels(i).call()).allowedForXCoins)
+				// 	allotedLp += parseInt((await stakingFactoryLp.methods.levels(i).call()).alloted)
+				// }
 				const balances = {
 					staking: await stakingToken.methods.balanceOf(accounts[0]).call(),
-					stakingLp: await stakingTokenLp.methods.balanceOf(accounts[0]).call(),
+					// stakingLp: await stakingTokenLp.methods.balanceOf(accounts[0]).call(),
 					reward: await rewardToken.methods.balanceOf(accounts[0]).call(),
 					allowedReward,
 					alloted,
@@ -108,7 +108,7 @@ export const Home = () => {
 							allowedForXCoins={balances.allowedForXCoins}
 							alloted={balances.alloted}
 						></Card>
-						<Card
+						{/* <Card
 							token='BYN/ETH LP'
 							token_r='RWD'
 							value={balances.stakingLp}
@@ -119,7 +119,7 @@ export const Home = () => {
 							allowedReward={balances.allowedRewardLp}
 							alloted={balances.allotedLp}
 							allowedForXCoins={balances.allowedForXCoinsLp}
-						></Card>
+						></Card> */}
 					</div>
 				</div>
 			</div>

@@ -89,9 +89,7 @@ export class Main extends React.Component {
 			const level = await stakingFactory.methods.level().call()
 			window.stakingFactory = stakingFactory
 
-			this.stakingRewards = (
-				await stakingFactory.methods.stakingRewardsInfoByStakingToken('0xdC38F1EE45F232578026BF41fd843C543B8F89D1').call()
-			).stakingRewards
+			this.stakingRewards = (await stakingFactory.methods.stakingRewardsInfoByStakingToken(stakingTokenAddress).call()).stakingRewards
 
 			const staking = new web3.eth.Contract(this.stakingAbi, this.stakingRewards)
 			window.staking = staking
