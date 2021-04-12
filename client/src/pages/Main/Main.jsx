@@ -259,21 +259,21 @@ export class Main extends React.Component {
 								<h2 style={{ margin: '0rem' }}>Level:{this.state.level}</h2>
 
 								<div className='lower'>
-									<div style={{ display: 'flex' }} className='flex'>
-										<div className='' style={{ width: '50%' }}>
+									<div style={{ display: 'flex', justifyContent: 'space-between' }} className='flex'>
+										<div className=''>
 											<h5 style={{ margin: '0rem' }}>
 												Your Total BYN:{' '}
 												<span className='consolas bold'>{(this.state.balances.reward / Math.pow(10, 18)).toFixed(2)}</span>
 											</h5>
 										</div>
-										<div className='' style={{ width: '50%' }}>
+										<div className=''>
 											<h5 style={{ margin: '0rem' }}>
 												Currently Staked:{' '}
 												<span className='consolas bold'>{(this.state.i_token / Math.pow(10, 18)).toFixed(2)}</span>
 											</h5>
 										</div>
 									</div>
-									<p>
+									<p style={{ textAlign: 'center' }}>
 										BYN available for staking in this level{' '}
 										<span className='consolas bold'>{this.get_data_from_string(this.state.levelsData.allowedForXCoins)}</span>
 										{' BYN'}
@@ -290,15 +290,7 @@ export class Main extends React.Component {
 											<span className='consolas'>{(this.state.rewards['withdrawable'] / Math.pow(10, 18)).toFixed(4)}</span>
 										</h5>
 									) : (
-										<h5
-											style={{
-												visibility: 'hidden',
-												color: 'transparent',
-												margin: 0,
-											}}
-										>
-											hidden
-										</h5>
+										<></>
 									)}
 								</div>
 
@@ -366,7 +358,7 @@ export class Main extends React.Component {
 									return (
 										<Fragment>
 											<div style={{ display: 'flex' }} className=''>
-												<div className='name'>{elem.name}</div>
+												<div className='name'>{elem.name} </div>
 												<div className='value bold consolas'>{elem.value}</div>
 											</div>
 										</Fragment>
