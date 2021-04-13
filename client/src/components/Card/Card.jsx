@@ -33,7 +33,7 @@ export const Card = ({
 								{ name: 'Current Reward Level', value: `Level ${level}` },
 								{
 									name: 'Annual Percentage Yield',
-									value: `${(levels.rewardPercentTimes100 * (levels.lockedDuration / 365)).toFixed(2)}%`,
+									value: `${get_apy(levels)}%`,
 								},
 								{ name: 'Days of Staking', value: `${levels.lockedDuration} Days` },
 								{
@@ -84,4 +84,17 @@ export const Card = ({
 			</div>
 		</Fragment>
 	)
+}
+function get_apy(levels) {
+	switch (levels.rewardPercentTimes100) {
+		case '5000':
+			return 304.2
+		case '3000':
+			return 146.0
+		case '2500':
+			return 101.4
+		default:
+			break
+	}
+	return (levels.rewardPercentTimes100 * (levels.lockedDuration / 365)).toFixed(2)
 }
