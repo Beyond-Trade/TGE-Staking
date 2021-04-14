@@ -310,7 +310,7 @@ contract StakingFactory is Ownable {
 	}
 
 	// THis fucntion creates the Staking reward.
-	function deploy(address stakingToken, uint256 rewardAmount) public onlyOwner {
+	function deploy(address stakingToken, uint256 rewardAmount) public onlyOwner returns (address addr){
 		StakingRewardsInfo storage info = stakingRewardsInfoByStakingToken[stakingToken];
 		require(info.stakingRewards == address(0), 'StakingRewardsFactory::deploy: already deployed');
 
@@ -321,6 +321,8 @@ contract StakingFactory is Ownable {
 		rewardsToken.transferFrom(msg.sender, info.stakingRewards, rewardAmount);
 		info.rewardAmount = rewardAmount;
 		stakingTokens.push(stakingToken);
+
+		return stakingContractAddress;
 	}
 
 	// Create Levels
