@@ -16,6 +16,13 @@ MNEMONIC=<your-mnemonic>
 
 -   `npm i -g truffle yarn rimraf`
 -   `npm i`
+
+# Copy artifacts
+
+-   `cp -r @artifacts node_modules`
+
+# Install Client node_modules
+
 -   `cd client && yarn`
 
 # Deploy on a network

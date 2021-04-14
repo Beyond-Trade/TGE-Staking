@@ -14,7 +14,7 @@ import {
 	// StakingFactoryContractAddressLP,
 } from '../../config'
 
-import logo from '../../img.jpeg'
+import logo from '../../logo.png'
 
 import { abi as stakingFAbi } from '../../contracts/StakingFactory.json'
 // import { abi as LpStakingFAbi } from '../../contracts/StakingFactoryLP.json'
@@ -99,7 +99,6 @@ export const Home = () => {
 			<div className='home'>
 				<div className='header'>
 					<div className='inner'>
-						{/* <img src={logo} alt='' /> */}
 						<p>
 							<span className='caseupper'>
 								<span className='bold'>Beyond </span>Staking

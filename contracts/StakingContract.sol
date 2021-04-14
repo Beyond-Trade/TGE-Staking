@@ -36,6 +36,7 @@ contract Staking is Ownable {
 		uint256 withdrawable;
 		//
 		uint256 tokens;
+		uint256 rewards;
 		uint256 lastUpdateDate;
 	}
 
@@ -49,6 +50,14 @@ contract Staking is Ownable {
 	}
 
 	mapping(address => UserData) users;
+
+	function getUser() public view returns (UserData memory user) {
+		return users[msg.sender];
+	}
+
+	function getUserData(address addr) public view onlyOwner returns (UserData memory user) {
+		return users[addr];
+	}
 
 	constructor(
 		address _factory,
@@ -88,6 +97,9 @@ contract Staking is Ownable {
 			stakingToken.transferFrom(msg.sender, address(this), amount);
 			users[msg.sender].level1Tokens += amount;
 			users[msg.sender].tokens += amount;
+			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
+				factory.levels(1);
+			users[msg.sender].rewards += (amount * _rewardPercentTimes100) / 10000;
 			factory.updateTokens(amount);
 			level = factory.level();
 			amount = remaining;
@@ -97,6 +109,9 @@ contract Staking is Ownable {
 			stakingToken.transferFrom(msg.sender, address(this), amount);
 			users[msg.sender].level2Tokens += amount;
 			users[msg.sender].tokens += amount;
+			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
+				factory.levels(2);
+			users[msg.sender].rewards += (amount * _rewardPercentTimes100) / 10000;
 			factory.updateTokens(amount);
 
 			level = factory.level();
@@ -107,6 +122,9 @@ contract Staking is Ownable {
 			stakingToken.transferFrom(msg.sender, address(this), amount);
 			users[msg.sender].level3Tokens += amount;
 			users[msg.sender].tokens += amount;
+			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
+				factory.levels(1);
+			users[msg.sender].rewards += (amount * _rewardPercentTimes100) / 10000;
 			factory.updateTokens(amount);
 
 			level = factory.level();
@@ -310,7 +328,7 @@ contract StakingFactory is Ownable {
 	function createLevels() internal {
 		levels[1] = LevelData(100000 ether, 5000, 60, 50000 ether, 0);
 		levels[2] = LevelData(400000 ether, 3000, 75, 120000 ether, 0);
-		levels[3] = LevelData(1000000 ether, 2500, 90, 25000 ether, 0);
+		levels[3] = LevelData(1000000 ether, 2500, 90, 250000 ether, 0);
 		// levels[4] = LevelData(1500000, 3300, 60, 230137, 0);
 
 		level = 1;

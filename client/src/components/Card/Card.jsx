@@ -3,6 +3,7 @@ import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 
 import './Card.scss'
+
 //
 export const Card = ({
 	token_image,
@@ -23,10 +24,10 @@ export const Card = ({
 				) : (
 					<>
 						<div className=''>
+							<img src={token_image} alt='' />
 							<p>
 								Deposit <span className='bold'>BYN</span> and earn <span className='bold'>BYN</span>{' '}
 							</p>
-							<img src={token_image} alt='' />
 							{/* <table> */}
 							{/* <tbody> */}
 							{[
@@ -58,6 +59,13 @@ export const Card = ({
 									</div>
 								)
 							})}
+							<div className='tagline'>
+								<span className='consolas bold'>
+									{(parseInt(levels.allowedForXCoins) / Math.pow(10, 18) - parseInt(levels.alloted) / Math.pow(10, 18)).toFixed(2)}
+								</span>{' '}
+								left for Staking in this level
+								<br />
+							</div>
 							{/* </tbody> */}
 							{/* </table> */}
 							{/* {token === 'BYN' ? (
@@ -72,7 +80,6 @@ export const Card = ({
 								Alloted Tokens:
 								<span className='consolas text-inner'>{(alloted / Math.pow(10, 18)).toFixed(4)}</span>
 							</h2> */}
-
 							<Link to={link}>
 								<div className='button'>
 									<span>Stake</span>
