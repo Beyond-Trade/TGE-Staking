@@ -171,7 +171,7 @@ export class Main extends React.Component {
 			this.level()
 		} catch (err) {
 			try {
-				alert('Failed', JSON.stringify(err))
+				alert('Failed. Tokens still locked or requested is higher than withdrawable.', JSON.stringify(err))
 				console.error(err)
 			} catch (error) {
 				console.error(err)
@@ -200,7 +200,7 @@ export class Main extends React.Component {
 			this.level()
 		} catch (err) {
 			try {
-				alert('Failed', JSON.stringify(err))
+				alert('Failed, Tokens still locked.', JSON.stringify(err))
 				console.error(err)
 			} catch (error) {
 				console.error(err)
