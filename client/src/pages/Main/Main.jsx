@@ -6,7 +6,10 @@ import { Card } from '../../components/Card/Card'
 
 import moment from 'moment'
 
+// import logo from '../../logo.png'
+
 import './Main.scss'
+// import BigNumber from 'bignumber.js'
 
 const bignum = window.BigNumber
 
@@ -44,6 +47,22 @@ export class Main extends React.Component {
 		startTime: 0,
 		i_token: 0,
 		i_reward: 0,
+		UserData: {
+			allowed: false,
+			created: false,
+			lastUpdateDate: '0',
+			level1Reward: '0',
+			level1Tokens: '0',
+			level2Reward: '0',
+			level2Tokens: '0',
+			level3Reward: '0',
+			level3Tokens: '0',
+			level4Reward: '0',
+			level4Tokens: '0',
+			rewards: '0',
+			tokens: '0',
+			withdrawable: '0',
+		},
 	}
 	stakingRewards = ''
 	web3
@@ -140,10 +159,15 @@ export class Main extends React.Component {
 
 			console.log(JSON.stringify(estimatedReward))
 			alert('Successfully withdrawn')
-			this.setState({
-				rewards: estimatedReward,
-				withdrawAmount: '',
-			})
+			this.setState(
+				{
+					rewards: estimatedReward,
+					withdrawAmount: '',
+				},
+				() => {
+					alert(`Withdrawable Amount: ${this.state.UserData.withdrawable}`)
+				}
+			)
 			this.level()
 		} catch (err) {
 			try {
@@ -211,7 +235,18 @@ export class Main extends React.Component {
 		}
 	}
 
-	async calculateReward(staking) {
+	async calculateReward(staking = this.state.staking) {
+		this.setState(
+			{
+				UserData: await staking.methods.getUser().call({
+					from: this.owner,
+				}),
+			},
+			() => {
+				console.log('userdata:', this.state.UserData)
+			}
+		)
+
 		const estimatedReward = await staking.methods.calculateReward().call({
 			from: this.owner,
 		})
@@ -271,13 +306,32 @@ export class Main extends React.Component {
 										<div className=''>
 											<h5 style={{ margin: '0rem' }}>
 												Currently Staked:{' '}
-												<span className='consolas bold'>{(this.state.i_token / Math.pow(10, 18)).toFixed(2)}</span>
+												<span className='consolas bold'>{(this.state.UserData.tokens / Math.pow(10, 18)).toFixed(2)}</span>
 											</h5>
 										</div>
 									</div>
+									{this.state.rewards['withdrawable'] > 0 ? (
+										<h5 style={{ margin: '0rem' }}>
+											Withdrwable:{' '}
+											<span className='consolas bold'>
+												{(this.state.rewards['withdrawable'] / Math.pow(10, 18)).toFixed(4)}
+											</span>
+										</h5>
+									) : (
+										<></>
+									)}
 									<p style={{ textAlign: 'center' }}>
 										{TOKEN_NAME} available for staking in this level{' '}
-										<span className='consolas bold'>{this.get_data_from_string(this.state.levelsData.allowedForXCoins)}</span>
+										<span className='consolas bold'>
+											{parseInt(this.state.levelsData.allowedForXCoins) - parseInt(this.state.levelsData.alloted) <
+											parseInt(this.state.balances.reward)
+												? (
+														(new bignum(this.state.levelsData.allowedForXCoins) -
+															new bignum(this.state.levelsData.alloted)) /
+														Math.pow(10, 18)
+												  ).toFixed(2)
+												: this.get_data_from_string(this.state.balances.reward)}
+										</span>
 										{TOKEN_NAME}
 									</p>
 
@@ -285,15 +339,6 @@ export class Main extends React.Component {
 									<h5 style={{ margin: '0rem' }}>
 										Rewards: <span className='consolas'>{(this.state.i_reward / Math.pow(10, 18)).toFixed(4)}</span>
 									</h5> */}
-
-									{this.state.rewards['withdrawable'] > 0 ? (
-										<h5 style={{ margin: '0rem' }}>
-											Withdrwable:{' '}
-											<span className='consolas'>{(this.state.rewards['withdrawable'] / Math.pow(10, 18)).toFixed(4)}</span>
-										</h5>
-									) : (
-										<></>
-									)}
 								</div>
 
 								{/* <table style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly', margin: '0 auto' }}>
@@ -346,6 +391,42 @@ export class Main extends React.Component {
 								>
 									<span>Stake</span>
 								</div>
+
+								<form autoComplete='off'>
+									{/* <label htmlFor='level'> */}
+									<input
+										style={{
+											marginTop: '0.5rem',
+											borderRadius: '8px',
+											backgroundColor: 'white',
+											color: 'black',
+											caretColor: 'black',
+										}}
+										autoComplete='off'
+										type='text'
+										name='level'
+										onChange={(e) => {
+											this.setState({ withdrawAmount: e.target.value * Math.pow(10, 18) })
+										}}
+										placeholder='Amount'
+									/>
+									{/* </label> */}
+								</form>
+								<div
+									style={{ marginTop: '10px' }}
+									className='button'
+									onClick={async () => {
+										// await this.calculateReward()
+										// if (this.state.UserData.withdrawable === 0 || this.state.UserData.withdrawable < this.state.withdrawAmount) {
+										// 	alert(`Tokens locked. Withdrawable Amount: ${this.state.UserData.withdrawable}`)
+										// 	return
+										// }
+										this.withdrawByAmount()
+									}}
+								>
+									<span>Withdraw</span>
+								</div>
+
 								<div className='dotted'></div>
 								<div style={{ display: 'flex', marginTop: '1rem', justifyContent: 'space-between' }} className='flex'>
 									<div className='' style={{}}>
@@ -517,11 +598,11 @@ export class Main extends React.Component {
 		return [
 			{
 				name: 'Total Staked: ',
-				value: `${this.get_data_from_string(this.state.levelsData.alloted)} ${TOKEN_NAME}`,
+				value: `${this.get_data_from_string(this.state.UserData.tokens)} ${TOKEN_NAME}`,
 			},
 			{
 				name: 'Total Reward: ',
-				value: `${this.get_data_from_string(this.state.levelsData.allowedReward)} ${TOKEN_NAME}`,
+				value: `${this.get_data_from_string(this.state.UserData.rewards)} ${TOKEN_NAME}`,
 			},
 		]
 	}

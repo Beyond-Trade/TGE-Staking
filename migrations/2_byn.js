@@ -10,6 +10,8 @@ const ERC20 = artifacts.require('ERC20')
 
 const BYN = artifacts.require('StakingFactory')
 
+const BeyondArt = artifacts.require('Beyond')
+
 const data = {
 	reward_token: '',
 	mock_token_1: '',
@@ -17,12 +19,12 @@ const data = {
 	staking_factory: '',
 	staking_factory_lp: '',
 	// Only byn_token needs to be updated. Rest will added by the script.
-	byn_token: '0x6A1f09B3Afe036D595D5487C911bAd7cE271582B',
+	byn_token: '0x40177367dE61B6592dc7405f80e67dA5B3Ac48E1',
 }
 
 module.exports = function (deployer) {
 	// Use Beyond artifact here
-	const Beyond = new ERC20(data.byn_token)
+	const Beyond = new BeyondArt(data.byn_token)
 
 	return deployer.deploy(BYN, data.byn_token, Math.floor(DEPLOYMENT_TIMESTAMP / 1000)).then(async (sf) => {
 		data.reward_token = data['byn_token']
@@ -33,9 +35,8 @@ module.exports = function (deployer) {
 		data.staking_factory_lp = sf.address
 
 		await Beyond.approve(sf.address, new BigNumber(500000 * Math.pow(10, 18)))
-
-		await Beyond.increaseAllowance(sf.address, new BigNumber(500000 * Math.pow(10, 18)))
-		await sf.deploy(data.byn_token, new BigNumber(2000 * Math.pow(10, 18)))
+		await Beyond.increaseApproval(sf.address, new BigNumber(500000 * Math.pow(10, 18)))
+		await sf.deploy(data.byn_token, new BigNumber(500000 * Math.pow(10, 18)))
 		return writeFileSync(join(__dirname, '..', 'client', 'src', 'addresses.json'), JSON.stringify(data, undefined, 4))
 	})
 }
