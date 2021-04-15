@@ -123,7 +123,7 @@ contract Staking is Ownable {
 			users[msg.sender].level3Tokens += amount;
 			users[msg.sender].tokens += amount;
 			(uint256 allowedForXCoins, uint256 _rewardPercentTimes100, uint256 _lockedDuration, uint256 _allowedReward, uint256 alloted) =
-				factory.levels(1);
+				factory.levels(3);
 			users[msg.sender].rewards += (amount * _rewardPercentTimes100) / 10000;
 			factory.updateTokens(amount);
 
