@@ -54,7 +54,7 @@ contract Variable {
 		decimals = 18;
 		_decimals = 10**uint256(decimals);
 		totalSupply = _decimals * 100000000;
-		transferLock = true;
+		transferLock = false;
 		owner = msg.sender;
 		balanceOf[owner] = totalSupply;
 		allowedAddress[owner] = true;

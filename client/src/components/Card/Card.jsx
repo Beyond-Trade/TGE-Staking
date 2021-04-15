@@ -25,6 +25,9 @@ export const Card = ({
 					<>
 						<div className=''>
 							<img src={token_image} alt='' />
+							<div style={{ color: 'white' }} className='bold'>
+								BYN
+							</div>
 							<p>
 								Deposit <span className='bold'>BYN</span> and earn <span className='bold'>BYN</span>{' '}
 							</p>
@@ -39,11 +42,11 @@ export const Card = ({
 								{ name: 'Days of Staking', value: `${levels.lockedDuration} Days` },
 								{
 									name: 'Max BYN stake in this level',
-									value: `${(parseInt(levels.allowedForXCoins) / Math.pow(10, 18)).toFixed(2)} BYN`,
+									value: `${(parseInt(levels.allowedForXCoins) / Math.pow(10, 18)).toFixed(0)} BYN`,
 								},
 								{
 									name: 'Total Staking reward in this level',
-									value: `${(parseInt(levels.allowedReward) / Math.pow(10, 18)).toFixed(2)} BYN`,
+									value: `${(parseInt(levels.allowedReward) / Math.pow(10, 18)).toFixed(0)} BYN`,
 								},
 							].map((elem) => {
 								return (
@@ -59,13 +62,39 @@ export const Card = ({
 									</div>
 								)
 							})}
-							<div className='tagline'>
-								<span className='consolas bold'>
-									{(parseInt(levels.allowedForXCoins) / Math.pow(10, 18) - parseInt(levels.alloted) / Math.pow(10, 18)).toFixed(2)}
-								</span>{' '}
-								left for Staking in this level
-								<br />
+							<label htmlFor=''></label>
+
+							<div style={{ fontSize: '1.33rem', position: 'relative' }} className='tagline'>
+								<div
+									className='color'
+									style={{
+										background: 'linear-gradient(to right, #4b40f9, #28cedc)',
+										height: '1.62rem',
+										width: '100%',
+										position: 'absolute',
+										top: '0.7rem',
+										zIndex: 1,
+									}}
+								></div>
+								<span style={{ zIndex: 20, position: 'absolute', top: 0, left: 0, right: 0 }}>
+									<span className='consolas bold'>
+										{(parseInt(levels.allowedForXCoins) / Math.pow(10, 18) - parseInt(levels.alloted) / Math.pow(10, 18)).toFixed(
+											0
+										)}
+									</span>{' '}
+									left for Staking in this level
+								</span>
+								<span style={{ visibility: 'none' }}>
+									<span className='consolas bold'>
+										{(parseInt(levels.allowedForXCoins) / Math.pow(10, 18) - parseInt(levels.alloted) / Math.pow(10, 18)).toFixed(
+											0
+										)}
+									</span>{' '}
+									left for Staking in this level
+								</span>
 							</div>
+
+							<label htmlFor=''></label>
 							{/* </tbody> */}
 							{/* </table> */}
 							{/* {token === 'BYN' ? (
@@ -103,5 +132,5 @@ function get_apy(levels) {
 		default:
 			break
 	}
-	return (levels.rewardPercentTimes100 * (levels.lockedDuration / 365)).toFixed(2)
+	return (levels.rewardPercentTimes100 * (levels.lockedDuration / 365)).toFixed(0)
 }

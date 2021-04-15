@@ -139,11 +139,17 @@ export class Main extends React.Component {
 		}
 	}
 
-	async level() {
+	async level(check_alert = false) {
 		const level = await this.state.stakingFactory.methods.level().call()
 		const levelsData = await this.state.stakingFactory.methods.levels(level).call()
+		let setAlert = false
+		if (level !== this.state.level) {
+			setAlert = true
+		}
 		this.setState({ level, levelsData }, () => {
 			console.log(levelsData, 'levels')
+
+			if (check_alert && setAlert === true) alert('Level Updated')
 		})
 	}
 
@@ -165,7 +171,7 @@ export class Main extends React.Component {
 					withdrawAmount: '',
 				},
 				() => {
-					alert(`Withdrawable Amount: ${this.state.UserData.withdrawable}`)
+					alert(`Withdrawable Amount: ${Math.floor(this.state.UserData.withdrawable / Math.pow(10, 18))}`)
 				}
 			)
 			this.level()
@@ -210,6 +216,17 @@ export class Main extends React.Component {
 
 	async deposit() {
 		try {
+			if (this.available_in_level() === '0') {
+				alert('All tokens have been staked.')
+				return
+			}
+			if (this.state.balances.reward === 0) {
+				alert('Not enough balance.')
+				return
+			}
+			if (this.state.deposit === 0 || !this.state.deposit) {
+				alert('Please enter deposit')
+			}
 			// const web3 = this.web3
 			await this.state.stakingToken.methods
 				.increaseApproval(this.stakingRewards, new bignum(this.state.deposit.toString()))
@@ -221,12 +238,12 @@ export class Main extends React.Component {
 			// console.log(estimatedReward)
 
 			console.log(JSON.stringify(estimatedReward))
-			alert('Staked')
+			alert('Staked successfully.')
 			this.setState({
 				rewards: estimatedReward,
 				deposit: '',
 			})
-			this.level()
+			this.level(true)
 		} catch (error) {
 			console.error(error)
 
@@ -271,7 +288,7 @@ export class Main extends React.Component {
 	}
 
 	get_data_from_string(elem) {
-		return (parseInt(elem) / Math.pow(10, 18)).toFixed(2)
+		return (parseInt(elem) / Math.pow(10, 18)).toFixed(0)
 	}
 
 	render() {
@@ -300,13 +317,13 @@ export class Main extends React.Component {
 										<div className=''>
 											<h5 style={{ margin: '0rem' }}>
 												Your Total {TOKEN_NAME}:{' '}
-												<span className='consolas bold'>{(this.state.balances.reward / Math.pow(10, 18)).toFixed(2)}</span>
+												<span className='consolas bold'>{(this.state.balances.reward / Math.pow(10, 18)).toFixed(0)}</span>
 											</h5>
 										</div>
 										<div className=''>
 											<h5 style={{ margin: '0rem' }}>
 												Currently Staked:{' '}
-												<span className='consolas bold'>{(this.state.UserData.tokens / Math.pow(10, 18)).toFixed(2)}</span>
+												<span className='consolas bold'>{(this.state.UserData.tokens / Math.pow(10, 18)).toFixed(0)}</span>
 											</h5>
 										</div>
 									</div>
@@ -314,7 +331,7 @@ export class Main extends React.Component {
 										<h5 style={{ margin: '0rem' }}>
 											Withdrwable:{' '}
 											<span className='consolas bold'>
-												{(this.state.rewards['withdrawable'] / Math.pow(10, 18)).toFixed(4)}
+												{(this.state.rewards['withdrawable'] / Math.pow(10, 18)).toFixed(0)}
 											</span>
 										</h5>
 									) : (
@@ -322,22 +339,13 @@ export class Main extends React.Component {
 									)}
 									<p style={{ textAlign: 'center' }}>
 										{TOKEN_NAME} available for staking in this level{' '}
-										<span className='consolas bold'>
-											{parseInt(this.state.levelsData.allowedForXCoins) - parseInt(this.state.levelsData.alloted) <
-											parseInt(this.state.balances.reward)
-												? (
-														(new bignum(this.state.levelsData.allowedForXCoins) -
-															new bignum(this.state.levelsData.alloted)) /
-														Math.pow(10, 18)
-												  ).toFixed(2)
-												: this.get_data_from_string(this.state.balances.reward)}
-										</span>
+										<span className='consolas bold'>{this.available_in_level()}</span>
 										{TOKEN_NAME}
 									</p>
 
 									{/* 
 									<h5 style={{ margin: '0rem' }}>
-										Rewards: <span className='consolas'>{(this.state.i_reward / Math.pow(10, 18)).toFixed(4)}</span>
+										Rewards: <span className='consolas'>{(this.state.i_reward / Math.pow(10, 18)).toFixed(0)}</span>
 									</h5> */}
 								</div>
 
@@ -363,23 +371,49 @@ export class Main extends React.Component {
 								</table> */}
 								<form autoComplete='off'>
 									{/* <label htmlFor='deposit'> */}
-									<input
-										className='consolas'
-										style={{
-											marginTop: '0.5rem',
-											borderRadius: '8px',
-											backgroundColor: 'white',
-											color: 'black',
-											caretColor: 'black',
-										}}
-										type='text'
-										autoComplete='off'
-										name='deposit'
-										onChange={(e) => {
-											this.setState({ deposit: e.target.value * Math.pow(10, 18) })
-										}}
-										placeholder='Deposit Amount'
-									/>
+									<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} className=''>
+										<input
+											className='consolas'
+											style={{
+												marginTop: '0rem',
+												borderRadius: '0',
+												height: '1rem',
+												border: 0,
+												backgroundColor: 'white',
+												color: 'black',
+												caretColor: 'black',
+											}}
+											type='text'
+											autoComplete='off'
+											name='deposit'
+											onChange={(e) => {
+												this.setState({ deposit: e.target.value * Math.pow(10, 18), meta_deposit: e.target.value })
+											}}
+											value={this.state.meta_deposit}
+											placeholder='Deposit Amount'
+										/>
+										<span
+											className='button'
+											style={{
+												margin: 0,
+												background: '#4b40f9',
+												marginTop: '0rem',
+												borderRadius: 0,
+												height: '1rem',
+												minWidth: 'fit-content',
+												width: '2rem',
+											}}
+											onClick={() => {
+												this.setState({
+													meta_deposit: parseInt(this.available_in_level()),
+													deposit: parseInt(this.available_in_level()) * Math.pow(10, 18),
+												})
+												// this.deposit()
+											}}
+										>
+											MAX
+										</span>
+									</div>
 									{/* </label> */}
 								</form>
 								<div
@@ -467,10 +501,10 @@ export class Main extends React.Component {
 								<h2 style={{ margin: 0 }}>Your Balances:</h2>
 								<div className='lower'>
 									<h5 style={{ margin: 0 }}>
-										RWD: <span className='consolas'>{(this.state.balances.reward / Math.pow(10, 18)).toFixed(4)}</span>
+										RWD: <span className='consolas'>{(this.state.balances.reward / Math.pow(10, 18)).toFixed(0)}</span>
 									</h5>
 									<h5 style={{ margin: 0 }}>
-										STK: <span className='consolas'>{(this.state.balances.staking / Math.pow(10, 18)).toFixed(4)}</span>
+										STK: <span className='consolas'>{(this.state.balances.staking / Math.pow(10, 18)).toFixed(0)}</span>
 									</h5>
 									<h5 style={{ margin: 0 }}>
 										<span style={{ visibility: 'hidden' }}>data</span>
@@ -580,6 +614,12 @@ export class Main extends React.Component {
 				</header>
 			</div>
 		)
+	}
+
+	available_in_level() {
+		return parseInt(this.state.levelsData.allowedForXCoins) - parseInt(this.state.levelsData.alloted) < parseInt(this.state.balances.reward)
+			? ((new bignum(this.state.levelsData.allowedForXCoins) - new bignum(this.state.levelsData.alloted)) / Math.pow(10, 18)).toFixed(0)
+			: this.get_data_from_string(this.state.balances.reward)
 	}
 
 	right_data() {
