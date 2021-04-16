@@ -2,7 +2,7 @@ import { abi as mock1Abi } from '../../contracts/Beyond.json'
 import { abi as mock2Abi } from '../../contracts/Beyond.json'
 import Web3 from 'web3'
 import React, { Fragment } from 'react'
-import { Card } from '../../components/Card/Card'
+import { Card, numberWithCommas } from '../../components/Card/Card'
 
 import moment from 'moment'
 
@@ -317,13 +317,17 @@ export class Main extends React.Component {
 										<div className=''>
 											<h5 style={{ margin: '0rem' }}>
 												Your Total {TOKEN_NAME}:{' '}
-												<span className='consolas bold'>{(this.state.balances.reward / Math.pow(10, 18)).toFixed(0)}</span>
+												<span className='consolas bold'>
+													{numberWithCommas((this.state.balances.reward / Math.pow(10, 18)).toFixed(0))}
+												</span>
 											</h5>
 										</div>
 										<div className=''>
 											<h5 style={{ margin: '0rem' }}>
 												Currently Staked:{' '}
-												<span className='consolas bold'>{(this.state.UserData.tokens / Math.pow(10, 18)).toFixed(0)}</span>
+												<span className='consolas bold'>
+													{numberWithCommas((this.state.UserData.tokens / Math.pow(10, 18)).toFixed(0))}
+												</span>
 											</h5>
 										</div>
 									</div>
@@ -331,7 +335,7 @@ export class Main extends React.Component {
 										<h5 style={{ margin: '0rem' }}>
 											Withdrwable:{' '}
 											<span className='consolas bold'>
-												{(this.state.rewards['withdrawable'] / Math.pow(10, 18)).toFixed(0)}
+												{numberWithCommas((this.state.rewards['withdrawable'] / Math.pow(10, 18)).toFixed(0))}
 											</span>
 										</h5>
 									) : (
@@ -339,7 +343,7 @@ export class Main extends React.Component {
 									)}
 									<p style={{ textAlign: 'center' }}>
 										{TOKEN_NAME} available for staking in this level{' '}
-										<span className='consolas bold'>{this.available_in_level()}</span>
+										<span className='consolas bold'>{numberWithCommas(this.available_in_level())}</span>
 										{TOKEN_NAME}
 									</p>
 
@@ -653,7 +657,7 @@ function pragmata(elem) {
 			<div style={{ display: 'flex', padding: '4px 0', lineHeight: '1' }} className=''>
 				<div className='name'>{elem.name} </div>
 				<div style={{ padding: '0 4px' }} className='value bold consolas'>
-					{elem.value}
+					{numberWithCommas(elem.value)}
 				</div>
 			</div>
 		</Fragment>

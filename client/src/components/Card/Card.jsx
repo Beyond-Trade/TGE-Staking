@@ -4,6 +4,15 @@ import { Link } from 'react-router-dom'
 
 import './Card.scss'
 
+export function numberWithCommas(x) {
+	try {
+		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+	} catch (err) {
+		console.error(err)
+		return x
+	}
+}
+
 //
 export const Card = ({
 	token_image,
@@ -42,11 +51,11 @@ export const Card = ({
 								{ name: 'Days of Staking', value: `${levels.lockedDuration} Days` },
 								{
 									name: 'Max BYN stake in this level',
-									value: `${(parseInt(levels.allowedForXCoins) / Math.pow(10, 18)).toFixed(0)} BYN`,
+									value: `${numberWithCommas((parseInt(levels.allowedForXCoins) / Math.pow(10, 18)).toFixed(0))} BYN`,
 								},
 								{
 									name: 'Total Staking reward in this level',
-									value: `${(parseInt(levels.allowedReward) / Math.pow(10, 18)).toFixed(0)} BYN`,
+									value: `${numberWithCommas((parseInt(levels.allowedReward) / Math.pow(10, 18)).toFixed(0))} BYN`,
 								},
 							].map((elem) => {
 								return (
@@ -78,16 +87,22 @@ export const Card = ({
 								></div>
 								<span style={{ zIndex: 20, position: 'absolute', top: 0, left: 0, right: 0 }}>
 									<span className='consolas bold'>
-										{(parseInt(levels.allowedForXCoins) / Math.pow(10, 18) - parseInt(levels.alloted) / Math.pow(10, 18)).toFixed(
-											0
+										{numberWithCommas(
+											(
+												parseInt(levels.allowedForXCoins) / Math.pow(10, 18) -
+												parseInt(levels.alloted) / Math.pow(10, 18)
+											).toFixed(0)
 										)}
 									</span>{' '}
 									left for Staking in this level
 								</span>
 								<span style={{ visibility: 'none' }}>
 									<span className='consolas bold'>
-										{(parseInt(levels.allowedForXCoins) / Math.pow(10, 18) - parseInt(levels.alloted) / Math.pow(10, 18)).toFixed(
-											0
+										{numberWithCommas(
+											(
+												parseInt(levels.allowedForXCoins) / Math.pow(10, 18) -
+												parseInt(levels.alloted) / Math.pow(10, 18)
+											).toFixed(0)
 										)}
 									</span>{' '}
 									left for Staking in this level
