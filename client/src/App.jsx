@@ -42,32 +42,7 @@ const DataApp = () => {
 				<Switch>
 					<Route path='/' exact>
 						<span style={!isMobile ? { display: 'none' } : {}}>
-							<div
-								className='flex'
-								style={{
-									display: 'flex',
-									color: 'white',
-									justifyContent: 'center',
-									alignItems: 'center',
-									minHeight: '100vh',
-									textAlign: 'center',
-									padding: '0 2rem',
-								}}
-							>
-								<div className=''>
-									<div className=''>
-										<p style={{ margin: 0 }}>
-											<span className='caseupper'>
-												<span className='bold'>Beyond </span>Staking
-											</span>
-										</p>
-									</div>
-									<p style={{ margin: 0 }}>
-										Welcome to Beyond Finnace Staking Platform! Sorry, we are currently not providing our services on a mobile
-										platform. Please use a web browser take your BYN tokens.
-									</p>
-								</div>
-							</div>
+							<DappMobile></DappMobile>
 						</span>
 						<span style={isMobile ? { display: 'none' } : {}}>
 							<Home></Home>
@@ -112,6 +87,39 @@ const DataApp = () => {
 					<Route path='/mint'>{/* <Minter></Minter> */}</Route>
 				</Switch>
 			</Router>
+		</Fragment>
+	)
+}
+
+const DappMobile = () => {
+	return (
+		<Fragment>
+			<div
+				className='flex'
+				style={{
+					display: 'flex',
+					color: 'white',
+					justifyContent: 'center',
+					alignItems: 'center',
+					minHeight: '100vh',
+					textAlign: 'center',
+					padding: '0 2rem',
+				}}
+			>
+				<div className=''>
+					<div className=''>
+						<p style={{ margin: 0 }}>
+							<span className='caseupper'>
+								<span className='bold'>Beyond </span>Staking
+							</span>
+						</p>
+					</div>
+					<p style={{ margin: 0 }}>
+						Welcome to Beyond Finnace Staking Platform! Sorry, we are currently not providing our services on a mobile platform. Please
+						use a web browser take your BYN tokens.
+					</p>
+				</div>
+			</div>
 		</Fragment>
 	)
 }

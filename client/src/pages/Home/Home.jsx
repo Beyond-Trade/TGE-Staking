@@ -37,6 +37,7 @@ export const Home = () => {
 		},
 		level: 0,
 	})
+	const [metamask, setMetamask] = React.useState(false)
 
 	React.useEffect(() => {
 		async function run() {
@@ -45,6 +46,7 @@ export const Home = () => {
 				const web3 = new Web3(Web3.givenProvider || 'http://localhost:8545')
 				// this.web3 = web3
 				const accounts = await web3.eth.getAccounts()
+				setMetamask(true)
 
 				const stakingFactory = new web3.eth.Contract(stakingFAbi, stakingFactoryContractAddress)
 				// const stakingFactoryLp = new web3.eth.Contract(LpStakingFAbi, StakingFactoryContractAddressLP)
@@ -96,6 +98,35 @@ export const Home = () => {
 	}, [rewardContractAddress, stakingTokenAddress])
 	return (
 		<Fragment>
+			{!metamask && (
+				<Fragment>
+					<div className='' style={{ width: '100%' }}>
+						<div
+							className=''
+							style={{
+								position: 'absolute',
+								height: '10rem',
+								width: '20rem',
+								backgroundColor: 'transparent',
+								textAlign: 'center',
+								display: 'flex',
+								top: '50%',
+								zIndex: 100,
+								transform: 'translateY(-50%)',
+								left: 0,
+								right: 0,
+								margin: '0 auto',
+							}}
+						>
+							<Card>
+								<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }} className=''>
+									<p style={{ margin: 0 }}>Please connect Metamask to continue</p>
+								</div>
+							</Card>
+						</div>
+					</div>
+				</Fragment>
+			)}
 			<div className='home'>
 				<div className='header'>
 					<div className='inner'>

@@ -19,7 +19,7 @@ const data = {
 	staking_factory: '',
 	staking_factory_lp: '',
 	// Only byn_token needs to be updated. Rest will added by the script.
-	byn_token: '0x40177367dE61B6592dc7405f80e67dA5B3Ac48E1',
+	byn_token: '0xEb62FE26CEB28c8eA6B0770118d708AEaFe194Ba',
 }
 
 module.exports = async function (deployer, _network, accounts) {
