@@ -19,7 +19,7 @@
 	// 	background: linear-gradient(-90deg, rgb(44, 212, 217) 0%, rgb(81, 41, 255) 100%);
 	// }
 	border: 10px solid;
-	border-image-slice: 1;
+	border-image-slice: 1 !important;
 	border-width: 3px;
 
 	border-image-source: linear-gradient(to top, rgb(44, 212, 217) 0%, rgb(81, 41, 255) 100%);

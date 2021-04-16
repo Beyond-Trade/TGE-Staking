@@ -2,6 +2,16 @@ body {
 	background-color: #0c1230;
 }
 
+.caseupper {
+	text-transform: uppercase;
+	font-size: 1.5rem;
+	line-height: 2;
+	font-weight: 500;
+}
+.bold {
+	font-weight: 700;
+}
+
 .button {
 	transition: all 0.2s ease-in-out;
 	cursor: pointer;

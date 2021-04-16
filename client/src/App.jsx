@@ -8,7 +8,7 @@ import { abi as stakingFAbi } from './contracts/StakingFactory.json'
 import { abi as stakingAbi } from './contracts/Staking.json'
 // import { abi as LpStakingAbi } from './contracts/StakingLP.json'
 
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import {
 	rewardContractAddress,
 	stakingTokenAddress,
@@ -23,12 +23,55 @@ import { Home } from './pages/Home/Home'
 // import { Minter } from './Minter'
 
 const DataApp = () => {
+	const [isMobile, setIsMobile] = useState(false)
+
+	useEffect(() => {
+		function run() {
+			const width = window.innerWidth
+			if (width < 600) setIsMobile(true)
+			else setIsMobile(false)
+		}
+		window.addEventListener('resize', () => {
+			run()
+		})
+		run()
+	}, [])
 	return (
 		<Fragment>
 			<Router>
 				<Switch>
 					<Route path='/' exact>
-						<Home></Home>
+						<span style={!isMobile ? { display: 'none' } : {}}>
+							<div
+								className='flex'
+								style={{
+									display: 'flex',
+									color: 'white',
+									justifyContent: 'center',
+									alignItems: 'center',
+									minHeight: '100vh',
+									textAlign: 'center',
+									padding: '0 2rem',
+								}}
+							>
+								<div className=''>
+									<div className=''>
+										<p style={{ margin: 0 }}>
+											<span className='caseupper'>
+												<span className='bold'>Beyond </span>Staking
+											</span>
+										</p>
+									</div>
+									<p style={{ margin: 0 }}>
+										Welcome to Beyond Finnace Staking Platform! Sorry, we are currently not providing our services on a mobile
+										platform. Please use a web browser take your BYN tokens.
+									</p>
+								</div>
+							</div>
+						</span>
+						<span style={isMobile ? { display: 'none' } : {}}>
+							<Home></Home>
+						</span>
 					</Route>
 					<Route path='/BYNStake' exact>
 						<Main
