@@ -6,9 +6,11 @@ import { Card, numberWithCommas } from '../../components/Card/Card'
 
 import moment from 'moment'
 
+import Back from './Back.svg'
 // import logo from '../../logo.png'
 
 import './Main.scss'
+import { Link } from 'react-router-dom'
 // import BigNumber from 'bignumber.js'
 
 const bignum = window.BigNumber
@@ -310,6 +312,14 @@ export class Main extends React.Component {
 					<div className='main'>
 						<Card>
 							<div className='inner'>
+								<div className='back' style={{ width: '100%' }}>
+									{/* ;adf */}
+									<p style={{ textAlign: 'left', color: 'white' }}>
+										<Link to='/'>
+											<img style={{ fill: '#fff', height: '2rem', cursor: 'pointer' }} src={Back} alt='' />
+										</Link>
+									</p>
+								</div>
 								<h2 style={{ margin: '0rem' }}>Level:{this.state.level}</h2>
 
 								<div className='lower'>
@@ -374,7 +384,6 @@ export class Main extends React.Component {
 									</tbody>
 								</table> */}
 								<form autoComplete='off'>
-									{/* <label htmlFor='deposit'> */}
 									<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} className=''>
 										<input
 											className='consolas'
@@ -431,7 +440,6 @@ export class Main extends React.Component {
 								</div>
 
 								<form autoComplete='off'>
-									{/* <label htmlFor='level'> */}
 									<input
 										style={{
 											marginTop: '0.5rem',
@@ -448,7 +456,6 @@ export class Main extends React.Component {
 										}}
 										placeholder='Amount'
 									/>
-									{/* </label> */}
 								</form>
 								<div
 									style={{ marginTop: '10px' }}

@@ -38,61 +38,64 @@ export const Home = () => {
 		level: 0,
 	})
 	const [metamask, setMetamask] = React.useState(false)
+	async function run() {
+		try {
+			await window.ethereum.enable()
+			const web3 = new Web3(Web3.givenProvider || 'http://localhost:8545')
+			// this.web3 = web3
+			const accounts = await web3.eth.getAccounts()
+			const stakingFactory = new web3.eth.Contract(stakingFAbi, stakingFactoryContractAddress)
+			// const stakingFactoryLp = new web3.eth.Contract(LpStakingFAbi, StakingFactoryContractAddressLP)
+			const rewardToken = new web3.eth.Contract(mock1Abi, rewardContractAddress)
+			const stakingToken = new web3.eth.Contract(mock2Abi, stakingTokenAddress)
+			// const stakingTokenLp = new web3.eth.Contract(mock2Abi, stakingTokenAddressLP)
+			setMetamask(true)
+			window.stakingFactory = stakingFactory
+			const level = await stakingFactory.methods.level().call()
+			const levels = await stakingFactory.methods.levels(level).call()
 
-	React.useEffect(() => {
-		async function run() {
-			try {
-				await window.ethereum.enable()
-				const web3 = new Web3(Web3.givenProvider || 'http://localhost:8545')
-				// this.web3 = web3
-				const accounts = await web3.eth.getAccounts()
-				setMetamask(true)
-
-				const stakingFactory = new web3.eth.Contract(stakingFAbi, stakingFactoryContractAddress)
-				// const stakingFactoryLp = new web3.eth.Contract(LpStakingFAbi, StakingFactoryContractAddressLP)
-				const rewardToken = new web3.eth.Contract(mock1Abi, rewardContractAddress)
-				const stakingToken = new web3.eth.Contract(mock2Abi, stakingTokenAddress)
-				// const stakingTokenLp = new web3.eth.Contract(mock2Abi, stakingTokenAddressLP)
-				window.stakingFactory = stakingFactory
-				const level = await stakingFactory.methods.level().call()
-				const levels = await stakingFactory.methods.levels(level).call()
-
-				let allowedReward = 0
-				let alloted = 0
-				let allowedForXCoins = 0
-				for (let i = 1; i <= 4; i++) {
-					allowedReward += parseInt((await stakingFactory.methods.levels(i).call()).allowedReward)
-					allowedForXCoins += parseInt((await stakingFactory.methods.levels(i).call()).allowedForXCoins)
-					alloted += parseInt((await stakingFactory.methods.levels(i).call()).alloted)
-				}
-				//
-				let allowedRewardLp = 0
-				let allotedLp = 0
-				let allowedForXCoinsLp = 0
-				// for (let i = 1; i <= 4; i++) {
-				// 	allowedRewardLp += parseInt((await stakingFactoryLp.methods.levels(i).call()).allowedReward)
-				// 	allowedForXCoinsLp += parseInt((await stakingFactoryLp.methods.levels(i).call()).allowedForXCoins)
-				// 	allotedLp += parseInt((await stakingFactoryLp.methods.levels(i).call()).alloted)
-				// }
-				const balances = {
-					staking: await stakingToken.methods.balanceOf(accounts[0]).call(),
-					// stakingLp: await stakingTokenLp.methods.balanceOf(accounts[0]).call(),
-					reward: await rewardToken.methods.balanceOf(accounts[0]).call(),
-					allowedReward,
-					alloted,
-					levelsData: levels,
-					level,
-					allowedForXCoins,
-					allowedRewardLp,
-					allowedForXCoinsLp,
-					allotedLp,
-				}
-				setbalances(balances)
-				console.log(balances)
-			} catch (err) {
-				console.error(err)
+			let allowedReward = 0
+			let alloted = 0
+			let allowedForXCoins = 0
+			for (let i = 1; i <= 4; i++) {
+				allowedReward += parseInt((await stakingFactory.methods.levels(i).call()).allowedReward)
+				allowedForXCoins += parseInt((await stakingFactory.methods.levels(i).call()).allowedForXCoins)
+				alloted += parseInt((await stakingFactory.methods.levels(i).call()).alloted)
 			}
+			//
+			let allowedRewardLp = 0
+			let allotedLp = 0
+			let allowedForXCoinsLp = 0
+			// for (let i = 1; i <= 4; i++) {
+			// 	allowedRewardLp += parseInt((await stakingFactoryLp.methods.levels(i).call()).allowedReward)
+			// 	allowedForXCoinsLp += parseInt((await stakingFactoryLp.methods.levels(i).call()).allowedForXCoins)
+			// 	allotedLp += parseInt((await stakingFactoryLp.methods.levels(i).call()).alloted)
+			// }
+			const balances = {
+				staking: await stakingToken.methods.balanceOf(accounts[0]).call(),
+				// stakingLp: await stakingTokenLp.methods.balanceOf(accounts[0]).call(),
+				reward: await rewardToken.methods.balanceOf(accounts[0]).call(),
+				allowedReward,
+				alloted,
+				levelsData: levels,
+				level,
+				allowedForXCoins,
+				allowedRewardLp,
+				allowedForXCoinsLp,
+				allotedLp,
+			}
+			setbalances(balances)
+
+			console.log(balances)
+		} catch (err) {
+			console.error(err)
+			if (err.code === 4001) {
+				alert('Please connect wallet.')
+			} else if (err.code !== -32002)
+				alert(JSON.stringify(err) === '{}' ? 'Cannot find the contract. Are you on correct network? Try refreshing.' : JSON.stringify(err))
 		}
+	}
+	React.useEffect(() => {
 		run()
 		// eslint-disable-next-line
 	}, [rewardContractAddress, stakingTokenAddress])
@@ -105,7 +108,7 @@ export const Home = () => {
 							className=''
 							style={{
 								position: 'absolute',
-								height: '10rem',
+								height: '12rem',
 								width: '20rem',
 								backgroundColor: 'transparent',
 								textAlign: 'center',
@@ -119,8 +122,11 @@ export const Home = () => {
 							}}
 						>
 							<Card>
-								<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }} className=''>
+								<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '1rem' }} className=''>
 									<p style={{ margin: 0 }}>Please connect Metamask to continue</p>
+								</div>
+								<div onClick={() => run()} className='button'>
+									Connect
 								</div>
 							</Card>
 						</div>
