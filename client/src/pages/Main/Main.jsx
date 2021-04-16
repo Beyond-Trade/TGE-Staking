@@ -474,7 +474,7 @@ export class Main extends React.Component {
 									</div>
 									<div className='' style={{ textAlign: 'left' }}>
 										{this.right_data().map((elem) => {
-											return pragmata(elem)
+											return pragmata(elem, false)
 										})}
 									</div>
 								</div>
@@ -651,13 +651,13 @@ export class Main extends React.Component {
 		]
 	}
 }
-function pragmata(elem) {
+function pragmata(elem, num = true) {
 	return (
 		<Fragment>
 			<div style={{ display: 'flex', padding: '4px 0', lineHeight: '1' }} className=''>
 				<div className='name'>{elem.name} </div>
 				<div style={{ padding: '0 4px' }} className='value bold consolas'>
-					{numberWithCommas(elem.value)}
+					{num ? numberWithCommas(elem.value) : elem.value}
 				</div>
 			</div>
 		</Fragment>
