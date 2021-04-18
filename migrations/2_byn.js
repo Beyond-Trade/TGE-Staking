@@ -41,7 +41,7 @@ module.exports = async function (deployer, _network, accounts) {
 		await sf.deploy(data.byn_token, new BigNumber(500000 * Math.pow(10, 18)))
 		const staking_address = await sf.stakingContractAddress()
 		// const staking_contract_instance = new Staking(staking_address)
-		await Beyond.add_allowedAddress(staking_address)
+		// await Beyond.add_allowedAddress(staking_address)
 		await Beyond.increaseApproval(staking_address, new BigNumber(500000 * Math.pow(10, 18)))
 		return writeFileSync(join(__dirname, '..', 'client', 'src', 'addresses.json'), JSON.stringify(data, undefined, 4))
 	})

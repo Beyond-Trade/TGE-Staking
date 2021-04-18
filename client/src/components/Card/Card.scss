@@ -62,12 +62,16 @@
 	}
 
 	text-align: center;
-	img {
-		margin: 0 auto;
-		margin-top: 1.25rem;
-		height: 5rem;
-		// display: none;
+	.logo-area {
+		margin-bottom: 1rem;
+		img {
+			margin: 0 auto;
+			// margin-top: 1.25rem;
+			height: 45px;
+			// display: none;
+		}
 	}
+	
 	.button {
 		margin: 0 auto;
 		min-width: 7rem;
@@ -89,6 +93,10 @@
 	* {
 		// border: 1px solid red;
 	}
+	.pdl10 { padding-left: 10px; }
+	.pdl15 { padding-left: 15px; }
+	.pdl20 { padding-left: 20px; }
+	.pdl30 { padding-left: 30px; }
 	.row {
 		width: 100%;
 		p {
@@ -118,5 +126,31 @@
 
 	.tagline {
 		color: white;
+	}
+
+	//Card 0 BYN left for Staking in this level! style
+	.msInfo {
+		position: relative;
+		margin-bottom: 3rem;
+		.msInfo-text {
+			position: relative;
+			display: inline-block;
+			font-size: 1.3rem;
+			color: #fff;
+			text-shadow: 0.5px 0.8886px 2px rgba($color: #000, $alpha: 0.75);
+			z-index: 20;
+			padding-right: -2px;
+			padding-right: 2px;
+			background: linear-gradient(to right, #512dff, #2dcfd9) no-repeat bottom;
+			background-size: 100% 0.813rem;
+		}
+		.msInfo-background {
+			position: absolute;
+			display: block;
+			bottom: 0;
+			width: 100%;
+			height: 0.813rem;
+			background-image: linear-gradient(to right, #512dff, #2dcfd9)
+		}
 	}
 }

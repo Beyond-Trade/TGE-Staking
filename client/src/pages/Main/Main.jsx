@@ -2,15 +2,14 @@ import { abi as mock1Abi } from '../../contracts/Beyond.json'
 import { abi as mock2Abi } from '../../contracts/Beyond.json'
 import Web3 from 'web3'
 import React, { Fragment } from 'react'
-import { Card, numberWithCommas } from '../../components/Card/Card'
+import { Card } from '../../components/Card/Card'
 
+import Utils from '../../Utils/Utils'
 import moment from 'moment'
 
-import Back from './Back.svg'
-// import logo from '../../logo.png'
+import logo from '../../logo.png'
 
 import './Main.scss'
-import { Link } from 'react-router-dom'
 // import BigNumber from 'bignumber.js'
 
 const bignum = window.BigNumber
@@ -233,8 +232,8 @@ export class Main extends React.Component {
 			await this.state.stakingToken.methods
 				.increaseApproval(this.stakingRewards, new bignum(this.state.deposit.toString()))
 				.send({ from: this.state.owner })
-
-			await this.state.staking.methods.deposit(new bignum(this.state.deposit.toString())).send({ from: this.state.owner, gas: 3000000 })
+			// 200000 - 400000
+			await this.state.staking.methods.deposit(new bignum(this.state.deposit.toString())).send({ from: this.state.owner, gas: 400000 })
 			const estimatedReward = await this.calculateReward(this.state.staking)
 			await this.updateBalances()
 			// console.log(estimatedReward)
@@ -312,13 +311,8 @@ export class Main extends React.Component {
 					<div className='main'>
 						<Card>
 							<div className='inner'>
-								<div className='back' style={{ width: '100%' }}>
-									{/* ;adf */}
-									<p style={{ textAlign: 'left', color: 'white' }}>
-										<Link to='/'>
-											<img style={{ fill: '#fff', height: '2rem', cursor: 'pointer' }} src={Back} alt='' />
-										</Link>
-									</p>
+								<div className="logo-area">
+									<img src={logo} alt='' style={{ marginBottom: 0, paddingBottom: 0 }} />
 								</div>
 								<h2 style={{ margin: '0rem' }}>Level:{this.state.level}</h2>
 
@@ -326,18 +320,14 @@ export class Main extends React.Component {
 									<div style={{ display: 'flex', justifyContent: 'space-between' }} className='flex'>
 										<div className=''>
 											<h5 style={{ margin: '0rem' }}>
-												Your Total {TOKEN_NAME}:{' '}
-												<span className='consolas bold'>
-													{numberWithCommas((this.state.balances.reward / Math.pow(10, 18)).toFixed(0))}
-												</span>
+												Your Total {TOKEN_NAME}{' '}
+												<span className='consolas bold'>{Utils.convertGetNumberFormat((this.state.balances.reward / Math.pow(10, 18)).toFixed(0))} BYN</span>
 											</h5>
 										</div>
 										<div className=''>
 											<h5 style={{ margin: '0rem' }}>
-												Currently Staked:{' '}
-												<span className='consolas bold'>
-													{numberWithCommas((this.state.UserData.tokens / Math.pow(10, 18)).toFixed(0))}
-												</span>
+												Currently Staked{' '}
+												<span className='consolas bold'>{Utils.convertGetNumberFormat((this.state.UserData.tokens / Math.pow(10, 18)).toFixed(0))} BYN</span>
 											</h5>
 										</div>
 									</div>
@@ -345,7 +335,7 @@ export class Main extends React.Component {
 										<h5 style={{ margin: '0rem' }}>
 											Withdrwable:{' '}
 											<span className='consolas bold'>
-												{numberWithCommas((this.state.rewards['withdrawable'] / Math.pow(10, 18)).toFixed(0))}
+												{Utils.convertGetNumberFormat((this.state.rewards['withdrawable'] / Math.pow(10, 18)).toFixed(0))}
 											</span>
 										</h5>
 									) : (
@@ -353,8 +343,7 @@ export class Main extends React.Component {
 									)}
 									<p style={{ textAlign: 'center' }}>
 										{TOKEN_NAME} available for staking in this level{' '}
-										<span className='consolas bold'>{numberWithCommas(this.available_in_level())}</span>
-										{TOKEN_NAME}
+										<span className='consolas bold invGdT'>{Utils.convertGetNumberFormat(this.available_in_level())}{' '}{TOKEN_NAME}</span>
 									</p>
 
 									{/* 
@@ -384,7 +373,8 @@ export class Main extends React.Component {
 									</tbody>
 								</table> */}
 								<form autoComplete='off'>
-									<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} className=''>
+									{/* <label htmlFor='deposit'> */}
+									{/* <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} className=''>
 										<input
 											className='consolas'
 											style={{
@@ -426,20 +416,48 @@ export class Main extends React.Component {
 										>
 											MAX
 										</span>
+									</div> */}
+									{/* input box style change Main.scss */}
+									<div className='deposit'>
+										<input
+											className='consolas'
+											type='text'
+											autoComplete='off'
+											name='deposit'
+											onChange={(e) => {
+												this.setState({ deposit: e.target.value * Math.pow(10, 18), meta_deposit: e.target.value })
+											}}
+											value={this.state.meta_deposit}
+											placeholder='Deposit Amount'
+										/>
+										<span
+											className='button deposit-button'
+											onClick={() => {
+												this.setState({
+													meta_deposit: parseInt(this.available_in_level()),
+													deposit: parseInt(this.available_in_level()) * Math.pow(10, 18),
+												})
+												// this.deposit()
+											}}
+										>
+											MAX
+										</span>
 									</div>
 									{/* </label> */}
 								</form>
 								<div
 									className='button'
-									style={{ marginTop: '1rem' }}
+									style={{ marginTop: '25px' }}
 									onClick={() => {
 										this.deposit()
 									}}
 								>
 									<span>Stake</span>
 								</div>
-
+								<hr style={{ margin: '30px 0 25px 0', border: 0, borderBottom: '1px dashed', borderColor: 'white'}} />
+								{/*
 								<form autoComplete='off'>
+									{\* <label htmlFor='level'> *\}
 									<input
 										style={{
 											marginTop: '0.5rem',
@@ -456,6 +474,7 @@ export class Main extends React.Component {
 										}}
 										placeholder='Amount'
 									/>
+									{\* </label> *\}
 								</form>
 								<div
 									style={{ marginTop: '10px' }}
@@ -471,17 +490,18 @@ export class Main extends React.Component {
 								>
 									<span>Withdraw</span>
 								</div>
+								*/}
 
-								<div className='dotted'></div>
-								<div style={{ display: 'flex', marginTop: '1rem', justifyContent: 'space-between' }} className='flex'>
+								{/* <div className='dotted'></div> */}
+								<div className='' style={{ display: 'flex', justifyContent: 'space-between' }} className='flex'>
 									<div className='' style={{}}>
 										{this.left_data(TOKEN_NAME).map((elem) => {
-											return pragmata(elem)
+											return pragmata(elem, 0)
 										})}
 									</div>
 									<div className='' style={{ textAlign: 'left' }}>
 										{this.right_data().map((elem) => {
-											return pragmata(elem, false)
+											return pragmata(elem, 1)
 										})}
 									</div>
 								</div>
@@ -493,17 +513,28 @@ export class Main extends React.Component {
 										justifyContent: 'flex-start',
 										textAlign: 'left',
 										alignItems: 'flex-start',
+										color:'yellow'
 									}}
 									className='flex'
 								>
+									<div className='bold'>
+										More informative
+									</div>
 									<div className='' style={{}}>
-										<span className='bold'>Note 1.</span> The Staked BYN will be locked for the whole durationof the program. On
-										the reward date, total staked amount of BYN + staking rewards willbe distributed to this wallet address.
+										<span className='bold'>Note 1.</span>
+										&nbsp;Staked BYN will be locked for the whole duration of the program .
+										<div>
+											&nbsp;&nbsp;&nbsp;&nbsp;- Level#1  60 days	
+										</div>
+										<div>
+											&nbsp;&nbsp;&nbsp;&nbsp;- Level#2  75days
+										</div>
+										<div>
+											&nbsp;&nbsp;&nbsp;&nbsp;- Level#3 90 days 	
+										</div>
+										After the entire lock time is completed total staked  BYN + staking rewards will be available for withdraws.
 									</div>
-									<div className='' style={{ padding: '5px' }}></div>
-									<div className=''>
-										<span className='bold'>Note 2.</span>Please use a different wallet if have any BYN locked in this wallet.
-									</div>
+									
 								</div>
 							</div>
 						</Card>
@@ -635,9 +666,9 @@ export class Main extends React.Component {
 
 	right_data() {
 		return [
-			{ name: 'Days of Staking: ', value: `${this.state.levelsData.lockedDuration} Days` },
+			{ name: 'Days of Staking ', value: `${this.state.levelsData.lockedDuration} Days` },
 			{
-				name: 'Reward Date: ',
+				name: 'Reward Date ',
 				value: `${moment((parseInt(this.state.startTime) + 24 * 3600 * parseInt(this.state.levelsData.lockedDuration)) * 1000).format(
 					'MMM D, YYYY'
 				)}`,
@@ -648,23 +679,23 @@ export class Main extends React.Component {
 	left_data(TOKEN_NAME) {
 		return [
 			{
-				name: 'Total Staked: ',
-				value: `${this.get_data_from_string(this.state.UserData.tokens)} ${TOKEN_NAME}`,
+				name: 'Total Staked ',
+				value: `${Utils.convertGetNumberFormat(this.get_data_from_string(this.state.UserData.tokens))} ${TOKEN_NAME}`,
 			},
 			{
-				name: 'Total Reward: ',
-				value: `${this.get_data_from_string(this.state.UserData.rewards)} ${TOKEN_NAME}`,
+				name: 'Total Reward ',
+				value: `${Utils.convertGetNumberFormat(this.get_data_from_string(this.state.UserData.rewards))} ${TOKEN_NAME}`,
 			},
 		]
 	}
 }
-function pragmata(elem, num = true) {
+function pragmata(elem, index) {
 	return (
 		<Fragment>
 			<div style={{ display: 'flex', padding: '4px 0', lineHeight: '1' }} className=''>
-				<div className='name'>{elem.name} </div>
-				<div style={{ padding: '0 4px' }} className='value bold consolas'>
-					{num ? numberWithCommas(elem.value) : elem.value}
+				<div className={`name${index}`}>{elem.name} </div>
+				<div style={{ padding: '0 4px' }} className='value bold consolas invGdT'>
+					&nbsp;&nbsp;{elem.value}
 				</div>
 			</div>
 		</Fragment>

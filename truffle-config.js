@@ -56,6 +56,17 @@ module.exports = {
 			port: 8545, // Standard Ethereum port (default: none)
 			network_id: '*', // Any network (default: none)
 		},
+		mainnet: {
+			provider() {
+				if (!MNEMONIC || !INFURA_API_KEY) {
+					console.error('Environment variables MNEMONIC and INFURA_API_KEY are required')
+					process.exit(1)
+				}
+				return new HDWalletProvider(MNEMONIC, `wss://mainnet.infura.io/ws/v3/${INFURA_API_KEY}`)
+			},
+			network_id: 1,
+			gasPrice: null, // 10 gwei (default: 20 gwei)
+		},
 		kovan: {
 			provider() {
 				if (!MNEMONIC || !INFURA_API_KEY) {

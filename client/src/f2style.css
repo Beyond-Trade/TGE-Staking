@@ -1,0 +1,11 @@
+.gdT {
+	background-image: linear-gradient(to right, rgb(45,207,217), rgb(24, 33, 88)); 
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+.invGdT {
+	background-image: linear-gradient(to right, rgb(45, 77, 255), rgb(23,183,188)); 
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
